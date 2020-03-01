@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ostore-a6d98": {
+      "hosting": {
+        "testJest": [
+          "ostore-a6d98"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-md-6">
+    <form #f="ngForm" (ngSubmit)="save()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control"
+          required>
+        <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+          Title is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <div class="input-group">
+          <span class="input-group-addon">&#8377;</span>
+          <input #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control"
+            required [min]="0">
+        </div>
+        <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+          <div *ngIf="price.errors.required">Price is required.</div>
+          <div *ngIf="price.errors.min">Price should be 0 or higher.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control"
+          required>
+          <option value=""></option>
+          <option *ngFor="let c of categories$ | async" [value]="c.$key">
+            {{ c.name }}
+          </option>
+        </select>
+        <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+          Category is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="imageUrl">Image URL</label>
+        <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text"
+          class="form-control" required url>
+        <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+          <div *ngIf="imageUrl.errors.required">Image URL is required.</div>
+          <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea #description="ngModel" [(ngModel)]="product.description" name="description" id="description"
+          type="text" class="form-control" required></textarea>
+        <div class="alert alert-danger" *ngIf="description.touched && description.invalid">
+          <div *ngIf="description.errors.required">Description is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="brand">Brand</label>
+        <input #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" type="text" class="form-control"
+          required>
+        <div class="alert alert-danger" *ngIf="brand.touched && brand.invalid">
+          <div *ngIf="brand.errors.required">Brand is required.</div>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+           <label><input type="checkbox" #hasDiscount="ngModel" [(ngModel)]="product.hasDiscount" name="hasDiscount" id="hasDiscount" value="true"> Has Discount?</label>
+          </div>
+        </div>
+        <div *ngIf="product.hasDiscount" class="form-group">
+          <label for="discount">Discount</label>
+          <div class="input-group">
+            <input #discount="ngModel" [(ngModel)]="product.discount" name="discount" id="discount" type="number" class="form-control"
+            required><span class="input-group-addon">&#8377;</span>
+          </div>
+          <div class="alert alert-danger" *ngIf="discount.touched && discount.invalid">
+            <div *ngIf="discount.errors.required">Discount is required.</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Properties</label>
+      </div>
+      <div *ngFor="let property of properties.controls; let i=index">
+        <div class="col-xs-12" [id]="i" style="width: 85%; margin:auto;">
+          <form [formGroup]="property">
+            <div class="row">
+              <div class="col-xs-3">
+                <input class="form-control" placeholder="Property Id" formControlName="propertyId" required>
+              </div>
+              <div class="col-xs-3">
+                <input class="form-control" placeholder="Property Name" formControlName="propertyName" required>
+              </div>
+              <div class="col-xs-4">
+                <button type="button" class="btn btn-danger" (click)="removePropertyClick(i)">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </form>
+          <br>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="button" (click)="addProperty()">Add Property</button>
+      </div>
+      <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
+      <button *ngIf="id" type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+  <div class="col-md-4">
+    <product-card [product]="product" [show-actions]="false"></product-card>
+  </div>
+</div>
