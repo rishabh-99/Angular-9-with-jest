@@ -1,6 +1,6 @@
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { RouterModule } from '@angular/router';
-// import { DataTableModule } from 'angular-4-data-table';
+import { DataTableModule } from 'angular-4-data-table';
 import { SharedModule } from './../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductFormComponent } from './components/product-form/product-form.component';
@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    DataTableModule,
     RouterModule.forChild([
       {
         path: 'admin/products/new',

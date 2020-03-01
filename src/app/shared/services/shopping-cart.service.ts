@@ -55,16 +55,44 @@ export class ShoppingCartService {
 
   private async updateItem(product: Product, change: number) {
     let cartId = await this.getOrCreateCartId();
+    console.log(product.$key)
     let item$ = this.getItem(cartId, product.$key);
-    item$.valueChanges().subscribe((item: any) => {
-      let quantity = (item.quantity || 0) + change;
-      if (quantity === 0) item$.remove();
-      else item$.update({
-        title: product.title,
-        imageUrl: product.imageUrl,
-        price: product.price,
-        quantity: quantity
-      });
-    });
+    // console.log(item$)
+    // item$.update({
+    //   title: product.title,
+    //   imageUrl: product.imageUrl,
+    //   price: product.price,
+    //   quantity: 1
+    // });
+    item$.query.once('value', itema => {
+      var item = itema.val();
+      let quantity = item.quantity + change;
+        if (quantity === 0) { item$.remove(); }
+        else {
+          item$.update({
+            title: product.title,
+            imageUrl: product.imageUrl,
+            price: product.price,
+            quantity: quantity
+          });
+        }
+    })
+    // .subscribe((item:any) => {
+    //   console.log(item)
+
+     
+    //  
+    // })
+    // .subscribe((item: any) => {
+    //   console.log(item)
+    //   let quantity = (item.quantity || 0) + change;
+    //   if (quantity === 0) item$.remove();
+    //   else item$.update({
+    //     title: product.title,
+    //     imageUrl: product.imageUrl,
+    //     price: product.price,
+    //     quantity: quantity
+    //   });
+    // });
   }
 }

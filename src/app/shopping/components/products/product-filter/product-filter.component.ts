@@ -60,7 +60,7 @@ export class ProductFilterComponent implements OnInit {
   }
 
   constructor(categoryService: CategoryService, brandService: BrandService) {
-    this.categories$ = categoryService.getAll();
+    this.categories$ = categoryService.getAll().valueChanges();
     brandService.getFor(this.category).forEach((p) => { console.log(p) })
 
   }

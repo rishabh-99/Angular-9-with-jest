@@ -13,7 +13,7 @@ export class ProductService {
   }
 
   getAll() {
-    return this.db.list('/products').valueChanges();
+    return this.db.list('/products');
   }
   
   get(productId) { 
