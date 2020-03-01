@@ -66,21 +66,25 @@ export class ShoppingCartService {
     // });
     item$.query.once('value', itema => {
       var item = itema.val();
-      let quantity = item.quantity + change;
-        if (quantity === 0) { item$.remove(); }
-        else {
-          item$.update({
-            title: product.title,
-            imageUrl: product.imageUrl,
-            price: product.price,
-            quantity: quantity
-          });
-        }
+      if (item == undefined) {
+        item = { quantity: 0 }
+      }
+
+      let quantity = (item.quantity || 0) + change;
+      if (quantity === 0) { item$.remove(); }
+      else {
+        item$.update({
+          title: product.title,
+          imageUrl: product.imageUrl,
+          price: product.price,
+          quantity: quantity
+        });
+      }
     })
     // .subscribe((item:any) => {
     //   console.log(item)
 
-     
+
     //  
     // })
     // .subscribe((item: any) => {
