@@ -10,6 +10,6 @@ export class BrandService {
 
   getFor(categoryName) {
     console.log(categoryName)
-    return this.db.list(`/categories/${categoryName}/brands`);
+    return this.db.list(`/categories/${categoryName}/brands`).valueChanges();
   }
 }

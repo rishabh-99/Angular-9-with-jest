@@ -15,10 +15,10 @@ export class OrderService {
   }
 
   getOrders() { 
-    return this.db.list('/orders');
+    return this.db.list('/orders').valueChanges();
   }
 
   getOrdersByUser(userId: string) {
-    return this.db.list('/orders');
+    return this.db.list('/orders').valueChanges();
   }
 }

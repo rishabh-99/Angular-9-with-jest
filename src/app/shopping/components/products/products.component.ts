@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../shared/services/product.service';
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
+import { switchMap } from 'rxjs/operators';
 // tslint:disable: no-inferrable-types
 @Component({
   selector: 'app-products',
@@ -37,11 +38,12 @@ export class ProductsComponent implements OnInit {
 
   private populateProducts() {
     this.productService
-      .getAll()
-      .switchMap((products: Product[]) => {
-        this.products = products;
-        return this.route.queryParamMap;
-      })
+      .getAll().pipe(
+        switchMap((products: Product[]) => {
+          this.products = products;
+          return this.route.queryParamMap;
+        })
+      )
       .subscribe(params => {
         this.category = params.get('category') || 'all';
         this.brandService.getFor(this.category).forEach(p => this.brands = p);
@@ -59,11 +61,11 @@ export class ProductsComponent implements OnInit {
     //   this.products;
     if (this.brand === 'all' && this.category === 'all') {
       this.filteredProducts = this.products;
-    }else if (this.category && this.brand === 'all') {
+    } else if (this.category && this.brand === 'all') {
       this.filteredProducts = this.products.filter(p => p.category === this.category);
-    }else if (this.brand && this.category === 'all') {
+    } else if (this.brand && this.category === 'all') {
       this.filteredProducts = this.products.filter(p => p.brand === this.brand);
-    }else if (this.category && this.brand) {
+    } else if (this.category && this.brand) {
       this.filteredProducts = this.products.filter(p => p.category === this.category && p.brand === this.brand);
     }
     // this.filteredProducts = (this.brand) ?
@@ -80,7 +82,7 @@ export class ProductsComponent implements OnInit {
       this.updateFilteredValue(data);
       this.filteredProducts = this.filteredProducts.filter(p => p.hasDiscount === false);
 
-    }else {
+    } else {
       this.updateFilteredValue(data);
       this.filteredProducts = this.filteredProducts.filter(p => p.hasDiscount === true);
     }

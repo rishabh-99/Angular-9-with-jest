@@ -56,9 +56,9 @@ import { ProductDescriptionComponent } from './components/product-description/pr
     FormsModule,
     CustomFormsModule,
     // DataTableModule,
-    AngularFireDatabaseModule,
+    // AngularFireDatabaseModule,
     AngularFireAuthModule,
-    NgbModule.forRoot().ngModule,
+    NgbModule,
   ],
   providers: [
     AuthService,
