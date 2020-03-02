@@ -14,7 +14,7 @@
         <div class="input-group">
           <span class="input-group-addon">&#8377;</span>
           <input #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control"
-            required [min]="0">
+            required >
         </div>
         <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
           <div *ngIf="price.errors.required">Price is required.</div>
@@ -26,7 +26,7 @@
         <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control"
           required>
           <option value=""></option>
-          <option *ngFor="let c of categories$ | async" [value]="c.$key">
+          <option *ngFor="let c of categories$" [value]="c.$key">
             {{ c.name }}
           </option>
         </select>
@@ -37,7 +37,7 @@
       <div class="form-group">
         <label for="imageUrl">Image URL</label>
         <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text"
-          class="form-control" required url>
+          class="form-control" required >
         <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
           <div *ngIf="imageUrl.errors.required">Image URL is required.</div>
           <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>

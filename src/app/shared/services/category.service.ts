@@ -10,4 +10,8 @@ export class CategoryService {
   getAll() { 
     return this.db.list('/categories');
   }
+
+  getA() {
+    return this.db.database.ref('/categories').once('value');
+  }
 }

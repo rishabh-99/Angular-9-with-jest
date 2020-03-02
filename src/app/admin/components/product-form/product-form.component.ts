@@ -13,7 +13,7 @@ import { FormArray, FormGroup, Validators, FormBuilder, Form, AbstractControl } 
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  categories$;
+  categories$ = [];
   product: Product = new Product();
   properties: FormArray = this.fb.array([]);
   id;
@@ -24,18 +24,28 @@ export class ProductFormComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private fb: FormBuilder) {
-    this.categories$ = categoryService.getAll();
+    // categoryService.getAll().query.on('value', (data) => { this.categories$ = data.val(); });
+    categoryService.getA().then(data => {
+      var i=0;
+      data.forEach(data => {
+        this.categories$[i] = data.val()
+        i++;
+      })
+    })
+    console.log(this.categories$)
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.productService.get(this.id).valueChanges().subscribe((p: Product) => {
-        this.product = p;
-        if (p.property) {
-          for (let i = 0; i < p.property.length; i++) {
-            this.properties.push(this.reCreateProperty(p.property[i]));
-          }
-        }
-      });
+      this.productService.get(this.id).query.once('value', a => console.log)
+      // .subscribe((p: Product) => {
+      //   console.log(p)
+      //   this.product = p;
+      //   if (p.property) {
+      //     for (let i = 0; i < p.property.length; i++) {
+      //       this.properties.push(this.reCreateProperty(p.property[i]));
+      //     }
+      //   }
+      // });
     };
 
   }
