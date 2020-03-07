@@ -4,7 +4,7 @@
       <div class="list-group">
         <a class="list-group-item list-group-item-action list-group" [queryParams]="{category:'all', brand: brand }" [class.active]="category === 'all'" routerLink="/">All
           Categories</a>
-        <div *ngFor="let c of categories$ | async">
+        <div *ngFor="let c of categories$">
           <a routerLink="/" ng [queryParams]="{ category: c.$key, brand: brand }" class="list-group-item list-group-item-action"
             [class.active]="category === c.$key">
             {{ c.name }}

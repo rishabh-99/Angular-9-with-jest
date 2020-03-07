@@ -59,13 +59,27 @@ export class ProductFilterComponent implements OnInit {
 
   }
 
-  constructor(categoryService: CategoryService, brandService: BrandService) {
-    this.categories$ = categoryService.getAll().valueChanges();
-    brandService.getFor(this.category).forEach((p) => { console.log(p) })
+  constructor(private categoryService: CategoryService, brandService: BrandService) {
+
+    console.log(this.categories$)
+    this.categoryService.getll().on('value', data => {
+      let obj = data.toJSON();
+      this.categories$ = Object.keys(obj).map((key) => {
+
+        // Using obj[key] to retrieve key value 
+        let rd = obj[key]
+        rd.$key = key;
+        return rd;
+      });
+
+      console.log(this.categories$)
+    })
+
 
   }
 
   ngOnInit() {
+
   }
 
 }

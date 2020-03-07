@@ -15,6 +15,8 @@ import { SharedModule } from './shared/shared.module';
 import { ProductsComponent } from './shopping/components/products/products.component';
 import { ShoppingModule } from './shopping/shopping.module';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormArray } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormArray } from '@angular
     ReactiveFormsModule,
     FormsModule,
     ShoppingModule,
+    MatTableModule,
     // MatExpansionModule,
     CoreModule,
     // BrowserAnimationsModule,
@@ -37,7 +40,7 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormArray } from '@angular
     RouterModule.forRoot([
       { path: '', component: ProductsComponent },
       { path: 'login', component: LoginComponent },
-    ])
+    ]), BrowserAnimationsModule
   ],
   providers: [
     AdminAuthGuard,

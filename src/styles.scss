@@ -56,3 +56,5 @@ h1, h2, h3 {
 .form-control:focus {
   border-color: $primary-color;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

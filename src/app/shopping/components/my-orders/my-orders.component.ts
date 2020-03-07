@@ -10,11 +10,22 @@ import { switchMap } from 'rxjs/operators';
 })
 export class MyOrdersComponent {
   orders$;
-  
+  temp;
+
   constructor(
     private authService: AuthService,
-    private orderService: OrderService) { 
+    private orderService: OrderService) {
+    authService.user$.subscribe(u => {
+      orderService.getOrdersByUser(u.uid).on('value', (data) => {
+        let obj = data.toJSON();
+        this.orders$ = Object.keys(obj).map((key) => {
 
-    this.orders$ = authService.user$.pipe(switchMap(u => orderService.getOrdersByUser(u.uid)))
+          // Using obj[key] to retrieve key value 
+          let rd = obj[key]
+          rd.$key = key;
+          return rd;
+        });
+      });
+    });
   }
 }

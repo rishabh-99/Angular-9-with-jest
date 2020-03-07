@@ -8,11 +8,13 @@
     "test": "jest",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.0.1",
+    "@angular/cdk": "^9.1.0",
     "@angular/common": "~9.0.1",
     "@angular/compiler": "~9.0.1",
     "@angular/core": "~9.0.1",

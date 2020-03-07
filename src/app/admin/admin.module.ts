@@ -10,13 +10,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthGuard } from '../shared/services/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkTableModule } from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   imports: [
     SharedModule,
     ReactiveFormsModule,
+    CdkTableModule,
     BrowserAnimationsModule,
+    MatTableModule,
+    MatInputModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
     RouterModule.forChild([
       {
         path: 'admin/products/new',

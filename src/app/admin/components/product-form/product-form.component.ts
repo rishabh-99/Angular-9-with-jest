@@ -26,7 +26,7 @@ export class ProductFormComponent implements OnInit {
     private fb: FormBuilder) {
     // categoryService.getAll().query.on('value', (data) => { this.categories$ = data.val(); });
     categoryService.getA().then(data => {
-      var i=0;
+      var i = 0;
       data.forEach(data => {
         this.categories$[i] = data.val()
         i++;
@@ -36,7 +36,15 @@ export class ProductFormComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.productService.get(this.id).query.once('value', a => console.log)
+      this.productService.get(this.id).query.once('value', a => {
+        this.product = a.val()
+        if (this.product.property) {
+          for (const row of this.product.property) {
+            this.properties.push(this.reCreateProperty(row))
+
+          }
+        }
+      })
       // .subscribe((p: Product) => {
       //   console.log(p)
       //   this.product = p;
