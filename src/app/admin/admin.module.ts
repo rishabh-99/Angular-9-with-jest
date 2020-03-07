@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
+import { OrderDescriptionComponent } from './components/order-description/order-description.component';
+import { ProductDescriptionComponent } from '../shared/components/product-description/product-description.component';
 
 
 @NgModule({
@@ -46,6 +48,11 @@ import { MatSortModule } from '@angular/material/sort';
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
+        path: 'admin/orders/:id',
+        component: OrderDescriptionComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
         path: 'admin/orders',
         component: AdminOrdersComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
@@ -56,6 +63,7 @@ import { MatSortModule } from '@angular/material/sort';
     ProductFormComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
+    OrderDescriptionComponent,
   ]
 })
 export class AdminModule { }

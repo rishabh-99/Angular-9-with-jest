@@ -14,6 +14,7 @@ import { FormArray, FormGroup, Validators, FormBuilder, Form, AbstractControl } 
 })
 export class ProductFormComponent implements OnInit {
   categories$ = [];
+  brand$ = [];
   product: Product = new Product();
   properties: FormArray = this.fb.array([]);
   id;
@@ -98,6 +99,27 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  fillBrand(category) {
+    console.log(this.categories$)
+    for (let i = 0; i < this.categories$.length; i++) {
+      if (this.categories$[i].name === category) {
+        let obj = this.categories$[i].brands;
+        console.log(obj)
+        if (obj === undefined) {
+          obj = { noBrand: { name: 'No Brands', $key: 'noBrand' } }
+        }
+        this.brand$ = Object.keys(obj).map((key) => {
+
+          // Using obj[key] to retrieve key value
+          const rd = obj[key];
+          rd.$key = key;
+          return rd;
+        });
+      }
+    }
+    console.log(this.brand$);
   }
 
 }

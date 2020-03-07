@@ -1,7 +1,8 @@
 import { ShoppingCartService } from './shopping-cart.service';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import 'firebase/database';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class OrderService {
@@ -15,7 +16,7 @@ export class OrderService {
   }
 
   getOrders() {
-    return this.db.list('/orders').valueChanges();
+    return this.db.database.ref('/orders');
   }
 
   getOrdersByUser(userId: string) {
