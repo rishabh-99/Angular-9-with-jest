@@ -2,11 +2,12 @@
   <div class="col-6">
     <div class="sticky-top">
       <div class="list-group">
-        <a class="list-group-item list-group-item-action list-group" [queryParams]="{category:'all', brand: brand }" [class.active]="category === 'all'" routerLink="/">All
+        <a class="list-group-item list-group-item-action list-group" [queryParams]="{category:'all', brand: brand }"
+          [class.active]="category === 'all'" routerLink="/">All
           Categories</a>
         <div *ngFor="let c of categories$">
-          <a routerLink="/" ng [queryParams]="{ category: c.$key, brand: brand }" class="list-group-item list-group-item-action"
-            [class.active]="category === c.$key">
+          <a routerLink="/" ng [queryParams]="{ category: c.$key, brand: brand }"
+            class="list-group-item list-group-item-action" [class.active]="category === c.$key">
             {{ c.name }}
           </a>
         </div>
@@ -16,13 +17,17 @@
   <div class="col-6">
     <div class="sticky-top">
       <div class="list-group">
-        <a class="list-group-item list-group-item-action list-group" [queryParams]="{ category: category, brand: 'all' }" [class.active]="brand === 'all'" routerLink="/">All
+        <a class="list-group-item list-group-item-action list-group"
+          [queryParams]="{ category: category, brand: 'all' }" [class.active]="brand === 'all'" routerLink="/">All
           Brands</a>
         <div *ngFor="let b of brands">
-          <a routerLink="/" [queryParams]="{ category: category, brand: b.$key }" class="list-group-item list-group-item-action"
-            [class.active]="brand === b.$key">
-            {{ b.name }}
-          </a>
+          <div *ngIf="b.$key != 'none'">
+            <a routerLink="/" [queryParams]="{ category: category, brand: b.$key }"
+              class="list-group-item list-group-item-action" [class.active]="brand === b.$key">
+              {{ b.name }}
+            </a>
+          </div>
+
         </div>
       </div>
     </div>
@@ -36,7 +41,8 @@
 <div class="row">
   <div class="col">
     <div class="checkbox">
-      <label><input type="checkbox" name="hasDiscount" id="hasDiscount" value="" (click)="discountOnClick()"> Only with Discount</label>
-     </div>
+      <label><input type="checkbox" name="hasDiscount" id="hasDiscount" value="" (click)="discountOnClick()"> Only with
+        Discount</label>
+    </div>
   </div>
 </div>

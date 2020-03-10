@@ -46,7 +46,7 @@ export class ProductsComponent implements OnInit {
         for (let i = 0; i < products.length; i++) {
           this.products[i] = products[i].payload.val();
           this.products[i].$key = products[i].payload.key;
-          }
+        }
         // this.products = products;
         // this.pro
         // console.log(this.products)
@@ -55,8 +55,22 @@ export class ProductsComponent implements OnInit {
 
       .subscribe(params => {
         this.category = params.get('category') || 'all';
-        this.brandService.getFor(this.category).forEach(p => this.brands = p);
+        this.brandService.getFor(this.category).on('value', data => {
+          let obj = data.toJSON();
+          if (obj === null) {
+            obj = { none: { name: 'None', $key: 'none' } }
+          }
+          console.log(obj)
+          this.brands = Object.keys(obj).map((key) => {
+
+            // Using obj[key] to retrieve key value 
+            let rd = obj[key]
+            rd.$key = key;
+            return rd;
+          });
+        })
         this.brand = params.get('brand') || 'all';
+        console.log(this.brands)
         this.applyFilter();
       });
   }

@@ -22,4 +22,8 @@ describe('AdminOrdersComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('sort data', () => {
+    expect(component.sortData).toBeGreaterThanOrEqual(0);
+  });
 });

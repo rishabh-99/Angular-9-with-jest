@@ -24,18 +24,7 @@ export class AdminProductsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private productService: ProductService) {
-    // Create 100 users
-
-    // var a = this.productService.getEverything().on('value', (data) => {
-    //   this.dataSource = new MatTableDataSource(data.val());
-    //   console.log()
-
-  
-    // })
     this.dataSource = new MatTableDataSource();
-
-    // Assign the data to the data source for the table to render
-
   }
 
   ngOnInit() {

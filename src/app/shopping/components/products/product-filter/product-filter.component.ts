@@ -72,7 +72,8 @@ export class ProductFilterComponent implements OnInit {
         return rd;
       });
 
-      console.log(this.categories$)
+      console.log('@@@@@@@')
+      console.log(this.brands)
     })
 
 
