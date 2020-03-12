@@ -1,0 +1,127 @@
+<html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html, body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+	color: #333;
+}
+body {
+	padding: 1rem;
+	font-size: 0.85rem;
+}
+#jesthtml-content {
+	margin-bottom: 2rem;
+}
+header {
+	display: flex;
+	align-items: center;
+}
+#title {
+	margin: 0;
+	flex-grow: 1;
+}
+#logo {
+	height: 4rem;
+}
+#timestamp {
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 0.5rem;
+}
+#summary {
+	color: #999;
+	margin-bottom: 1rem;
+}
+.suite-info {
+	padding: 1rem;
+	background-color: #eee;
+	border-bottom: 2px solid #999;
+	color: #999;
+	display: flex;
+	align-items: center;
+}
+.suite-info .suite-path {
+	font-weight: bold;
+	word-break: break-all;
+	flex-grow: 1;
+}
+.suite-info .suite-time {
+	margin-left: 0.5rem;
+	padding: 0.2rem 0.3rem;
+	font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+	background-color: #D8000C;
+	color: #fff;
+}
+.suite-table {
+	width: 100%;
+	font-size: 0.85rem;
+	margin-bottom: 1em;
+}
+.suite-table td {
+	padding: 0.5rem;
+}
+.suite-table tr.passed {
+	background-color: #DFF2BF;
+	color: #4F8A10;
+}
+.suite-table tr.pending {
+	background-color: #FEEFB3;
+	color: #9F6000;
+}
+.suite-table tr.failed {
+	background-color: #FFBABA;
+	color: #D8000C;
+}
+.suite-table td {
+	font-size: 0.85rem;
+	border-bottom: 1px solid #aaa;
+	vertical-align: top;
+}
+.suite-table td.suite {
+	font-weight: bold;
+	width: 20%;
+}
+.suite-table td.test {
+	font-style: italic;
+	width: 60%;
+}
+.suite-table td.test .failureMsg {
+	font-size: 1rem;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+.suite-table td.result {
+	width: 20%;
+	text-align: right;
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+	margin-bottom: 2rem;
+	padding: 1rem;
+	background-color: #efefef;
+}
+.suite-consolelog-header {
+	font-weight: bold;
+}
+.suite-consolelog-item {
+	padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+	margin: 0;
+}
+.suite-consolelog-item-origin {
+	color: #777;
+	font-weight: bold;
+}
+.suite-consolelog-item-message {
+	color: #000;
+	font-size: 1rem;
+	padding: 0 0.5rem;
+}
+</style></head><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1></header><div id="metadata-container"><div id="timestamp">Start: 2020-03-12 00:28:44</div><div id="summary">37 tests -- 14 passed / 23 failed / 0 pending</div></div><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/check-out/check-out.component.spec.ts</div><div class="suite-time">2.384s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">CheckOutComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/shopping-cart/shopping-cart.component.spec.ts</div><div class="suite-time">2.431s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ShoppingCartComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/products/products.component.spec.ts</div><div class="suite-time">2.567s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ProductsComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/products/product-filter/product-filter.component.spec.ts</div><div class="suite-time">2.613s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ProductFilterComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/shipping-form/shipping-form.component.spec.ts</div><div class="suite-time">2.704s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ShippingFormComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/my-orders/my-orders.component.spec.ts</div><div class="suite-time">2.868s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">MyOrdersComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/app.component.spec.ts</div><div class="suite-time">3.063s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">AppComponent</td><td class="test">should create the app</td><td class="result">failed</td></tr><tr class="failed"><td class="suite">AppComponent</td><td class="test">should have as title 'testJest'</td><td class="result">failed</td></tr><tr class="failed"><td class="suite">AppComponent</td><td class="test">should render title</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/shopping-cart-summary/shopping-cart-summary.component.spec.ts</div><div class="suite-time">0.958s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ShoppingCartSummaryComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/category.service.spec.ts</div><div class="suite-time">0.996s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">CategoryService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/auth.service.spec.ts</div><div class="suite-time">1.238s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">AuthService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/auth-guard.service.spec.ts</div><div class="suite-time">1.392s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">AuthGuardService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/order.service.spec.ts</div><div class="suite-time">1.033s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">OrderService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/order-description.service.spec.ts</div><div class="suite-time">0.934s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">OrderDescriptionService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/components/product-card/product-card.component.spec.ts</div><div class="suite-time">1.217s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ProductCardComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/shopping-cart.service.spec.ts</div><div class="suite-time">1.137s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ShoppingCartService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/product.service.spec.ts</div><div class="suite-time">1.242s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ProductService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/brand.service.spec.ts</div><div class="suite-time">1.215s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">BrandService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/admin/services/admin-auth-guard.service.spec.ts</div><div class="suite-time">1.462s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">AdminAuthGuardService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/services/user.service.spec.ts</div><div class="suite-time">1.147s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">UserService</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/components/product-description/product-description.component.spec.ts</div><div class="suite-time">1.375s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ProductDescriptionComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shared/components/product-quantity/product-quantity.component.spec.ts</div><div class="suite-time">1.426s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">ProductQuantityComponent</td><td class="test">should be created</td><td class="result">failed</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/core/components/login/login.component.spec.ts</div><div class="suite-time">1.003s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">LoginComponent</td><td class="test">should be created</td><td class="result">passed in 0.052s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/core/components/home/home.component.spec.ts</div><div class="suite-time">0.407s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">HomeComponent</td><td class="test">should be created</td><td class="result">passed in 0.042s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/core/components/bs-navbar/bs-navbar.component.spec.ts</div><div class="suite-time">0.557s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">BsNavbarComponent</td><td class="test">should be created</td><td class="result">passed in 0.115s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/order-description.service.spec.ts</div><div class="suite-time">0.345s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">OrderDescriptionService</td><td class="test">should be created</td><td class="result">passed in 0.048s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/shopping/components/order-success/order-success.component.spec.ts</div><div class="suite-time">0.392s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">OrderSuccessComponent</td><td class="test">should be created</td><td class="result">passed in 0.042s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/admin/components/order-description/order-description.component.spec.ts</div><div class="suite-time">1.751s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">OrderDescriptionComponent</td><td class="test">should create</td><td class="result">passed in 0.622s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/admin/components/admin-products/admin-products.component.spec.ts</div><div class="suite-time">1.865s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">AdminProductsComponent</td><td class="test">should be created</td><td class="result">passed in 0.759s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/admin/components/admin-orders/admin-orders.component.spec.ts</div><div class="suite-time">1.831s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">AdminOrdersComponent</td><td class="test">should be created</td><td class="result">passed in 0.741s</td></tr></table><div class="suite-info"><div class="suite-path">/home/rishabh/Desktop/ECommerce/Angular-9-with-jest/src/app/admin/components/product-form/product-form.component.spec.ts</div><div class="suite-time">2.908s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">ProductFormComponents</td><td class="test">should be created</td><td class="result">passed in 0.729s</td></tr><tr class="passed"><td class="suite">ProductFormComponents</td><td class="test">should have title</td><td class="result">passed in 0.421s</td></tr><tr class="passed"><td class="suite">ProductFormComponents</td><td class="test">should create property</td><td class="result">passed in 0.206s</td></tr><tr class="passed"><td class="suite">ProductFormComponents</td><td class="test">recreateProperty should not take any other input</td><td class="result">passed in 0.201s</td></tr><tr class="passed"><td class="suite">ProductFormComponents</td><td class="test">Create Property Works Properly</td><td class="result">passed in 0.185s</td></tr><tr class="passed"><td class="suite">ProductFormComponents</td><td class="test">Product is recreated</td><td class="result">passed in 0.17s</td></tr></table></div></body></html>

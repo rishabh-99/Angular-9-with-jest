@@ -18,7 +18,7 @@ export class BsNavbarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.auth.appUser$.subscribe((appUser: AppUser) => this.appUser = appUser);
+    this.auth.appUser$.subscribe((appUser: AppUser) => {this.appUser = appUser; console.log(appUser)});
     this.cart$ = await this.shoppingCartService.getCart();
   }
 

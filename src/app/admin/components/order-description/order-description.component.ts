@@ -13,8 +13,8 @@ export class OrderDescriptionComponent implements OnInit {
   constructor(private route: ActivatedRoute, private orderService: OrderDescriptionService) {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.orderService.getOrder(this.id).query.on('value', data => {
-        console.log(data.val())
+      this.orderService.getOrder(this.id).subscribe(data => {
+        console.log(data)
       })
     }
   }

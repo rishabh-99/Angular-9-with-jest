@@ -22,28 +22,71 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="category">Category</label>
-        <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control"
-          required (ngModelChange)="fillBrand($event)">
+        <label for="category">Sub Category</label>
+        <select #subCategory="ngModel" [(ngModel)]="product.subCategory" name="subCategory" id="subCategory"
+          class="form-control" required>
           <option value="" disabled></option>
-          <option *ngFor="let c of categories$" [value]="c.name">
-            {{ c.name }}
-          </option>
+          <option value="Surveillance">Surveillance</option>
+          <option value="Fire Alarm">Fire Alarm</option>
+          <option value="GPS">GPS</option>
+          <option value="Biometric">Biometric</option>
+          <option value="IT Pheripherals">IT Pheripherals</option>
+          <option value="Others">Others</option>
         </select>
         <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
           Category is required.
         </div>
       </div>
       <div class="form-group">
+        <label for="category">Category</label>
+        <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control"
+          required (change)="fillBrand($event)">
+          <option value="" disabled></option>
+          <option *ngFor="let c of categories$" [value]="c.payload.val().name">
+            {{ c.payload.val().name }}
+          </option>
+        </select>
+        <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+          Category is required.
+        </div>
+      </div>
+      <div *ngIf="!imgAvail" class="form-group">
         <label for="imageUrl">Image URL</label>
-        <input #imageUrl="ngModel" [(ngModel)]="product.imageUrl" name="imageUrl" id="imageUrl" type="text"
-          class="form-control" required>
+        <input #imageUrl="ngModel" [(ngModel)]="img[0]" name="imageUrl" id="imageUrl" type="file" class="form-control"
+          accept="image/*" required (change)="loadPreview($event)">
         <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
           <div *ngIf="imageUrl.errors.required">Image URL is required.</div>
           <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>
         </div>
       </div>
-      <div class="form-group">
+      <div *ngIf="img[0]" class="form-group">
+        <label for="imageUrl2">Image URL 1</label>
+        <input #imageUrl2="ngModel" [(ngModel)]="img[1]" name="imageUrl2" id="imageUrl2" type="file"
+          class="form-control" accept="image/*" (change)="loadPreview2($event)">
+        <div class="alert alert-danger" *ngIf="imageUrl2.touched && imageUrl2.invalid">
+          <div *ngIf="imageUrl2.errors.required">Image URL is required.</div>
+          <div *ngIf="imageUrl2.errors.url">Please enter a valid URL.</div>
+        </div>
+      </div>
+      <div *ngIf="img[1]" class="form-group">
+        <label for="imageUrl3">Image URL 2</label>
+        <input #imageUrl3="ngModel" [(ngModel)]="img[2]" name="imageUrl3" id="imageUrl3" type="file"
+          class="form-control" accept="image/*" (change)="loadPreview3($event)">
+        <div class="alert alert-danger" *ngIf="imageUrl3.touched && imageUrl3.invalid">
+          <div *ngIf="imageUrl3.errors.required">Image URL is required.</div>
+          <div *ngIf="imageUrl3.errors.url">Please enter a valid URL.</div>
+        </div>
+      </div>
+      <div *ngIf="img[2]" class="form-group">
+        <label for="imageUrl4">Image URL 3</label>
+        <input #imageUrl4="ngModel" [(ngModel)]="img[3]" name="imageUrl4" id="imageUrl4" type="file"
+          class="form-control" accept="image/*" (change)="loadPreview4($event)">
+        <div class="alert alert-danger" *ngIf="imageUrl4.touched && imageUrl4.invalid">
+          <div *ngIf="imageUrl4.errors.required">Image URL is required.</div>
+          <div *ngIf="imageUrl4.errors.url">Please enter a valid URL.</div>
+        </div>
+      </div>
+      <div *ngIf="img[3]" class="form-group">
         <label for="description">Description</label>
         <textarea #description="ngModel" [(ngModel)]="product.description" name="description" id="description"
           type="text" class="form-control" required></textarea>
@@ -51,20 +94,10 @@
           <div *ngIf="description.errors.required">Description is required.</div>
         </div>
       </div>
-      <!-- ------------------------------------- -->
-      <!-- <div class="form-group">
-        <label for="brand">Brand</label>
-        <input #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" type="text" class="form-control"
-          required>
-        <div class="alert alert-danger" *ngIf="brand.touched && brand.invalid">
-          <div *ngIf="brand.errors.required">Brand is required.</div>
-        </div>
-      </div> -->
-      <!-- ------------------------------------ -->
+
       <div class="form-group">
         <label for="brand">Brand</label>
-        <select #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" class="form-control"
-          required>
+        <select #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" class="form-control" required>
           <option value="" disabled></option>
           <option *ngFor="let b of brand$" [value]="b.name">
             {{ b.name }}
@@ -75,7 +108,7 @@
         </div>
       </div>
 
-     
+
       <div class="form-group">
         <label for="discount">Discount</label>
         <div class="input-group">
@@ -85,6 +118,20 @@
         <div class="alert alert-danger" *ngIf="discount.touched && discount.invalid">
           <div *ngIf="discount.errors.required">Discount is required.</div>
         </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList aria-label="Tag Selection">
+            <mat-chip *ngFor="let tag of product.tags" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(tag)">
+              {{tag.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="New tag..." [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
       </div>
 
       <div class="form-group">
@@ -115,9 +162,10 @@
       </div>
       <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
       <button *ngIf="id" type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+
     </form>
   </div>
-  <div class="col-md-4">
-    <product-card [product]="product" [show-actions]="false"></product-card>
+  <div class="col-md-6">
+    <img [src]="product.imageUrl[0]">
   </div>
 </div>

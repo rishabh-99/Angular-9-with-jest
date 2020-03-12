@@ -15,6 +15,6 @@ export class CategoryService {
   }
 
   getA() {
-    return this.db.database.ref('/categories').once('value');
+    return this.db.list('/categories').snapshotChanges();
   }
 }

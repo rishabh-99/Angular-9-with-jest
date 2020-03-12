@@ -16,7 +16,7 @@ export class OrderService {
   }
 
   getOrders() {
-    return this.db.database.ref('/orders');
+    return this.db.list('/orders').snapshotChanges()
   }
 
   getOrdersByUser(userId: string) {

@@ -33,8 +33,8 @@ export class ProductDescriptionComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.productService.get(this.id).valueChanges().subscribe((p: Product) => {
-        this.product = p;
+      this.productService.get(this.id).subscribe((p) => {
+        this.product = p.payload.val() as Product;
       });
     }
 

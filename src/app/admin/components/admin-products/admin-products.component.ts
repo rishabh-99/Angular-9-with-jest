@@ -18,31 +18,29 @@ import { toArray } from 'rxjs/operators';
 export class AdminProductsComponent implements OnInit {
   displayedColumns: string[] = ['title', 'price', 'category', 'link'];
   dataSource: MatTableDataSource<any>;
-  result;
+  result: Array<any> = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private productService: ProductService) {
-    this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.productService.getEverything().query.on('value', data => {
-      let obj = data.toJSON();
-      this.result = Object.keys(obj).map((key) => {
 
-        // Using obj[key] to retrieve key value 
-        let rd = obj[key]
-        rd.$key = key;
-        return rd;
-      });
-      console.log(this.result)
-      this.dataSource = new MatTableDataSource();
-      this.dataSource.data = this.result;
-    })
+    this.productService.getEverything().subscribe(data => {
+
+      let i = 0
+      for (const d of data) {
+        this.result[i] = d.payload.val();
+        this.result[i].$key = d.payload.key;
+        i++;
+      }
+      console.log(JSON.stringify(this.result))
+      this.dataSource = new MatTableDataSource(this.result);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   applyFilter(event: Event) {

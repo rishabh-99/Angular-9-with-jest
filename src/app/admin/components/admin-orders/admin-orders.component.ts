@@ -10,6 +10,8 @@ import { OrderService } from '../../../shared/services/order.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { database } from 'firebase';
+import { SnapshotAction } from '@angular/fire/database/database';
 
 /**
  * @title Admin's View Order Page.
@@ -25,7 +27,7 @@ export class AdminOrdersComponent implements OnInit {
   /**
    * orders$ is used by HTML to iterate through the list of orders.
    */
-  orders$;
+  orders$: Array<any> = [];
   /**
    * displayedColumns is an array of Column names for mat-table.
    */
@@ -50,10 +52,7 @@ export class AdminOrdersComponent implements OnInit {
    */
 
   constructor(private orderService: OrderService) {
-    /**
-     * Initializing dataSource as an empty MatTableDataSource.
-     */
-    this.dataSource = new MatTableDataSource();
+
   }
   /**
    * It is used for lifecycle hook.
@@ -63,22 +62,20 @@ export class AdminOrdersComponent implements OnInit {
      * Using getOrders to get all the Orders from Firebase.
      * @category FireBase Call
      */
-    this.orderService.getOrders().on('value', (data) => {
-      /**
-       * Converting reply from Firebase into an Araay.
-       */
-      const obj = data.toJSON();
-      this.orders$ = Object.keys(obj).map((key) => {
-
-        // Using obj[key] to retrieve key value.
-        const rd = obj[key];
-        rd.$key = key;
-        return rd;
-      });
-      this.dataSource = new MatTableDataSource();
-      this.dataSource.data = this.orders$;
+    this.orderService.getOrders().subscribe((data) => {
+      let i = 0;
+      for (const d of data) {
+        this.orders$[i] = d.payload.val();
+        this.orders$[i].$key = d.payload.key;
+        this.orders$[i].name = this.orders$[i].shipping.name;
+        i++;
+      }
+      this.dataSource = new MatTableDataSource(this.orders$);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      console.log(this.orders$)
     });
-  }
+  } 
   /**
    * It is used to filter the table data based on the input text.
    * @param event Used to input data from the DOM.
@@ -115,6 +112,7 @@ export class AdminOrdersComponent implements OnInit {
         default: return 0;
       }
     });
+    return;
   }
 }
 /**

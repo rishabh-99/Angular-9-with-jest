@@ -9,6 +9,6 @@ export class OrderDescriptionService {
   constructor(private db: AngularFireDatabase) { }
 
   getOrder(orderId) {
-    return this.db.object('/orders/' + orderId);
+    return this.db.list('/orders/' + orderId).snapshotChanges();
   }
 }

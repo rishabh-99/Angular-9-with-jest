@@ -39,6 +39,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular-builders/jest": "^9.0.0",
     "@angular-devkit/architect": "^0.900.0-0 || ^0.900.0",
     "@angular-devkit/build-angular": "~0.900.2",
     "@angular/cli": "~9.0.2",
@@ -46,7 +47,7 @@
     "@angular/language-service": "~9.0.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/jest": "25.1.2",
+    "@types/jest": "^25.1.2",
     "@types/node": "^12.12.29",
     "codelyzer": "^5.1.2",
     "firebase-tools": "^7.12.1",
@@ -55,7 +56,7 @@
     "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "jest": "25.1.0",
+    "jest": "^25.1.0",
     "jest-html-reporter": "^2.8.0",
     "jest-preset-angular": "8.0.0",
     "protractor": "~5.4.3",
@@ -73,6 +74,15 @@
     },
     "setupFilesAfterEnv": [
       "<rootDir>/src/setup-jest.ts"
+    ],
+    "reporters": [
+      "default",
+      [
+        "./node_modules/jest-html-reporter",
+        {
+          "pageTitle": "Test Report"
+        }
+      ]
     ],
     "moduleNameMapper": {
       "@app/(.*)": "<rootDir>/src/app/$1",

@@ -1,13 +1,14 @@
 import { AngularFireDatabase } from '@angular/fire/database';
 import 'firebase/database';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  create(product) { 
+  create(product): firebase.database.ThenableReference { 
     console.log(product)
     return this.db.list('/products').push(product);
   }
@@ -17,11 +18,11 @@ export class ProductService {
   }
 
   getEverything() {
-    return this.db.list('/products');
+    return this.db.list('/products').snapshotChanges();
   }
   
   get(productId) { 
-    return this.db.object('/products/' + productId);
+    return this.db.object('/products/' + productId).snapshotChanges()
   }
 
   update(productId, product) { 
