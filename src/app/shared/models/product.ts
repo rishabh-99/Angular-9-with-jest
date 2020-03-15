@@ -13,4 +13,5 @@ export class Product {
   property: any[] = [];
   tags: any[] = [];
   subCategory: string;
+  inStock: boolean;
 }

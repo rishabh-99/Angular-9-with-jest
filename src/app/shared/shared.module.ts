@@ -21,15 +21,19 @@ import { UserService } from './services/user.service';
 import { ProductDescriptionComponent } from './components/product-description/product-description.component';
 import { OrderDescriptionService } from './services/order-description.service';
 
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    NgxImageZoomModule.forRoot(),
+
     CustomFormsModule,
     // DataTableModule,
     // AngularFireDatabaseModule,
     AngularFireAuthModule,
+
     NgbModule,
     ReactiveFormsModule,
     RouterModule.forChild([

@@ -1,4 +1,33 @@
+.dropdown-toggle {
+    cursor: pointer;
+}
 
-.dropdown-toggle { 
-  cursor: pointer;
+.searchBar {
+    width: 80%;
+}
+
+.fp {
+    top: 70px;
+    background-color: rgba(0, 173, 239, 1);
+    z-index: 10;
+}
+
+.cwhite {
+    color: white;
+}
+
+.cwhite:hover {
+    color: rgb(226, 217, 217);
+}
+
+.MyMargin {
+    margin: auto;
+}
+
+.panel.panel-default {
+    overflow: inherit !important;
+}
+
+.zi {
+    z-index: 30;
 }

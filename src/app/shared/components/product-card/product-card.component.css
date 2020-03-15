@@ -1,18 +1,57 @@
-
-.card { 
-  margin-bottom: 30px;
+.cgreen {
+    color: #00C543;
 }
 
-.card-img-top { 
-  height: 200px;
+.cred {
+    color: red;
+}
+
+.cgray {
+    color: #776D6D;
+}
+
+.myCard {
+    border: 1px solid #C4C4C4;
+    margin: 3px;
+}
+
+.card-img-top {
+    height: 200px;
 }
 
 .card-footer {
-  padding: 0;
-  background: #fff;
+    padding: 0;
+    background: #fff;
 }
 
 .card-footer button {
-  cursor: pointer;
-  text-transform: uppercase;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.productImage {
+    width: 300px;
+    height: 300px
+}
+
+h1.calign {
+    text-align: center;
+}
+
+p.calign {
+    text-align: center;
+}
+
+.addToCartBtn {
+    background-color: transparent;
+    border: 1px solid #336CFF;
+    border-radius: 20px;
+    color: black;
+}
+
+.addToCartBtn:hover {
+    background-color: rgb(57, 96, 196);
+    border: 1px solid #336CFF;
+    border-radius: 20px;
+    color: black;
 }

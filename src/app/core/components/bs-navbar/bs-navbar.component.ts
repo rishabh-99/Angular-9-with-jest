@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class BsNavbarComponent implements OnInit {
   appUser: AppUser;
   cart$: Observable<ShoppingCart>;
+  value;
 
   constructor(private auth: AuthService, private shoppingCartService: ShoppingCartService) {
   }
