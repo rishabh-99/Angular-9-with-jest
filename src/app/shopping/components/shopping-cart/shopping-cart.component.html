@@ -1,51 +1,97 @@
-<h1>Shopping Cart</h1>
-<div class="card" *ngIf="cart$ | async as cart" style="width: 80%;">
-  <div class="card-body">
-    <p>
-      You have {{ cart.totalItemsCount }} items in your shopping cart.
-      <button *ngIf="cart.items.length" (click)="clearCart()" class="float-right btn btn-light btn-sm">Clear Shopping Cart</button>
+<ng-container *ngIf="cart$ | async as cart">
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <!-- <h1>Shopping Cart</h1> -->
+                <div class="card-body">
+                    <p>
+                        You have {{ cart.totalItemsCount }} items in your shopping cart.
+                        <button *ngIf="cart.items.length" (click)="clearCart()" class="float-right btn btn-light btn-sm">Clear Shopping Cart</button>
 
-    </p>
-  </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Product</th>
-        <th class="text-center" style="width: 230px">Quantity</th>
-        <th class="text-right" style="width: 200px">Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of cart.items">
-        <td>
-          <div [style.backgroundImage]="'url(' + item.imageUrl + ')'" class="thumbnail">
-          </div>
-        </td>
-        <td>
-          {{ item.title }}
-        </td>
-        <td>
-          <product-quantity [product]="item" [shopping-cart]="cart">
-          </product-quantity>
-        </td>
-        <td class="text-right">
-          {{ item.totalPrice | currency:'USD':true }}
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th class="text-right">{{ cart.totalPrice | currency:'USD':true }}</th>
-      </tr>
-      <tr>
-        <th colspan="4">
-          <a *ngIf="cart.items.length" routerLink="/check-out" class="btn btn-primary">Check Out</a>
-        </th>
-      </tr>
-    </tfoot>
-  </table>
-</div>
+                    </p>
+                </div>
+                <table class="table">
+                    <!-- <thead>
+                        <tr>
+                            <th></th>
+                            <th>Product</th>
+                            <th class="text-center" style="width: 230px">Quantity</th>
+                        </tr>
+                    </thead> -->
+                    <tbody>
+                        <tr *ngFor="let item of cart.items">
+                            <td>
+                                <img [src]="item.imageUrl[0]" class="thumbnail">
+                            </td>
+                            <td>
+                                <h1> {{ item.title }}</h1>
+                                <h1>&#8377; {{ item.price - item.price * item.discount * .01 }}</h1>
+                                <h3>&#8377; <s>{{ item.price }}</s> &nbsp;<span class="cgreen">{{ item.discount }}%</span></h3>
+                            </td>
+                            <td>
+                                <product-quantity [product]="item" [shopping-cart]="cart">
+                                </product-quantity>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-4">
+            <div style="width: 80%;">
+                <div class="priceCard">
+                    <h1 id="PriceHeading" style="margin-bottom:0em;">Price Details</h1>
+                    <div class="priceAndDis">
+                        <div class="block">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p> Price ({{ cart.totalItemsCount }} items)</p>
+                                </div>
+                                <div class="col-6">
+                                    <p> &#8377; {{ cart.totalNonDiscountedPrice | currency:'INR':true }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="cgreen"> Discount ({{ cart.totalItemsCount }} items)</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="cgreen"> &#8377; {{ cart.totalDiscount| currency:'INR':true }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="priceAndDis">
+                        <div class="block">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p> Total Payable</p>
+                                </div>
+                                <div class="col-6">
+                                    <p> &#8377; {{ cart.totalPrice | currency:'INR':true }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="priceAndDis">
+                        <div class="block">
+                            <div class="row">
+                                <p class="cgreen"> You will save {{cart.totalDiscount| currency:'INR':true}} on this order </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="priceCardFooter">
+                        <button *ngIf="cart.items.length" routerLink="/check-out" class="btn myBtn btnOrange">Checkout <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="priceCardFooter">
+                        <button class="btn myBtn btnBlue">Shop More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

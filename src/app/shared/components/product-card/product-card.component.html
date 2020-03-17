@@ -13,7 +13,7 @@
     <div class="col-4" (click)="goToId(product.$key)">
         <h1 class="calign">{{product.title}}</h1>
         <ng-container *ngFor="let t of product.tags; let i=index">
-            <p class="calign" *ngIf="i<=3">{{t.name}}</p>
+            <p class="" *ngIf="i<=3">{{t.name}}</p>
         </ng-container>
     </div>
     <div class="col-4">
@@ -23,7 +23,9 @@
         <h4 (click)="goToId(product.$key)">&#8377; <span class="cgray"><s>{{this.product.price}}</s></span> <span class="cgreen">
               {{this.product.discount}}%</span></h4>
         <div class="cartBtn">
-            <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
+            <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+             Add to Cart</button>
             <ng-template #updateQuantity>
                 <product-quantity [product]="product" [shopping-cart]="shoppingCart">
                 </product-quantity>

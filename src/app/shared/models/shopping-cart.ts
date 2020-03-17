@@ -19,9 +19,23 @@ export class ShoppingCart {
   }
 
   get totalPrice() {
-    let sum = 0;
+    let sum = 0; 
+    // tslint:disable: prefer-const
+    // tslint:disable: curly
     for (let productId in this.items)
       sum += this.items[productId].totalPrice;
+    return sum;
+  }
+  get totalNonDiscountedPrice() {
+    let sum = 0;
+    for (let productId in this.items)
+      sum += this.items[productId].totalNonDiscountedPrice;
+    return sum;
+  }
+  get totalDiscount() {
+    let sum = 0;
+    for (let productId in this.items)
+      sum += this.items[productId].totalDiscount;
     return sum;
   }
 

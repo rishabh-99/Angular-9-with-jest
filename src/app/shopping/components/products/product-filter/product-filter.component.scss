@@ -1,7 +1,3 @@
-.sticky-top {
-    top: 150px;
-}
-
 // We need to use ::ng-deep to overcome view encapsulation
 ::ng-deep {
     .custom-slider .ng5-slider .ng5-slider-bar {
@@ -9,37 +5,62 @@
         height: 2px;
     }
     .custom-slider .ng5-slider .ng5-slider-selection {
-        background: orange;
+        background: white;
     }
     .custom-slider .ng5-slider .ng5-slider-pointer {
-        width: 8px;
-        height: 16px;
-        top: auto;
-        /* to remove the default positioning */
-        bottom: 0;
-        background-color: #333;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        width: 20px;
+        height: 20px;
+        top: -10px;
+        border: 1px solid #c4c4c4;
+        // /* to remove the default positioning */
+        // bottom: 0;
+        background-color: rgb(255, 255, 255);
+        // border-top-left-radius: 3px;
+        // border-top-right-radius: 3px;
     }
     .custom-slider .ng5-slider .ng5-slider-pointer:after {
         display: none;
     }
     .custom-slider .ng5-slider .ng5-slider-bubble {
+        color: white;
         bottom: 14px;
     }
     .custom-slider .ng5-slider .ng5-slider-limit {
         font-weight: bold;
-        color: orange;
+        color: white;
     }
     .custom-slider .ng5-slider .ng5-slider-tick {
-        width: 1px;
-        height: 10px;
+        width: 0px;
+        height: 0px;
         margin-left: 4px;
         border-radius: 0;
         background: #ffe4d1;
         top: -1px;
     }
     .custom-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
-        background: orange;
+        background: white;
     }
+}
+
+.list-group-item {
+    background-color: rgba(0, 173, 239, 0.81);
+    color: white;
+}
+
+p {
+    margin: 0px;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.ng5-slider .ng5-slider-bubble.ng5-slider-limit {
+    color: white;
 }

@@ -12,7 +12,7 @@
 
 .myCard {
     border: 1px solid #C4C4C4;
-    margin: 3px;
+    margin: 0px;
 }
 
 .card-img-top {
@@ -30,8 +30,8 @@
 }
 
 .productImage {
-    width: 300px;
-    height: 300px
+    width: 250px;
+    height: 250px
 }
 
 h1.calign {

@@ -6,10 +6,22 @@ export class ShoppingCartItem {
   imageUrl: string;
   price: number;
   quantity: number;
+  discount: number;
 
   constructor(init?: Partial<ShoppingCartItem>) {
     Object.assign(this, init);
   }
 
-  get totalPrice() { return this.price * this.quantity; }
+  get totalPrice() {
+    let p = (this.price - this.price * this.discount * .01) * this.quantity;
+    return p;
+  }
+  get totalDiscount() {
+    let p = (this.price * this.discount * .01) * this.quantity;
+    return p;
+  }
+  get totalNonDiscountedPrice() {
+    let p = (this.price) * this.quantity;
+    return p;
+  }
 }

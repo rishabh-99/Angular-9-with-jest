@@ -1,1 +1,8 @@
+.sticky-top {
+    top: 210px;
+}
 
+#sorter {
+    border: 1px solid #c4c4c4;
+    /* margin: 3px; */
+}

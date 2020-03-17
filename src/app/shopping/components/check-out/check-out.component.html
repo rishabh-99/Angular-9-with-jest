@@ -1,9 +1,133 @@
-<h2>Shipping</h2>
 <div class="row" *ngIf="cart$ | async as cart">
-  <div class="col-6">
-    <shipping-form [cart]="cart"></shipping-form>
-  </div>
-  <div class="col-6">
-    <shopping-cart-summary [cart]="cart"></shopping-cart-summary>
-  </div>
+    <div class="col-8">
+        <div class="container">
+            <form class="myForm">
+                <div class="row formRow">
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="text" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" matInput type="number" pattern="([^\d])\d{10}([^\d])" placeholder="10 Digit Number">
+                        </div>
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="text" pattern="([^\d])\d{6}([^\d])" placeholder="Pincode">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="number" placeholder="Locality">
+                        </div>
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-12">
+                        <div class="myTextAreaContainer">
+                            <textarea class="myTextArea" type="text" pattern="([^\d])\d{6}([^\d])" placeholder="Pincode"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="text" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="text" placeholder="State">
+                        </div>
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="text" placeholder="Landmark">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <input class="myInput" type="number" placeholder="Alernate number">
+                        </div>
+                    </div>
+                </div>
+                <div class="row formRow">
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <button class="btn myBtn btnGreen">Save and deliver</button>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="myInputContainer">
+                            <button class="btn myBtn btnGray">Cancel</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-4">
+        <div style="width: 80%;">
+            <div class="priceCard">
+                <h1 id="PriceHeading" style="margin-bottom:0em;">Price Details</h1>
+                <div class="priceAndDis">
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-6">
+                                <p> Price ({{ cart.totalItemsCount }} items)</p>
+                            </div>
+                            <div class="col-6">
+                                <p> &#8377; {{ cart.totalNonDiscountedPrice | currency:'INR':true }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="cgreen"> Discount ({{ cart.totalItemsCount }} items)</p>
+                            </div>
+                            <div class="col-6">
+                                <p class="cgreen"> &#8377; {{ cart.totalDiscount| currency:'INR':true }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="priceAndDis">
+                    <div class="block">
+                        <div class="row">
+                            <div class="col-6">
+                                <p> Total Payable</p>
+                            </div>
+                            <div class="col-6">
+                                <p> &#8377; {{ cart.totalPrice | currency:'INR':true }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="priceAndDis">
+                    <div class="block">
+                        <div class="row">
+                            <p class="cgreen"> You will save {{cart.totalDiscount| currency:'INR':true}} on this order </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="priceCardFooter">
+                    <button *ngIf="cart.items.length" routerLink="/check-out" class="btn myBtn btnGreen">Pay Securly <i class="fa user-lock" aria-hidden="true"></i></button>
+                </div>
+                <div class="smallBtn">
+                    <button class="btn myBtn btnGray">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

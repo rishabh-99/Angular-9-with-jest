@@ -17,11 +17,12 @@ import { ShoppingModule } from './shopping/shopping.module';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormArray } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
+import { FooterComponent } from './shopping/components/footer/footer.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +32,7 @@ import { MatTableModule } from '@angular/material/table';
     FormsModule,
     ShoppingModule,
     MatTableModule,
-    // MatExpansionModule,
     CoreModule,
-    // BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
