@@ -1,0 +1,56 @@
+<div *ngIf="imgUrl">
+    <carousel [noPause]="false">
+        <slide *ngFor="let url of imgUrl">
+            <img [src]="url" alt="first slide" style="display: block; width: 100%; height: 400px;">
+        </slide>
+
+    </carousel>
+</div>
+
+<!-- <div *ngIf="products$.length !=0">
+    <carousel [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset" [interval]="false" [noWrap]="noWrap">
+        <slide *ngFor="let slide of products$; let index=index">
+            <img [src]="slide.payload.val().imageUrl[0]" alt="image slide" style="display: block; width: 100%;">
+            <div class="carousel-caption">
+                <h4>Slide {{index}}</h4>
+            </div>
+        </slide>
+    </carousel>
+</div> -->
+<div *ngIf="products$.length != 0" class="mid">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" [src]="this.products$[0].payload.val().imageUrl[0]" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.products$[0].payload.val().title}}</h3>
+                        <p class="card-text">Price &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
+                        <button type="button" (click)="nav(this.products$[0].key)" class="btn btn-primary">Go somewhere</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" [src]="this.products$[1].payload.val().imageUrl[0]" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.products$[1].payload.val().title}}</h3>
+                        <p class="card-text">Price &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
+                        <button type="button" (click)="nav(this.products$[1].key)" class="btn btn-primary">Go somewhere</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" [src]="this.products$[1].payload.val().imageUrl[0]" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.products$[0].payload.val().title}}</h3>
+                        <p class="card-text">Price &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
+                        <button type="button" (click)="nav(this.products$[1].key)" class="btn btn-primary">Go somewhere</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

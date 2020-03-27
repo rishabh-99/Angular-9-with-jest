@@ -24,6 +24,7 @@ import { SnapshotAction } from '@angular/fire/database/database';
 })
 
 export class AdminOrdersComponent implements OnInit {
+  filteredOrders: Array<any> = [];
   /**
    * orders$ is used by HTML to iterate through the list of orders.
    */
@@ -70,12 +71,14 @@ export class AdminOrdersComponent implements OnInit {
         this.orders$[i].name = this.orders$[i].shipping.name;
         i++;
       }
+
       this.dataSource = new MatTableDataSource(this.orders$);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.orders$)
+      this.filteredOrders = this.orders$;
+      console.log(this.orders$);
     });
-  } 
+  }
   /**
    * It is used to filter the table data based on the input text.
    * @param event Used to input data from the DOM.
@@ -114,7 +117,40 @@ export class AdminOrdersComponent implements OnInit {
     });
     return;
   }
+
+  filterOrder() {
+    this.filteredOrders = this.orders$.filter(val => {
+      if (val.status === 'ordered') {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  filterProcessing() {
+    this.filteredOrders = this.orders$.filter(val => {
+      if (val.status === 'processing') {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  filterCompleted() {
+    this.filteredOrders = this.orders$.filter(val => {
+      if (val.status === 'completed') {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  changeTo(key, status) {
+    this.orderService.changeTo(key,status)
+  }
 }
+
+
 /**
  * It is used to compare two numbers or strings.
  * @param a Any Number or String for Comparison Right hand side.

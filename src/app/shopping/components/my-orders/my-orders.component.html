@@ -1,5 +1,5 @@
 <h1>Orders</h1>
-<table class="table">
+<!-- <table class="table">
   <thead>
     <tr>
       <th>Customer</th>
@@ -16,4 +16,61 @@
       </td>
     </tr>
   </tbody> 
-</table>
+</table> -->
+<div *ngIf="1===1">
+    <div class="row">
+        <div class="col-6">
+            <div class="myCard" *ngFor="let order of orders$">
+                <div class="row">
+                    <div class="col-9">
+                        <h1>Order No {{order.$key}}</h1>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3 class="noMargin">Order Placed</h3>
+                                <h3 class="noMargin">{{order.datePlaced | date}}</h3>
+                            </div>
+                            <div class="col-3">
+                                <h3 class="noMargin">Amount</h3>
+                                <h3 class="noMargin">{{order.totalCost | currency:'INR':true }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="row">
+                            <h3 *ngIf="order.status === 'ordered'" class="cgreen">
+                                Your Order has been recieved.
+                            </h3>
+                            <h3 *ngIf="order.status === 'processing'" class="cgreen">
+                                Your Package is being Prepared by our Team.
+                            </h3>
+                            <h3 *ngIf="order.status === 'completed'" class="cgreen">
+                                Your Package has been delivered.
+                            </h3>
+                        </div>
+                        <div *ngIf="order.items.$key">
+                            <div class="row" *ngFor="let item of order.items; let i=index">
+                                <div class="product-card">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <img [src]="item.product.imageUrl[0]" class="thumbnail">
+                                        </div>
+                                        <div class="col-6">
+                                            <h3>{{item.product.title}}</h3>
+                                            <h3>{{item.product.price | currency:'INR':true}} X Quantity: {{item.quantity}}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <ngx-star-rating [(ngModel)]="item.product.rating" [id]="i" [disabled]="item.product.rating!=0" (change)="submitRating(order.$key,i,item.product.rating,item.product.key)"></ngx-star-rating>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

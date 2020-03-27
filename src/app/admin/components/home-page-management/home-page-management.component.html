@@ -1,0 +1,158 @@
+<div class="container">
+    <form #f="ngForm" (ngSubmit)="save()">
+        <div class="form-group">
+            <label for="imageUrl">Image URL</label>
+            <input #imageUrl="ngModel" [(ngModel)]="img[0]" name="imageUrl" id="imageUrl" type="file" class="form-control" accept="image/*" required (change)="loadPreview($event)">
+            <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
+                <div *ngIf="imageUrl.errors.required">Image URL is required.</div>
+                <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>
+            </div>
+        </div>
+        <div *ngIf="img[0]">
+            <div class="form-group">
+                <label for="imageUrl1">Image URL 1</label>
+                <input #imageUrl1="ngModel" [(ngModel)]="img[1]" name="imageUrl1" id="imageUrl1" type="file" class="form-control" accept="image/*" (change)="loadPreview1($event)">
+                <div class="alert alert-danger" *ngIf="imageUrl1.touched && imageUrl1.invalid">
+                    <div *ngIf="imageUrl1.errors.required">Image URL is required.</div>
+                    <div *ngIf="imageUrl1.errors.url">Please enter a valid URL.</div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="img[1]">
+            <div class="form-group">
+                <label for="imageUrl2">Image URL 2</label>
+                <input #imageUrl2="ngModel" [(ngModel)]="img[2]" name="imageUrl2" id="imageUrl2" type="file" class="form-control" accept="image/*" (change)="loadPreview2($event)">
+                <div class="alert alert-danger" *ngIf="imageUrl2.touched && imageUrl2.invalid">
+                    <div *ngIf="imageUrl2.errors.required">Image URL is required.</div>
+                    <div *ngIf="imageUrl2.errors.url">Please enter a valid URL.</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <h1>Add Main Category</h1>
+    <form #f2="ngForm" (ngSubmit)="addMainCategory()">
+        <div class="form-group">
+            <label for="addMainCat">Add Main Category</label>
+            <input #addMainCatName="ngModel" [(ngModel)]="newMainCat" name="addMainCatName" id="addMainCatName" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="addMainCatDesc">Main Category Description</label>
+            <textarea #addMainCatDesc="ngModel" [(ngModel)]="newMainCatDesc" name="addMainCatDesc" id="addMainCatDesc" type="text" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <h1>Remove Main Category</h1>
+    <form #f3="ngForm" (ngSubmit)="removeMainCategory()">
+        <div class="form-group">
+            <label for="removeMainCat">Remove Main Category</label>
+            <select #removeMainCat="ngModel" [(ngModel)]="toBeRemovedMainCat" name="toBeRemovedMainCat" id="toBeRemovedMainCat" type="text" class="form-control"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.categories$">
+                    <option [value]="category.$key">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <h1>Add Category</h1>
+    <form #f4="ngForm" (ngSubmit)="addnewCategory()">
+        <div class="form-group">
+            <label for="chooseMainCat">Choose Main Category</label>
+            <select #chooseMainCat="ngModel" [(ngModel)]="chosenMainCat" name="chosenMainCat" id="chosenMainCat" type="text" class="form-control"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.categories$">
+                    <option [value]="category.$key">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="newCatName">Enter new Category name</label>
+            <input #newCatName="ngModel" [(ngModel)]="newCat" name="newCatName" id="newCatName" type="text" class="form-control">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <h1>Remove Category</h1>
+    <form #f5="ngForm" (ngSubmit)="removeCategory()">
+        <div class="form-group">
+            <label for="chooseMainCat">Choose Main Category</label>
+            <select #chooseMainCat="ngModel" [(ngModel)]="chosenMainCat" name="chosenMainCat" id="chosenMainCat" type="text" class="form-control" (change)="fillCatArray()"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.categories$">
+                    <option [value]="category.$key">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="newCatName">Choose Category name</label>
+            <select #chooseCat="ngModel" [(ngModel)]="chosenCat" name="chosenCat" id="chosenCat" type="text" class="form-control"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.catArray">
+                    <option [value]="category.name">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <h1>Add Brand</h1>
+
+    <form #f6="ngForm" (ngSubmit)="addBrand()">
+        <div class="form-group">
+            <label for="chooseMainCat">Choose Main Category</label>
+            <select #chooseMainCat="ngModel" [(ngModel)]="chosenMainCat" name="chosenMainCat" id="chosenMainCat" type="text" class="form-control" (change)="fillCatArray()"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.categories$">
+                    <option [value]="category.$key">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="newCatName">Choose Category name</label>
+            <select [(ngModel)]="chosenCat" name="chosenCat" id="chosenCat" type="text" class="form-control"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.catArray">
+                    <option [value]="category.name">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="newBrandName">Enter Brand Name</label>
+            <input [(ngModel)]="newBrandName" name="newBrandName" id="newBrandName" type="text" class="form-control">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+    <h1>Remove Brand</h1>
+    <form #f7="ngForm" (ngSubmit)="removeBrand()">
+        <div class="form-group">
+            <label for="chooseMainCat">Choose Main Category</label>
+            <select #chooseMainCat="ngModel" [(ngModel)]="chosenMainCat" name="chosenMainCat" id="chosenMainCat" type="text" class="form-control" (change)="fillCatArray()"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.categories$">
+                    <option [value]="category.$key">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="chosenCat">Choose Category name</label>
+            <select [(ngModel)]="chosenCat" name="chosenCat" id="chosenCat" type="text" class="form-control" (change)="fillBrandArray()"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let category of this.catArray">
+                    <option [value]="category.name">{{category.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="chosenBrand">Choose Brand name</label>
+            <select [(ngModel)]="chosenBrand" name="chosenBrand" id="chosenBrand" type="text" class="form-control"> 
+                <option value="" disabled></option>
+                <ng-container *ngFor="let brand of this.brandArray">
+                    <option [value]="brand.name">{{brand.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+</div>

@@ -15,11 +15,28 @@ import { ShoppingCartSummaryComponent } from './components/shopping-cart-summary
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { OrderDescriptionComponent } from '../admin/components/order-description/order-description.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxStarRatingModule } from 'ngx-star-rating';
+import { BannerPageComponent } from './components/banner-page/banner-page.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { LowerBannerComponent } from './components/lower-banner/lower-banner.component';
+
 
 @NgModule({
   imports: [
     SharedModule,
+    CarouselModule.forRoot(),
     Ng5SliderModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    NgxStarRatingModule,
     RouterModule.forChild([
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
@@ -38,7 +55,9 @@ import { FooterComponent } from './components/footer/footer.component';
     ProductFilterComponent,
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
-    FooterComponent
+    FooterComponent,
+    BannerPageComponent,
+    LowerBannerComponent,
   ],
   exports: [
     FooterComponent

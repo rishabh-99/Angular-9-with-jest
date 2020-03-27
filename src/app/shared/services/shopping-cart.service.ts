@@ -61,13 +61,7 @@ export class ShoppingCartService {
     let cartId = await this.getOrCreateCartId();
     console.log(product.$key)
     let item$ = this.getItem(cartId, product.$key);
-    // console.log(item$)
-    // item$.update({
-    //   title: product.title,
-    //   imageUrl: product.imageUrl,
-    //   price: product.price,
-    //   quantity: 1
-    // });
+
     item$.query.once('value', itema => {
       var item = itema.val();
       if (item == undefined) {

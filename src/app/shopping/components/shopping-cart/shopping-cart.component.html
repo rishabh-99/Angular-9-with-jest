@@ -48,7 +48,7 @@
                                     <p> Price ({{ cart.totalItemsCount }} items)</p>
                                 </div>
                                 <div class="col-6">
-                                    <p> &#8377; {{ cart.totalNonDiscountedPrice | currency:'INR':true }}</p>
+                                    <p> {{ cart.totalNonDiscountedPrice | currency:'INR':true }}</p>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                     <p class="cgreen"> Discount ({{ cart.totalItemsCount }} items)</p>
                                 </div>
                                 <div class="col-6">
-                                    <p class="cgreen"> &#8377; {{ cart.totalDiscount| currency:'INR':true }}</p>
+                                    <p class="cgreen"> {{ cart.totalDiscount| currency:'INR':true }}</p>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                     <p> Total Payable</p>
                                 </div>
                                 <div class="col-6">
-                                    <p> &#8377; {{ cart.totalPrice | currency:'INR':true }}</p>
+                                    <p> {{ cart.totalPrice | currency:'INR':true }}</p>
                                 </div>
                             </div>
                         </div>

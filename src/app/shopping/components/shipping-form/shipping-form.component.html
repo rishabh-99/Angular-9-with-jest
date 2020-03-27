@@ -1,4 +1,4 @@
-<form #f="ngForm">
+<!-- <form #f="ngForm">
   <div class="form-group">
     <label for="">Name</label>
     <input #name="ngModel" name="name" [(ngModel)]="shipping.name" type="text" class="form-control" required>
@@ -31,4 +31,104 @@
     [disabled]="!f.valid"
     (click)="placeOrder()"
     class="btn btn-primary">Place Order</button>
-</form>    
+</form>     -->
+<div class="container">
+    <form class="myForm" #f="ngForm">
+        <div class="row formRow">
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="text" placeholder="Name" #name="ngModel" name="name" [(ngModel)]="shipping.name" required>
+                    <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                        <div *ngIf="name.errors.required">Name is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="number" pattern="^[0-9]{10,10}$" placeholder="10 Digit Number" #number="ngModel" name="number" [(ngModel)]="shipping.number" required>
+                    <div class="alert alert-danger" *ngIf="number.touched && number.invalid">
+                        <div *ngIf="number.errors.required">Number is required.</div>
+                        <div *ngIf="number.invalid">Number is Invalid.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row formRow">
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="text" pattern="^[0-9]{6,6}$" placeholder="Pincode" #pincode="ngModel" name="pincode" [(ngModel)]="shipping.pincode" required>
+                    <div class="alert alert-danger" *ngIf="pincode.touched && pincode.invalid">
+                        <div *ngIf="pincode.errors.required">Pincode is required.</div>
+                        <div *ngIf="pincode.invalid">Pincode is Invalid.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="text" placeholder="Locality" #locality="ngModel" name="locality" [(ngModel)]="shipping.locality" required>
+                    <div class="alert alert-danger" *ngIf="locality.touched && locality.invalid">
+                        <div *ngIf="locality.errors.required">Locality is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row formRow">
+            <div class="col-12">
+                <div class="myTextAreaContainer">
+                    <textarea class="myTextArea" type="text" placeholder="Address" #address="ngModel" name="address" [(ngModel)]="shipping.address" required>
+
+                    </textarea>
+                    <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+                        <div *ngIf="address.errors.required">Address is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row formRow">
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="text" placeholder="City" #city="ngModel" name="city" [(ngModel)]="shipping.city" required>
+                    <div class="alert alert-danger" *ngIf="city.touched && city.invalid">
+                        <div *ngIf="city.errors.required">City is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="text" placeholder="State" #state="ngModel" name="state" [(ngModel)]="shipping.state" required>
+                    <div class="alert alert-danger" *ngIf="state.touched && state.invalid">
+                        <div *ngIf="state.errors.required">State is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row formRow">
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="text" placeholder="Landmark" #landmark="ngModel" name="landmark" [(ngModel)]="shipping.landmark" required>
+                    <div class="alert alert-danger" *ngIf="landmark.touched && landmark.invalid">
+                        <div *ngIf="landmark.errors.required">Landmark is required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <input class="myInput" type="number" placeholder="Alernate number" #altNumber="ngModel" name="altNumber" [(ngModel)]="shipping.altNumber">
+                </div>
+            </div>
+        </div>
+        <div class="row formRow">
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <button class="btn myBtn btnGreen" [disabled]="!f.valid" (click)="placeOrder()">Save and deliver</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <button class="btn myBtn btnGray">Cancel</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

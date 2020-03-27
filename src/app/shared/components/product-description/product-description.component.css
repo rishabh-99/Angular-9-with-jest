@@ -5,22 +5,24 @@
 .cred {
     color: red;
 }
+
 .cgray {
     color: #776D6D;
 }
-.main{
+
+.main {
     display: flex;
     flex-wrap: wrap;
 }
 
-p{
+p {
     word-wrap: break-word;
-    white-space:pre-wrap;
+    white-space: pre-wrap;
     line-height: 26pt;
 }
 
 .tableBorder {
-    border: 1px solid #C4C4C4 ;
+    border: 1px solid #C4C4C4;
     margin: 10px;
 }
 
@@ -44,7 +46,7 @@ hr {
     margin: 20px;
 }
 
-.imageContainer{
+.imageContainer {
     width: 400px;
 }
 
@@ -54,6 +56,7 @@ hr {
     border-right: 1px solid;
     border-bottom: 1px solid;
 }
+
 .smallImages {
     width: 135px;
     height: 100px;
@@ -63,9 +66,39 @@ hr {
 
 .cartBtn {
     width: 300px;
+    height: 50px;
     margin: 30px;
 }
 
-.addToCartBtn{
+.addToCartBtn {
     background-color: rgba(0, 173, 239, 0.8);
+    border: 1px solid rgba(0, 173, 239, 0.8);
+    border-radius: 10px;
+    color: white;
+    height: 50px;
+}
+
+.buyNowBtn {
+    background-color: #24FF00;
+    border: 1px solid #24FF00;
+    border-radius: 10px;
+    color: white;
+    height: 50px;
+}
+
+
+/* .buyNowBtn:hover {
+    background-color: rgb(230, 155, 5);
+    border: 1px solid #24FF00;
+    border-radius: 20px;
+    color: black;
+} */
+
+.fixed-top {
+    top: 150px
+}
+
+::ng-deep label.star {
+    padding: 2px;
+    font-size: 20px;
 }

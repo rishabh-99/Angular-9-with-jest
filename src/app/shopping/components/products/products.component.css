@@ -1,8 +1,96 @@
 .sticky-top {
-    top: 210px;
+    top: 325px;
 }
 
 #sorter {
     border: 1px solid #c4c4c4;
+    margin-right: -5px;
+    margin-left: -6px;
     /* margin: 3px; */
+}
+
+table {
+    width: 100%;
+}
+
+.pagRow {
+    margin-left: 24px;
+    margin-right: 25px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.mat-header-cell {
+    width: 0px;
+    height: 0px;
+    border: 0px;
+}
+
+.td.mat-cell:last-of-type {
+    padding-right: 14px;
+    border: 0px;
+}
+
+::ng-deep .mat-paginator {
+    width: 100%;
+    color: white;
+}
+
+::ng-deep .mat-paginator-outer-container {
+    width: 100%;
+    margin: auto;
+}
+
+::ng-deep .mat-paginator-container {
+    background-color: #00ADEF;
+}
+
+::ng-deep td.mat-cell:last-of-type {
+    border: 0px;
+}
+
+::ng-deep .mat-select-value {
+    color: white;
+}
+
+::ng-deep .mat-select-arrow {
+    color: white;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: white;
+}
+
+.filterClass {
+    cursor: pointer;
+}
+
+::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+    background: transparent;
+}
+
+::ng-deep .mat-expansion-panel-header.mat-expanded:focus,
+.mat-expansion-panel-header.mat-expanded:hover {
+    background: initial;
+}
+
+.mat-expansion-panel-header.mat-expanded:focus,
+.mat-expansion-panel-header.mat-expanded:hover {
+    background: transparent;
+}
+
+.heading {
+    margin-top: 10px;
+    width: 75%;
+    margin: auto;
+    text-align: center;
+}
+
+.headClass {
+    font-size: 35px;
+}
+
+.headData {
+    word-wrap: break-word;
+    word-break: break-all;
 }

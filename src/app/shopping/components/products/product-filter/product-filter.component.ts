@@ -2,6 +2,8 @@ import { BrandService } from './../../../../shared/services/brand.service';
 import { CategoryService } from '../../../../shared/services/category.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Options, LabelType } from 'ng5-slider';
+import { concatAll } from 'rxjs/operators';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 // import { EventEmitter } from 'protractor';
 
 @Component({
@@ -14,6 +16,9 @@ export class ProductFilterComponent implements OnInit {
   brands$;
   minVal;
   maxVal;
+  catArray = [];
+  brandArray = [];
+  main;
   @Input('category') category;
   @Input('brand') brand;
   @Input('brands') brands;
@@ -59,28 +64,76 @@ export class ProductFilterComponent implements OnInit {
 
   }
 
-  constructor(private categoryService: CategoryService, brandService: BrandService) {
+  constructor(private categoryService: CategoryService, brandService: BrandService, private router: Router, private route: ActivatedRoute) {
 
     console.log(this.categories$)
-    this.categoryService.getll().on('value', data => {
-      let obj = data.toJSON();
-      this.categories$ = Object.keys(obj).map((key) => {
 
-        // Using obj[key] to retrieve key value 
-        let rd = obj[key]
-        rd.$key = key;
-        return rd;
-      });
+    route.queryParamMap.subscribe(param => {
+      if (param) {
+        this.main = param.get('main') || 'Biometric';
+        const main = param.get('main') || 'Biometric';
+        const category = param.get('category') || 'all';
+        this.catArray = category.split(',')
+        this.categoryService.getl(main).subscribe(data => {
+          let obj = data[0].payload.val()
+          this.categories$ = Object.keys(obj).map((key) => {
+            // Using obj[key] to retrieve key value 
+            let rd = obj[key]
+            rd.$key = key;
 
-      console.log('@@@@@@@')
-      console.log(this.brands)
+            if (this.catArray.indexOf(rd.name) > -1) {
+              rd.checked = true;
+            } else {
+              rd.checked = false;
+            }
+            return rd;
+          });
+          console.log(this.categories$)
+        })
+      }
     })
-
 
   }
 
   ngOnInit() {
 
+  }
+
+  catOnClick(category, checked) {
+    console.log(category)
+    if (checked === false) {
+      this.catArray.push(category)
+    }
+    if (checked === true) {
+      let index = this.catArray.indexOf(category, 0);
+      this.catArray.splice(index, 1)
+    }
+    this.route.queryParamMap.subscribe(param => {
+      if (param) {
+        const main = param.get('main') || 'Biometric';
+        this.router.navigate(['/product-list/'], { queryParams: { main, category: this.catArray.toString(), brand: 'all' } })
+      }
+    })
+  }
+
+  brandOnClick(brand, checked) {
+    console.log(brand)
+    console.log(checked)
+    if (checked === false) {
+      this.brandArray.push(brand)
+    }
+    else if (checked === true) {
+      let index = this.catArray.indexOf(brand, 0);
+      this.brandArray.splice(index, 1);
+
+    }
+    console.log(this.brandArray.toString())
+    this.route.queryParamMap.subscribe(param => {
+      if (param) {
+        const main = param.get('main') || 'Biometric';
+        this.router.navigate(['/product-list'], { queryParams: { main, category: this.catArray.toString(), brand: this.brandArray.toString() } })
+      }
+    })
   }
 
 }

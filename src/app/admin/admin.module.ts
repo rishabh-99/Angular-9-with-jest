@@ -22,6 +22,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { AngularFireStorageModule } from '@angular/fire/storage/public_api';
 import { HttpClientModule } from '@angular/common/http';
+import { HomePageManagementComponent } from './components/home-page-management/home-page-management.component';
+// import { MatTabsModule } from '@angular/material/tabs';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { HomeComponent } from '../core/components/home/home.component';
+import { HomeService } from './services/home.service';
+
 
 export const routes: Routes = [
   {
@@ -48,12 +54,19 @@ export const routes: Routes = [
     path: 'admin/orders',
     component: AdminOrdersComponent,
     canActivate: [AuthGuard, AdminAuthGuard]
+  },
+  {
+    path: 'admin/home',
+    component: HomePageManagementComponent,
+    canActivate: [AuthGuard, AdminAuthGuard]
   }
 ]
 @NgModule({
   imports: [
+    // MatTabsModule,
     SharedModule,
     ReactiveFormsModule,
+    NgxFileDropModule,
     MatChipsModule,
     CdkTableModule,
     MatIconModule,
@@ -71,6 +84,10 @@ export const routes: Routes = [
     AdminProductsComponent,
     AdminOrdersComponent,
     OrderDescriptionComponent,
+    HomePageManagementComponent,
+  ],
+  providers: [
+    HomeService
   ]
 })
 export class AdminModule { }

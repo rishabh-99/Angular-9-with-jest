@@ -42,6 +42,10 @@ p.calign {
     text-align: center;
 }
 
+.cartBtn {
+    margin-top: 10px;
+}
+
 .addToCartBtn {
     background-color: transparent;
     border: 1px solid #336CFF;
@@ -52,6 +56,20 @@ p.calign {
 .addToCartBtn:hover {
     background-color: rgb(57, 96, 196);
     border: 1px solid #336CFF;
+    border-radius: 20px;
+    color: black;
+}
+
+.buyNowBtn {
+    background-color: transparent;
+    border: 1px solid #FFAA04;
+    border-radius: 20px;
+    color: black;
+}
+
+.buyNowBtn:hover {
+    background-color: rgb(230, 155, 5);
+    border: 1px solid #FFAA04;
     border-radius: 20px;
     color: black;
 }

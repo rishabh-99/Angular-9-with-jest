@@ -1,3 +1,8 @@
+<div class="heading">
+    <h1 class="headClass">{{main}}</h1>
+    <p class="headData">{{mainDesc}}</p>
+</div>
+
 <div style="margin-left: 12.5%; margin-right: 12.5%; ">
     <div class="row">
         <div class="col-3">
@@ -15,7 +20,7 @@
                         </div>
                         <div class="col-2">
                             <!-- <button (click)="revSortDiscount()">Discount &darr;</button> -->
-                            <h3 (click)="sortPrice()">Price &uarr;</h3>
+                            <h3 class="filterClass" (click)="sortPrice()">Price <span *ngIf="priceUp">&uarr;</span><span *ngIf="!priceUp">&darr;</span></h3>
                         </div>
                         <!-- <div class="col-2">
                         <button (click)="sortPrice()">Price &uarr;</button>
@@ -24,21 +29,41 @@
                         <button (click)="revSortPrice()">Price &darr;</button>
                     </div> -->
                         <div class="col-2">
-                            <h3 (click)="sortPopularity()">Popularity &uarr;</h3>
+                            <h3 class="filterClass" (click)="sortPopularity()">Popularity <span *ngIf="popularityUp">&uarr;</span><span *ngIf="!popularityUp">&darr;</span></h3>
                         </div>
                         <div class="col-2">
                             <!-- <button (click)="revSortPopularity()">Popular &darr;</button> -->
-                            <h3 (click)="sortDiscount()">Discount &uarr;</h3>
+                            <h3 class="filterClass" (click)="sortDiscount()">Discount <span *ngIf="discountUp">&uarr;</span><span *ngIf="!discountUp">&darr;</span></h3>
 
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="cart$ | async as cart">
-                    <ng-container *ngFor="let p of filteredProducts; let i = index">
+                <div class="row">
+                    <!-- <ng-container *ngFor="let p of filteredProducts; let i = index">
                         <div class="col-12">
                             <product-card [product]="p" [shopping-cart]="cart"></product-card>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
+                    <table mat-table [dataSource]="filteredProducts">
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="product">
+                            <div>
+                                <th mat-header-cell *matHeaderCellDef>Sort By:- Price Popularity Discount</th>
+
+                            </div>
+                            <td mat-cell *matCellDef="let element">
+                                <product-card [product]="element" [shopping-cart]="cart"></product-card>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns" style="display: none;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <div class="pagRow">
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
                 </div>
             </div>
         </div>

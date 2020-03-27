@@ -1,3 +1,8 @@
+<carousel [noPause]="false">
+    <slide *ngFor="let url of imgUrl">
+        <img [src]="url" alt="first slide" style="display: block; width: 100%; height: 400px;">
+    </slide>
+</carousel>
 <div class="myFooter">
     <div class="row mainRow">
         <div class="col-8 leftSide">

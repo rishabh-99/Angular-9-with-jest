@@ -8,12 +8,15 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+
 
 @NgModule({
   imports: [
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    CarouselModule,
     SharedModule,
     RouterModule.forChild([])
   ],
@@ -21,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
     BsNavbarComponent,
     HomeComponent,
     LoginComponent,
+    
   ],
   exports: [
     BsNavbarComponent

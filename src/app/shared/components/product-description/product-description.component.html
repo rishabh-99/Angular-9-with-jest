@@ -1,29 +1,44 @@
 <div class="row" *ngIf="this.product.title">
     <div class="col-4">
-        <div class="imageContainer">
-            <img class="mainImage" [src]="this.product.imageUrl[0]">
-            <div class="row">
-                <div *ngIf="this.product.imageUrl[1] != null">
-                    <img [src]="this.product.imageUrl[1]" class="smallImages">
-                </div>
-                <div *ngIf="this.product.imageUrl[2] != null">
-                    <img [src]="this.product.imageUrl[2]" class="smallImages">
-                </div>
-                <div *ngIf="this.product.imageUrl[3] != null">
-                    <img [src]="this.product.imageUrl[3]" class="smallImages">
+        <div class="fixed-top">
+            <div class="imageContainer">
+                <img class="mainImage" [src]="this.product.imageUrl[0]">
+                <div class="row">
+                    <div *ngIf="this.product.imageUrl[1] != null">
+                        <img [src]="this.product.imageUrl[1]" class="smallImages">
+                    </div>
+                    <div *ngIf="this.product.imageUrl[2] != null">
+                        <img [src]="this.product.imageUrl[2]" class="smallImages">
+                    </div>
+                    <div *ngIf="this.product.imageUrl[3] != null">
+                        <img [src]="this.product.imageUrl[3]" class="smallImages">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="cartBtn">
-            <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
-            <ng-template #updateQuantity>
-                <product-quantity [product]="product" [shopping-cart]="shoppingCart">
-                </product-quantity>
-            </ng-template>
+            <div class="cartBtn">
+                <div *ngIf="shoppingCart != null">
+                    <button *ngIf="shoppingCart.getQuantity(product) === 0;" (click)="buyNow()" class="btn btn-secondary btn-block buyNowBtn">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                             Buy Now</button>
+                </div>
+
+            </div>
+            <div class="cartBtn">
+                <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
+                <ng-template #updateQuantity>
+                    <product-quantity [product]="product" [shopping-cart]="shoppingCart">
+                    </product-quantity>
+                </ng-template>
+            </div>
         </div>
     </div>
     <div class="col-6">
-        <h1>{{this.product.title}}</h1>
+        <div class="row">
+            <h1>{{this.product.title}}</h1>
+        </div>
+        <div class="row">
+            <ngx-star-rating [(ngModel)]="product.rating" [disabled]="true"></ngx-star-rating>
+        </div>
         <h3 *ngIf="this.product.inStock" class="cgreen">IN STOCK</h3>
         <h3 *ngIf="!this.product.inStock" class="cred">OUT OF STOCK</h3>
         <h1>&#8377; {{this.product.price - this.product.price*this.product.discount*.01}}</h1>

@@ -23,9 +23,19 @@
         <h4 (click)="goToId(product.$key)">&#8377; <span class="cgray"><s>{{this.product.price}}</s></span> <span class="cgreen">
               {{this.product.discount}}%</span></h4>
         <div class="cartBtn">
-            <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">
-            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-             Add to Cart</button>
+            <div *ngIf="shoppingCart != null">
+                <button *ngIf="shoppingCart.getQuantity(product) === 0;" (click)="buyNow()" class="btn btn-secondary btn-block buyNowBtn">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                         Buy Now</button>
+            </div>
+
+        </div>
+        <div class="cartBtn">
+            <div *ngIf="shoppingCart != null">
+                <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                     Add to Cart</button>
+            </div>
             <ng-template #updateQuantity>
                 <product-quantity [product]="product" [shopping-cart]="shoppingCart">
                 </product-quantity>

@@ -12,6 +12,7 @@ export class Product {
   discount: number;
   property: any[] = [];
   tags: any[] = [];
-  subCategory: string;
+  mainCategory: string;
   inStock: boolean;
+  rating = 0;
 }

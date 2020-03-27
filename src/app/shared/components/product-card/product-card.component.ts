@@ -20,6 +20,12 @@ export class ProductCardComponent {
     this.cartService.addToCart(this.product);
   }
   goToId(id) {
-    this.router.navigate([`/shared/products/${this.product.$key}`]);
+    this.router.navigate([`/shared/products/${id}`]);
+  }
+  async buyNow() {
+    await this.cartService.clearCart()
+    await this.cartService.addToCart(this.product);
+
+    this.router.navigate(['/check-out']);
   }
 }

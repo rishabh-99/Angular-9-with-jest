@@ -1,34 +1,147 @@
 <h1>Orders</h1>
+<div class="row">
+    <div class="col-4">
+        <button class="myBtn btnGreen" (click)="filterOrder()">New Orders</button>
+    </div>
+    <div class="col-4">
+        <button class="myBtn btnGreen" (click)="filterProcessing()">Processing</button>
+    </div>
+    <div class="col-4">
+        <button class="myBtn btnGreen" (click)="filterCompleted()">Completed</button>
+    </div>
+</div>
 
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Name, Category">
-</mat-form-field>
 
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+<!-- <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="customer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header='customer'> Customer </th>
-      <td mat-cell *matCellDef="let row"> {{row.shipping.name}} </td>
-    </ng-container>
+        <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='customer'> Customer </th>
+            <td mat-cell *matCellDef="let row"> {{row.shipping.name}} </td>
+        </ng-container>
 
-    <!-- Progress Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header='date'> Date </th>
-      <td mat-cell *matCellDef="let row"> {{row.datePlaced | date}} </td>
-    </ng-container>
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header='date'> Date </th>
+            <td mat-cell *matCellDef="let row"> {{row.datePlaced | date}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="link">
-      <th mat-header-cell *matHeaderCellDef> Edit </th>
-      <td mat-cell *matCellDef="let row"> <a [routerLink]="['/admin/orders/', row.$key]"> Edit </a></td>
-    </ng-container>
+        <ng-container matColumnDef="link">
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
+            <td mat-cell *matCellDef="let row"> <a [routerLink]="['/admin/orders/', row.$key]"> Edit </a></td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-    </tr>
-  </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+    </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [showFirstLastButtons]="true"></mat-paginator>
+</div> -->
+<div class="row">
+    <div *ngFor="let order of filteredOrders">
+
+        <div class="myCard">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="row">
+                            <h3>Order Placed</h3>
+                        </div>
+                        <div class="row">
+                            <h3>{{order.datePlaced | date}}</h3>
+                        </div>
+                    </div>
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-3">
+                        <h3>Quantity: {{order.items.length}}</h3>
+                    </div>
+                    <div class="col-3">
+                        <h2> Amount: &#8377;{{order.totalCost}}</h2>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h3 class="cgreen">Order/Product Details</h3>
+                    </div>
+                    <div class="col-2">
+                        <h3 class="cgreen">Price and Quantity</h3>
+                    </div>
+                    <div class="col-3">
+                        <h3 class="cgreen">Shipping Details</h3>
+                    </div>
+                    <div class="col-3">
+                        <h3 class="cgreen">Buyer Details</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row prod" *ngFor="let item of order.items">
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <img [src]="item.product.imageUrl[0]" class="thumbnail">
+                                    </div>
+                                    <div class="col-7">
+                                        <h4><b>Order No:</b> {{order.$key}}</h4>
+                                        <h4><b>Product Name:</b> {{item.product.title}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="row">
+                                    <h3>Product Quantity: {{item.quantity}}</h3>
+                                </div>
+                                <div class="row">
+                                    <h3>Product Total: &#8377;{{item.totalPrice}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <h3>Shipping Address: {{order.shipping.address}}</h3>
+                                </div>
+                                <div class="row">
+                                    <h3>Shipping Pincode: {{order.shipping.pincode}}</h3>
+                                </div>
+                                <div class="row">
+                                    <h3>Shipping City: {{order.shipping.city}}</h3>
+                                </div>
+                                <div class="row">
+                                    <h3>Shipping State: {{order.shipping.state}}</h3>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <h3><b>Name:</b> {{order.shipping.name}}</h3>
+                                </div>
+                                <div class="row">
+                                    <h3><b>Phone:</b> {{order.shipping.number}}</h3>
+                                </div>
+                                <div class="row" *ngIf="order.shipping.altNumber">
+                                    <h3><b>Alternate:</b> {{order.shipping.altNumber}}</h3>
+                                </div>
+                                <div class="row">
+                                    <h3><b>Pincode:</b> {{order.shipping.pincode}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" (click)="changeTo(order.$key,'processing')" *ngIf="order.status === 'ordered'" class="btn btnGreen">
+                    Processing
+                </button>
+                <button type="button" (click)="changeTo(order.$key,'completed')" *ngIf="order.status === 'processing'" class="btn btnGreen">
+                    Complete
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

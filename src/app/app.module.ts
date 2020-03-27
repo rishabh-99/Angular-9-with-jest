@@ -18,6 +18,7 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormArray } from '@angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { FooterComponent } from './shopping/components/footer/footer.component';
+import { BannerPageComponent } from './shopping/components/banner-page/banner-page.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { FooterComponent } from './shopping/components/footer/footer.component';
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
     RouterModule.forRoot([
-      { path: '', component: ProductsComponent },
+      { path: '', component: BannerPageComponent },
+      { path: 'product-list', component: ProductsComponent },
       { path: 'login', component: LoginComponent },
     ]), BrowserAnimationsModule
   ],

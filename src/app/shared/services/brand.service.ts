@@ -8,8 +8,7 @@ export class BrandService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  getFor(categoryName) {
-    console.log(categoryName)
-    return this.db.database.ref(`/categories/${categoryName}/brands`);
+  getFor(main,categoryName) {
+    return this.db.list(`/mainCategories/${main}/categories/${categoryName}/brands`).snapshotChanges();
   }
 }

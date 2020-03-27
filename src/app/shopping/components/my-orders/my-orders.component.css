@@ -1,0 +1,39 @@
+.myCard {
+    border: 1px solid #c4c4c4;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.myCardHeader {
+    border-bottom: 1px solid #c4c4c4;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+hr {
+    width: 100%;
+}
+
+.product-card {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.thumbnail {
+    width: 150px;
+    height: 150px;
+    border-radius: 24px;
+    background-size: cover;
+    border: 1px solid #c4c4c4;
+}
+
+.noMargin {
+    margin-bottom: 0px;
+}
+
+.cgreen {
+    color: #00C543;
+}

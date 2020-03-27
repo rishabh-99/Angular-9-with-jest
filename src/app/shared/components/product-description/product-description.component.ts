@@ -32,7 +32,7 @@ export class ProductDescriptionComponent implements OnInit {
     private cartService: ShoppingCartService) {
     this.categories$ = categoryService.getAll();
     this.cartService.getCart().then((data) => {
-      data.subscribe(data2 =>{
+      data.subscribe(data2 => {
         this.shoppingCart = data2;
       })
     });
@@ -52,6 +52,12 @@ export class ProductDescriptionComponent implements OnInit {
 
   addToCart() {
     this.cartService.addToCart(this.product);
+  }
+  async buyNow() {
+    await this.cartService.clearCart()
+    await this.cartService.addToCart(this.product);
+
+    this.router.navigate(['/check-out']);
   }
 
 }

@@ -1,0 +1,15 @@
+.card {
+    border: 1px solid #c4c4c4;
+    width: 200px;
+    height: 500px;
+}
+
+.cardImage {
+    height: 200px;
+    width: 200px;
+}
+
+.mid {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}

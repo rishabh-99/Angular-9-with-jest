@@ -14,7 +14,7 @@
                 </li>
             </ul>
             <form class="form-inline" style="width: 50%;">
-                <input class="form-control searchBar" type="text" placeholder="Search" aria-label="Search">
+                <input type="search" class="form-control searchBar" (keyup.enter)='doSomething($event)' type="text" placeholder="Search" aria-label="Search">
             </form>
             <ul class="navbar-nav">
                 <ng-template #anonymousUser>
@@ -31,6 +31,7 @@
                         <ng-container *ngIf="appUser.isAdmin">
                             <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
                             <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
+                            <a class="dropdown-item" routerLink="/admin/home">Manage Home</a>
                         </ng-container>
                         <a class="dropdown-item" (click)="logout()">Log Out</a>
                     </div>
@@ -54,19 +55,21 @@
 <div>
     <nav class="navbar navbar-expand-md fixed-top fp">
 
-        <ul class="navbar-nav MyMargin">
-            <li ngbDropdown class="nav-item dropdown">
-                <a ngbDropdownToggle class="dropdown-toggle cwhite" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Surveilance
-      </a>
-                <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
-                    <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
-                    <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
-                </div>
-            </li>
-        </ul>
-        <ul class="navbar-nav MyMargin">
+        <ng-container *ngFor="let mc of mainCategories; let i = index">
+            <ul class="navbar-nav MyMargin">
+                <li ngbDropdown class="nav-item dropdown">
+                    <a ngbDropdownToggle class="dropdown-toggle cwhite" id="i" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{mc.payload.val().name}}
+          </a>
+                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="i">
+                        <div *ngFor="let l of mc.categories">
+                            <a class="dropdown-item" (click)="navigate(mc.payload.val().name,l.name)">{{l.name}}</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </ng-container>
+        <!-- <ul class="navbar-nav MyMargin">
             <li ngbDropdown class="nav-item dropdown">
                 <a ngbDropdownToggle class="dropdown-toggle cwhite" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Surveilance
@@ -125,6 +128,6 @@
                     <a class="dropdown-item" routerLink="/admin/products">Manage Products</a>
                 </div>
             </li>
-        </ul>
+        </ul> -->
     </nav>
 </div>

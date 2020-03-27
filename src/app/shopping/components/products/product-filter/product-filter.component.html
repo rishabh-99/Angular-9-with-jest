@@ -36,7 +36,26 @@
                 <p class="list-group-item list-group" style="font-size: medium;">Filters</p>
             </div>
             <div class="list-group">
-                <p class="list-group-item list-group">Categories</p>
+                <!-- <p class="list-group-item list-group">Categories</p> -->
+
+                <mat-accordion>
+                    <mat-expansion-panel class="list-group-item list-group">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Categories
+                            </mat-panel-title>
+                            <mat-panel-description>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-checkbox class="" [queryParams]="{main:main,category:'all', brand: brand }" [class.active]="category === 'all'" routerLink="/product-list">All Categories
+                        </mat-checkbox>
+                        <div *ngFor="let c of categories$; let i = index">
+                            <mat-checkbox routerLink="/" class="" [class.active]="category === c.$key" [(ngModel)]="c.checked" (click)="catOnClick(c.$key,c.checked)">
+                                {{ c.name }}
+                            </mat-checkbox>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </div>
             <div class="list-group">
                 <div class="list-group-item list-group">
@@ -47,7 +66,27 @@
                 </div>
             </div>
             <div class="list-group">
-                <p class="list-group-item list-group">Brands</p>
+                <mat-accordion>
+                    <mat-expansion-panel class="list-group-item list-group">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Brands
+                            </mat-panel-title>
+                            <mat-panel-description>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-checkbox class="" [queryParams]="{main:main, category: category, brand: 'all' }" [class.active]="brand === 'all'" routerLink="/product-list">All Brands
+                        </mat-checkbox>
+                        <div *ngFor="let b of brands; let i = index">
+                            <div *ngIf="b.$key != 'none'">
+                                <mat-checkbox class="" [(ngModel)]="b.checked" (click)="brandOnClick(b.name,b.checked)">
+                                    {{ b.name }}
+                                </mat-checkbox>
+                            </div>
+
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
             </div>
         </div>
     </div>

@@ -1,3 +1,14 @@
 table {
     width: 100%;
-  }
+}
+
+
+/* a {
+    cursor: pointer;
+    color: red;
+} */
+
+.redLink {
+    cursor: pointer;
+    color: red;
+}

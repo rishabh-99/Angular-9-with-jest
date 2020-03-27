@@ -22,6 +22,7 @@ export interface Tags {
 })
 export class ProductFormComponent implements OnInit {
   categories$ = [];
+  mainCategories = [];
   brand$ = [];
   product: Product = new Product();
   properties: FormArray = this.fb.array([]);
@@ -46,9 +47,13 @@ export class ProductFormComponent implements OnInit {
     private storage: AngularFireStorage,
   ) {
 
-    categoryService.getA().subscribe(data => {
-      console.log(data[0].payload.toJSON());
-      this.categories$ = data;
+    // categoryService.getA().subscribe(data => {
+    //   console.log(data[0].payload.toJSON());
+    //   this.categories$ = data;
+    // });
+
+    categoryService.getMainCategories().subscribe(data => {
+      this.mainCategories = data;
     });
 
 
@@ -60,7 +65,8 @@ export class ProductFormComponent implements OnInit {
         for (const url of this.product.imageUrl) {
           this.imgAvail = true;
         }
-        this.brand$.push({ name: this.product.brand });
+        this.fillCategory(this.product.mainCategory, true)
+        this.fillBrand(this.product.category, true)
         if (this.product.property) {
           for (const row of this.product.property) {
             this.properties.push(this.reCreateProperty(row));
@@ -254,12 +260,13 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  fillBrand(cat) {
-    console.log(this.categories$)
+  fillBrand(cat, con?) {
+    if (!con)
+      this.product.brand = ''
 
     for (const category of this.categories$) {
-      if (category.payload.val().name === cat.target.value) {
-        let obj = category.payload.val().brands;
+      if (category.$key === cat) {
+        let obj = category.brands;
         console.log(obj)
         if (obj === undefined) {
           obj = { noBrand: { name: 'No Brands', $key: 'noBrand' } }
@@ -274,6 +281,28 @@ export class ProductFormComponent implements OnInit {
       }
     }
     console.log(this.brand$);
+  }
+
+  fillCategory(mainCat, con?) {
+    if (!con)
+      this.product.category = ''
+    for (const mc of this.mainCategories) {
+      if (mc.payload.key === mainCat) {
+        let obj = mc.payload.val().categories;
+        console.log(obj)
+        if (obj === undefined) {
+          obj = { noCategory: { name: 'No Category', $key: 'noCategory' } }
+        }
+        this.categories$ = Object.keys(obj).map((key) => {
+
+          // Using obj[key] to retrieve key value
+          const rd = obj[key];
+          rd.$key = key;
+          return rd;
+        });
+        console.log(this.categories$)
+      }
+    }
   }
 
 }

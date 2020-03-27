@@ -16,7 +16,7 @@ import { toArray } from 'rxjs/operators';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'price', 'category', 'link'];
+  displayedColumns: string[] = ['title', 'price', 'category', 'link', 'remove'];
   dataSource: MatTableDataSource<any>;
   result: Array<any> = [];
 
@@ -36,7 +36,7 @@ export class AdminProductsComponent implements OnInit {
         this.result[i].$key = d.payload.key;
         i++;
       }
-      console.log(JSON.stringify(this.result))
+      // console.log(JSON.stringify(this.result))
       this.dataSource = new MatTableDataSource(this.result);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -68,6 +68,12 @@ export class AdminProductsComponent implements OnInit {
         default: return 0;
       }
     });
+  }
+
+  remove(key) {
+    if (confirm('Are you sure you want to delete?')) {
+      this.productService.delete(key);
+    }
   }
 
 }
