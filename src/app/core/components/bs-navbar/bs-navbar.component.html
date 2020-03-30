@@ -13,8 +13,9 @@
                     </a>
                 </li>
             </ul>
-            <form class="form-inline" style="width: 50%;">
+            <form class="form-inline" #f=ngForm style="width: 50%;" (ngSubmit)="doSomethingOnClick($event)">
                 <input type="search" class="form-control searchBar" (keyup.enter)='doSomething($event)' type="text" placeholder="Search" aria-label="Search">
+                <button class="btn" type="submit"><i class="fa fa-search"></i></button>
             </form>
             <ul class="navbar-nav">
                 <ng-template #anonymousUser>

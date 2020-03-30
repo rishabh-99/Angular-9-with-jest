@@ -35,17 +35,22 @@ export class ShoppingCartService {
   async clearCart() {
     let cartId = await this.getOrCreateCartId();
     this.db.object('/shopping-carts/' + cartId + '/items').remove();
+    this.db.object('/shopping-carts/' + cartId).update({totalQuantity: 0});
   }
 
 
   private create() {
     return this.db.list('/shopping-carts').push({
+      totalQuantity: 0,
       dateCreated: new Date().getTime()
     });
   }
 
   private getItem(cartId: string, productId: string) {
     return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
+  }
+  private getC(cartId: string) {
+    return this.db.object('/shopping-carts/' + cartId);
   }
 
   private async getOrCreateCartId(): Promise<string> {
@@ -59,10 +64,13 @@ export class ShoppingCartService {
 
   private async updateItem(product: Product, change: number) {
     let cartId = await this.getOrCreateCartId();
-    console.log(product.$key)
+    let c = this.getC(cartId);
+
+
+
     let item$ = this.getItem(cartId, product.$key);
 
-    item$.query.once('value', itema => {
+    item$.query.once('value', async (itema) => {
       var item = itema.val();
       if (item == undefined) {
         item = { quantity: 0 }
@@ -70,14 +78,26 @@ export class ShoppingCartService {
 
       let quantity = (item.quantity || 0) + change;
       if (quantity === 0) { item$.remove(); }
-      else {
-        item$.update({
-          title: product.title,
-          imageUrl: product.imageUrl,
-          price: product.price,
-          discount: product.discount,
-          quantity: quantity
-        });
+
+      else if (quantity <= 10) {
+
+        c.query.once('value', data => {
+          let oldQ = data.val().totalQuantity;
+          console.log(oldQ)
+          if (oldQ <= 19) {
+            item$.update({
+              title: product.title,
+              imageUrl: product.imageUrl,
+              price: product.price,
+              discount: product.discount,
+              quantity: quantity
+            });
+            const newQ = oldQ + change;
+            c.update({totalQuantity: newQ})
+          }
+        })
+
+
       }
     })
     // .subscribe((item:any) => {

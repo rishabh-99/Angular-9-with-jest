@@ -3,14 +3,15 @@ import { ShoppingCartItem } from './shopping-cart-item';
 
 export class ShoppingCart {
   items: ShoppingCartItem[] = [];
+  totalQuantity;
 
   constructor(private itemsMap: { [productId: string]: ShoppingCartItem }) {
     this.itemsMap = itemsMap || {};
-
     for (let productId in itemsMap) {
       let item = itemsMap[productId];
       this.items.push(new ShoppingCartItem({ ...item, $key: productId }));
     }
+
   }
 
   getQuantity(product: Product) {
@@ -19,7 +20,7 @@ export class ShoppingCart {
   }
 
   get totalPrice() {
-    let sum = 0; 
+    let sum = 0;
     // tslint:disable: prefer-const
     // tslint:disable: curly
     for (let productId in this.items)
@@ -44,5 +45,11 @@ export class ShoppingCart {
     for (let productId in this.itemsMap)
       count += this.itemsMap[productId].quantity;
     return count;
+  }
+  get totalItemsCoun(): Promise<number> {
+    let count = 0;
+    for (let productId in this.itemsMap)
+      count += this.itemsMap[productId].quantity;
+    return new Promise(() =>count);
   }
 }

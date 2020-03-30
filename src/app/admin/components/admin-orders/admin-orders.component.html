@@ -1,13 +1,13 @@
 <h1>Orders</h1>
 <div class="row">
     <div class="col-4">
-        <button class="myBtn btnGreen" (click)="filterOrder()">New Orders</button>
+        <button class="myBtn btnGreen" [ngClass]="orderClass ? 'selected' : 'notSelected'" (click)="filterOrder()">New Orders</button>
     </div>
     <div class="col-4">
-        <button class="myBtn btnGreen" (click)="filterProcessing()">Processing</button>
+        <button class="myBtn btnGreen" [ngClass]="processingClass ? 'selected' : 'notSelected'" (click)="filterProcessing()">Processing</button>
     </div>
     <div class="col-4">
-        <button class="myBtn btnGreen" (click)="filterCompleted()">Completed</button>
+        <button class="myBtn btnGreen" [ngClass]="completedClass ? 'selected' : 'notSelected'" (click)="filterCompleted()">Completed</button>
     </div>
 </div>
 
@@ -40,7 +40,7 @@
 <div class="row">
     <div *ngFor="let order of filteredOrders">
 
-        <div class="myCard">
+        <div class="myCard" style="word-wrap: break-word;">
             <div class="col-12">
                 <div class="row">
                     <div class="col-4">
@@ -81,7 +81,7 @@
                         <div class="row prod" *ngFor="let item of order.items">
                             <div class="col-8">
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-5" style="padding: 0px;">
                                         <img [src]="item.product.imageUrl[0]" class="thumbnail">
                                     </div>
                                     <div class="col-7">

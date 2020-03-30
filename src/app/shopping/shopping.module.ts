@@ -38,7 +38,7 @@ import { LowerBannerComponent } from './components/lower-banner/lower-banner.com
     MatCheckboxModule,
     NgxStarRatingModule,
     RouterModule.forChild([
-      { path: 'products', component: ProductsComponent },
+      // { path: 'product-list', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
       { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard] },

@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit {
   async ngOnInit() {
     this.filteredProducts.paginator = this.paginator;
     this.cart$ = await this.shoppingCartService.getCart()
+    console.log('A')
     this.cart$.subscribe(cart => this.cart = cart)
     this.populateProducts();
   }
@@ -126,14 +127,9 @@ export class ProductsComponent implements OnInit {
 
 
   private applyFilter() {
-    // this.filteredProducts = (this.category) ?
-    //   this.products.filter((p) =>
-    //     p.category === this.category && p.brand === this.brand
-    //   ) :
-    //   this.products;
     let catArray = this.category.split(',');
     let brandArray = this.brand.split(',')
-    if (this.q) {
+    if (this.q!=undefined) {
       this.filteredProducts.data = this.products.filter((p) => {
         if (p.brand.toLowerCase().indexOf(this.q.toLowerCase()) > -1 ||
           p.category.toLowerCase().indexOf(this.q.toLowerCase()) > -1 ||

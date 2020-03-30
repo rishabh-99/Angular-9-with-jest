@@ -8,6 +8,7 @@ import 'rxjs/add/operator/take';
 import { FormArray, FormGroup, Validators, FormBuilder, Form } from '@angular/forms';
 import { ShoppingCart } from '../../models/shopping-cart';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({
@@ -21,8 +22,8 @@ export class ProductDescriptionComponent implements OnInit {
   product: Product = new Product();
   properties: FormArray = this.fb.array([]);
   id;
-  shoppingCart: ShoppingCart;
-
+  cart$: Observable<ShoppingCart>;
+  cart;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -31,23 +32,26 @@ export class ProductDescriptionComponent implements OnInit {
     private fb: FormBuilder,
     private cartService: ShoppingCartService) {
     this.categories$ = categoryService.getAll();
-    this.cartService.getCart().then((data) => {
-      data.subscribe(data2 => {
-        this.shoppingCart = data2;
-      })
-    });
 
 
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       this.productService.get(this.id).subscribe((p) => {
-        this.product = p.payload.val() as Product;
+        this.product = p.payload.val() as Product
+        this.product.$key = p.key
+
+        console.log(this.product)
       });
     }
 
   }
-  ngOnInit() {
-
+  async ngOnInit() {
+    this.cart$ = await this.cartService.getCart();
+    console.log('AA')
+    this.cart$.subscribe(data => {
+      this.cart = data;
+      console.log(this.cart)
+    })
   }
 
   addToCart() {

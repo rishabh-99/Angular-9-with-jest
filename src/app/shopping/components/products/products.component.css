@@ -1,5 +1,6 @@
 .sticky-top {
     top: 325px;
+    z-index: 1;
 }
 
 #sorter {
@@ -93,4 +94,9 @@ table {
 .headData {
     word-wrap: break-word;
     word-break: break-all;
+}
+
+div.f {
+    width: 60%;
+    margin: 0px;
 }

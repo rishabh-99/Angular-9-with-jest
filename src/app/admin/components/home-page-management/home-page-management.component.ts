@@ -79,6 +79,7 @@ export class HomePageManagementComponent implements OnInit {
   }
 
   save() {
+    alert('Saving Please Wait!');
 
     let imagePath = `home/${new Date()}_${this.selectedImage[0].name}`;
     let imgRef = this.storage.ref(imagePath);
@@ -144,25 +145,31 @@ export class HomePageManagementComponent implements OnInit {
   }
 
   addMainCategory() {
-    this.categoryService.addMain(this.newMainCat, this.newMainCatDesc)
+    this.categoryService.addMain(this.newMainCat, this.newMainCatDesc);
+    alert('Main Category Added');
   }
 
   removeMainCategory() {
     this.categoryService.removeMain(this.toBeRemovedMainCat);
+    alert('Main Category Removed');
   }
 
   addnewCategory() {
     this.categoryService.addCat(this.chosenMainCat, this.newCat);
+    alert('Category Added');
   }
   removeCategory() {
     this.categoryService.removeCat(this.chosenMainCat, this.chosenCat);
+    alert('Category Removed');
   }
 
   addBrand() {
     this.categoryService.addBrand(this.chosenMainCat, this.chosenCat, this.newBrandName);
+    alert('Brand Added');
   }
 
   removeBrand() {
     this.categoryService.removeBrand(this.chosenMainCat, this.chosenCat, this.chosenBrand);
+    alert('Brand Removed');
   }
 }

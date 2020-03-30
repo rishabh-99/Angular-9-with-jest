@@ -19,6 +19,7 @@ export class BsNavbarComponent implements OnInit {
   value;
   mainCategories = [];
   imgUrl;
+  searchText = 'AA';
 
   constructor(private auth: AuthService, private shoppingCartService: ShoppingCartService, private categoryService: CategoryService,
     private route: ActivatedRoute, private router: Router) {
@@ -57,14 +58,31 @@ export class BsNavbarComponent implements OnInit {
     this.route.queryParamMap.subscribe(param => {
       if (param) {
         const brand = param.get('brand') || 'all';
-        this.router.navigate(['/product-list/'], { queryParams: { main, category, brand: 'all' } })
+        this.router.navigate(['/product-list'], { queryParams: { main, category, brand: 'all' } })
       }
-    })
+    }).unsubscribe();
   }
 
   doSomething(event) {
-    if(event.target.value != ''){
-    this.router.navigate(['/product-list/'], { queryParams: { q:event.target.value } })
+    if (event.target.value !== '') {
+      this.route.queryParamMap.subscribe(param => {
+        if (param) {
+          this.router.navigate(['/product-list'], { queryParams: { q: event.target.value } }).catch(err => console.log(err))
+            .then(data => console.log(data))
+        }
+      }).unsubscribe();
+    }
+  }
+
+  doSomethingOnClick(event) {
+    if (event.target.elements[0].value !== '') {
+      console.log(this.searchText)
+      this.route.queryParamMap.subscribe(param => {
+        if (param) {
+          this.router.navigate(['/product-list'], { queryParams: { q: event.target.elements[0].value } }).catch(err => console.log(err))
+            .then(data => console.log(data))
+        }
+      }).unsubscribe();
     }
   }
 }

@@ -1,6 +1,6 @@
 <div class="row" *ngIf="this.product.title">
     <div class="col-4">
-        <div class="fixed-top">
+        <div class="sticky-top" style="top:130px; z-index:1;">
             <div class="imageContainer">
                 <img class="mainImage" [src]="this.product.imageUrl[0]">
                 <div class="row">
@@ -16,17 +16,17 @@
                 </div>
             </div>
             <div class="cartBtn">
-                <div *ngIf="shoppingCart != null">
-                    <button *ngIf="shoppingCart.getQuantity(product) === 0;" (click)="buyNow()" class="btn btn-secondary btn-block buyNowBtn">
+                <div *ngIf="cart">
+                    <button *ngIf="cart.getQuantity(product) === 0;" (click)="buyNow()" class="btn btn-secondary btn-block buyNowBtn">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                              Buy Now</button>
                 </div>
 
             </div>
-            <div class="cartBtn">
-                <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
+            <div class="cartBtn" *ngIf="cart">
+                <button *ngIf="cart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
                 <ng-template #updateQuantity>
-                    <product-quantity [product]="product" [shopping-cart]="shoppingCart">
+                    <product-quantity [product]="product" [shopping-cart]="cart">
                     </product-quantity>
                 </ng-template>
             </div>

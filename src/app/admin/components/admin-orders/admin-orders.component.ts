@@ -24,6 +24,10 @@ import { SnapshotAction } from '@angular/fire/database/database';
 })
 
 export class AdminOrdersComponent implements OnInit {
+
+  orderClass = false;
+  processingClass = false;
+  completedClass = false;
   filteredOrders: Array<any> = [];
   /**
    * orders$ is used by HTML to iterate through the list of orders.
@@ -76,6 +80,7 @@ export class AdminOrdersComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.filteredOrders = this.orders$;
+      this.filterOrder();
       console.log(this.orders$);
     });
   }
@@ -119,6 +124,9 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   filterOrder() {
+    this.orderClass = true;
+    this.completedClass = false;
+    this.processingClass = false;
     this.filteredOrders = this.orders$.filter(val => {
       if (val.status === 'ordered') {
         return true;
@@ -128,6 +136,9 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   filterProcessing() {
+    this.orderClass = false;
+    this.completedClass = false;
+    this.processingClass = true;
     this.filteredOrders = this.orders$.filter(val => {
       if (val.status === 'processing') {
         return true;
@@ -137,6 +148,9 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   filterCompleted() {
+    this.orderClass = false;
+    this.completedClass = true;
+    this.processingClass = false;
     this.filteredOrders = this.orders$.filter(val => {
       if (val.status === 'completed') {
         return true;
@@ -146,7 +160,7 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   changeTo(key, status) {
-    this.orderService.changeTo(key,status)
+    this.orderService.changeTo(key, status)
   }
 }
 

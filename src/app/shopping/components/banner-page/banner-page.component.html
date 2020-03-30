@@ -1,7 +1,7 @@
-<div *ngIf="imgUrl">
+<div *ngIf="imgUrl" class="lowZ">
     <carousel [noPause]="false">
         <slide *ngFor="let url of imgUrl">
-            <img [src]="url" alt="first slide" style="display: block; width: 100%; height: 400px;">
+            <img [src]="url" alt="first slide" style="display: block; width: 1280px; height: 400px; margin: auto; background-color: white;">
         </slide>
 
     </carousel>
@@ -22,31 +22,34 @@
         <div class="row">
             <div class="col-4">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="this.products$[0].payload.val().imageUrl[0]" alt="Card image cap">
+                    <img class="card-img-top" [src]="this.products$[0].payload.val().imageUrl[0]" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{this.products$[0].payload.val().title}}</h3>
-                        <p class="card-text">Price &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
-                        <button type="button" (click)="nav(this.products$[0].key)" class="btn btn-primary">Go somewhere</button>
+                        <p class="card-text">&#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
+                        <p class="card-text"><span style="color: #c4c4c4;">&#8377;<s>{{this.products$[0].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[0].payload.val().discount}}%</span></p>
+                        <button type="button" (click)="nav(this.products$[0].key)" class="btn btn-primary">View</button>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="this.products$[1].payload.val().imageUrl[0]" alt="Card image cap">
+                    <img class="card-img-top" [src]="this.products$[1].payload.val().imageUrl[0]" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{this.products$[1].payload.val().title}}</h3>
-                        <p class="card-text">Price &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
-                        <button type="button" (click)="nav(this.products$[1].key)" class="btn btn-primary">Go somewhere</button>
+                        <p class="card-text">Price &#8377;{{this.products$[1].payload.val().price - (this.products$[1].payload.val().price * this.products$[1].payload.val().discount * .01)}}</p>
+                        <p class="card-text"><span style="color: #c4c4c4;">&#8377;<s>{{this.products$[1].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[1].payload.val().discount}}%</span></p>
+                        <button type="button" (click)="nav(this.products$[1].key)" class="btn btn-primary">View</button>
                     </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" [src]="this.products$[1].payload.val().imageUrl[0]" alt="Card image cap">
+                    <img class="card-img-top" [src]="this.products$[2].payload.val().imageUrl[0]" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{this.products$[0].payload.val().title}}</h3>
                         <p class="card-text">Price &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}}</p>
-                        <button type="button" (click)="nav(this.products$[1].key)" class="btn btn-primary">Go somewhere</button>
+                        <p class="card-text"><span style="color: #c4c4c4;">&#8377;<s>{{this.products$[2].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[2].payload.val().discount}}%</span></p>
+                        <button type="button" (click)="nav(this.products$[1].key)" class="btn btn-primary">View</button>
                     </div>
                 </div>
             </div>

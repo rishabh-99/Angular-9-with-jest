@@ -37,11 +37,13 @@ hr {
 }
 
 .thumbnail {
-    width: 150px;
+    max-width: 150px;
+    width: inherit;
     height: 150px;
     border-radius: 24px;
     background-size: cover;
     border: 1px solid #c4c4c4;
+    background-color: white;
 }
 
 .col-1,
@@ -68,4 +70,12 @@ hr {
 .cgreen {
     color: #24FF00;
     font-size: 20px;
+}
+
+.selected {
+    border: 2px solid rgb(29, 161, 9);
+}
+
+.notSelected {
+    border: 0px;
 }

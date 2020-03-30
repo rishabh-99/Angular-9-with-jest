@@ -35,3 +35,7 @@
 .navbar {
     border-bottom: 0px;
 }
+
+.btn {
+    margin-left: -45px;
+}
