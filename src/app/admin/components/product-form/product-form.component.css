@@ -1,3 +1,23 @@
 .example-chip-list {
     width: 100%;
-  }
+}
+
+.displayImage {
+    width: 100%;
+    height: auto;
+}
+
+.contRow {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.imageRow {
+    margin-bottom: 40px;
+}
+
+.imageHolder {
+    max-width: 400px;
+    min-width: 280px;
+    margin-bottom: 20px;
+}

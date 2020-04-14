@@ -1,163 +1,155 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <form #f="ngForm" (ngSubmit)="save()">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
-                    <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
-                        Title is required.
-                    </div>
+<!-- <div class="container"> -->
+<div class="row contRow">
+    <!-- <div class="col-md-2"></div> -->
+    <div class="col-md-4">
+        <form #f="ngForm" (ngSubmit)="save()">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+                    Title is required.
                 </div>
-                <div class="form-group">
-                    <label for="price">Price</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">&#8377;</span>
-                        <input #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" required>
-                    </div>
-                    <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
-                        <div *ngIf="price.errors.required">Price is required.</div>
-                        <div *ngIf="price.errors.min">Price should be 0 or higher.</div>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <div class="input-group">
+                    <span class="input-group-addon">&#8377;</span>
+                    <input #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" required>
                 </div>
-                <div class="form-group">
-                    <label for="mainCategory">Main Category</label>
-                    <select #subCategory="ngModel" [(ngModel)]="product.mainCategory" name="mainCategory" id="mainCategory" class="form-control" (change)="fillCategory($event.target.value)" required>
+                <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                    <div *ngIf="price.errors.required">Price is required.</div>
+                    <div *ngIf="price.errors.min">Price should be 0 or higher.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mainCategory">Main Category</label>
+                <select #subCategory="ngModel" [(ngModel)]="product.mainCategory" name="mainCategory" id="mainCategory" class="form-control" (change)="fillCategory($event.target.value)" required>
             <option value="" disabled></option>
             <ng-container *ngFor="let mc of mainCategories">
                 <option [value]="mc.payload.key" >{{mc.payload.val().name}}</option>
             </ng-container>
           </select>
-                    <div class="alert alert-danger" *ngIf="subCategory.touched && subCategory.invalid">
-                        Category is required.
-                    </div>
+                <div class="alert alert-danger" *ngIf="subCategory.touched && subCategory.invalid">
+                    Category is required.
                 </div>
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control" required (change)="fillBrand($event.target.value)">
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select #category="ngModel" [(ngModel)]="product.category" name="category" id="category" class="form-control" required (change)="fillBrand($event.target.value)">
             <option value="" disabled></option>
             <option *ngFor="let c of categories$" [value]="c.$key">
               {{ c.name }}
             </option>
           </select>
-                    <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
-                        Category is required.
-                    </div>
+                <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+                    Category is required.
                 </div>
-                <div *ngIf="!imgAvail" class="form-group">
-                    <label for="imageUrl">Image URL</label>
-                    <input #imageUrl="ngModel" [(ngModel)]="img[0]" name="imageUrl" id="imageUrl" type="file" class="form-control" accept="image/*" required (change)="loadPreview($event)">
-                    <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
-                        <div *ngIf="imageUrl.errors.required">Image URL is required.</div>
-                        <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>
-                    </div>
-                </div>
-                <div *ngIf="img[0]" class="form-group">
-                    <label for="imageUrl2">Image URL 1</label>
-                    <input #imageUrl2="ngModel" [(ngModel)]="img[1]" name="imageUrl2" id="imageUrl2" type="file" class="form-control" accept="image/*" (change)="loadPreview2($event)">
-                    <div class="alert alert-danger" *ngIf="imageUrl2.touched && imageUrl2.invalid">
-                        <div *ngIf="imageUrl2.errors.required">Image URL is required.</div>
-                        <div *ngIf="imageUrl2.errors.url">Please enter a valid URL.</div>
-                    </div>
-                </div>
-                <div *ngIf="img[1]" class="form-group">
-                    <label for="imageUrl3">Image URL 2</label>
-                    <input #imageUrl3="ngModel" [(ngModel)]="img[2]" name="imageUrl3" id="imageUrl3" type="file" class="form-control" accept="image/*" (change)="loadPreview3($event)">
-                    <div class="alert alert-danger" *ngIf="imageUrl3.touched && imageUrl3.invalid">
-                        <div *ngIf="imageUrl3.errors.required">Image URL is required.</div>
-                        <div *ngIf="imageUrl3.errors.url">Please enter a valid URL.</div>
-                    </div>
-                </div>
-                <div *ngIf="img[2]" class="form-group">
-                    <label for="imageUrl4">Image URL 3</label>
-                    <input #imageUrl4="ngModel" [(ngModel)]="img[3]" name="imageUrl4" id="imageUrl4" type="file" class="form-control" accept="image/*" (change)="loadPreview4($event)">
-                    <div class="alert alert-danger" *ngIf="imageUrl4.touched && imageUrl4.invalid">
-                        <div *ngIf="imageUrl4.errors.required">Image URL is required.</div>
-                        <div *ngIf="imageUrl4.errors.url">Please enter a valid URL.</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea #description="ngModel" [(ngModel)]="product.description" name="description" id="description" type="text" class="form-control" required></textarea>
-                    <div class="alert alert-danger" *ngIf="description.touched && description.invalid">
-                        <div *ngIf="description.errors.required">Description is required.</div>
-                    </div>
-                </div>
+            </div>
+            <!-- app.component.html -->
+            <file-pond #myPond [options]="pondOptions" [files]="pondFiles" (oninit)="pondHandleInit()" (onaddfile)="pondHandleAddFile($event)">
+            </file-pond>
 
-                <div class="form-group">
-                    <label for="brand">Brand</label>
-                    <select #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" class="form-control" required>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea #description="ngModel" [(ngModel)]="product.description" name="description" id="description" type="text" class="form-control" required></textarea>
+                <div class="alert alert-danger" *ngIf="description.touched && description.invalid">
+                    <div *ngIf="description.errors.required">Description is required.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="brand">Brand</label>
+                <select #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" class="form-control" required>
             <option value="" disabled></option>
             <option *ngFor="let b of brand$" [value]="b.name">
               {{ b.name }}
             </option>
           </select>
-                    <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
-                        Category is required.
-                    </div>
+                <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
+                    Category is required.
                 </div>
-                <div class="form-group">
-                    <label for="price">In Stock?</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">&#8377;</span>
-                        <input #stock="ngModel" [(ngModel)]="product.inStock" name="stock" id="stock" type="checkbox" class="form-control">
-                    </div>
-
-                </div>
-                <div class="form-group">
-                    <label for="discount">Discount</label>
-                    <div class="input-group">
-                        <input #discount="ngModel" [(ngModel)]="product.discount" name="discount" id="discount" type="number" class="form-control" required><span class="input-group-addon">&#8377;</span>
-                    </div>
-                    <div class="alert alert-danger" *ngIf="discount.touched && discount.invalid">
-                        <div *ngIf="discount.errors.required">Discount is required.</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <mat-form-field class="example-chip-list">
-                        <mat-chip-list #chipList aria-label="Tag Selection">
-                            <mat-chip *ngFor="let tag of product.tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-                                {{tag.name}}
-                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                            </mat-chip>
-                            <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-                        </mat-chip-list>
-                    </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label for="price">In Stock?</label>
+                <div class="input-group">
+                    <span class="input-group-addon">&#8377;</span>
+                    <input #stock="ngModel" [(ngModel)]="product.inStock" name="stock" id="stock" type="checkbox" class="form-control">
                 </div>
 
-                <div class="form-group">
-                    <label for="">Properties</label>
+            </div>
+            <div class="form-group">
+                <label for="discount">Discount</label>
+                <div class="input-group">
+                    <input #discount="ngModel" [(ngModel)]="product.discount" name="discount" id="discount" type="number" class="form-control" required><span class="input-group-addon">&#8377;</span>
                 </div>
-                <div *ngFor="let property of properties.controls; let i=index">
-                    <div class="col-xs-12" [id]="i" style="width: 85%; margin:auto;">
-                        <form [formGroup]="property">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <input class="form-control" placeholder="Property Id" formControlName="propertyId" required>
-                                </div>
-                                <div class="col-xs-3">
-                                    <input class="form-control" placeholder="Property Name" formControlName="propertyName" required>
-                                </div>
-                                <div class="col-xs-4">
-                                    <button type="button" class="btn btn-danger" (click)="removePropertyClick(i)">
+                <div class="alert alert-danger" *ngIf="discount.touched && discount.invalid">
+                    <div *ngIf="discount.errors.required">Discount is required.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <mat-form-field class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Tag Selection">
+                        <mat-chip *ngFor="let tag of product.tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                            {{tag.name}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <label for="">Properties</label>
+            </div>
+            <div *ngFor="let property of properties.controls; let i=index">
+                <div class="col-xs-12" [id]="i" style="width: 85%; margin:auto;">
+                    <form [formGroup]="property">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input class="form-control" placeholder="Property Id" formControlName="propertyId" required>
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control" placeholder="Property Name" formControlName="propertyName" required>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-danger" (click)="removePropertyClick(i)">
                     Remove
                   </button>
-                                </div>
                             </div>
-                        </form>
-                        <br>
-                    </div>
+                        </div>
+                    </form>
+                    <br>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="button" (click)="addProperty()">Add Property</button>
-                </div>
-                <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
-                <button *ngIf="id" type="button" (click)="delete()" class="btn btn-danger">Delete</button>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="button" (click)="addProperty()">Add Property</button>
+            </div>
+            <button [disabled]="!f.valid" class="btn btn-primary">Save</button>
+            <button *ngIf="id" type="button" (click)="delete()" class="btn btn-danger">Delete</button>
 
-            </form>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <div class="row imageRow">
+            <div class="imageHolder col-6" *ngIf="product.imageUrl[0]">
+                <img class="displayImage" [src]="product.imageUrl[0]" alt="">
+                <button class="btn btn-danger" (click)="removeImage(product.imageUrl[0])">Remove</button>
+            </div>
+            <div class="imageHolder col-6 " *ngIf="product.imageUrl[1] ">
+                <img class="displayImage " [src]="product.imageUrl[1] " alt=" ">
+                <button class="btn btn-danger " (click)="removeImage(product.imageUrl[1]) ">Remove</button>
+            </div>
         </div>
-        <div class="col-md-6">
-            <img [src]="product.imageUrl[0]">
+        <div class="row imageRow ">
+            <div class="imageHolder col-6 " *ngIf="product.imageUrl[2] ">
+                <img class="displayImage " [src]="product.imageUrl[2] " alt=" ">
+                <button class="btn btn-danger " (click)="removeImage(product.imageUrl[2]) ">Remove</button>
+            </div>
+            <div class="imageHolder col-6 " *ngIf="product.imageUrl[3] ">
+                <img class="displayImage " [src]="product.imageUrl[3] " alt=" ">
+                <button class="btn btn-danger " (click)="removeImage(product.imageUrl[3]) ">Remove</button>
+            </div>
         </div>
     </div>
 </div>
+<!-- </div> -->

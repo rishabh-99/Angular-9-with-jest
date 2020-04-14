@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../shared/services/product.service';
 import { CategoryService } from '../../../shared/services/category.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import 'rxjs/add/operator/take';
 import { FormArray, FormGroup, Validators, FormBuilder, Form, AbstractControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 export interface Tags {
   name: string;
@@ -35,7 +36,74 @@ export class ProductFormComponent implements OnInit {
   addOnBlur = true;
   selectedImage: any[] = []
   imgAvail = false;
+  currFileName;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  @ViewChild('myPond') myPond: any;
+
+  pondOptions = {
+    class: 'my-filepond',
+    multiple: true,
+    labelIdle: 'Drop files here',
+    acceptedFileTypes: 'image/jpeg, image/png',
+    allowImageValidateSize: true,
+    imageValidateSizeMaxWidth: 400,
+    imageValidateSizeMaxHeight: 400,
+    imageValidateSizeLabelImageSizeTooBig: 'Image is too big',
+    imageValidateSizeLabelExpectedMaxSize: 'Maximum size is {400px} × {400px}',
+    
+    server: {
+      process: (fieldName, file: File, metadata, load, error, progress, abort, transfer, options) => {
+        if (this.product.imageUrl.length <= 3) {
+          let tempUrl;
+          // tslint:disable-next-line: max-line-length
+          const imagePath = `${this.product.mainCategory}/${this.product.category}/${this.product.title}/${new Date().getTime()}_${file.name}`;
+          this.currFileName = imagePath;
+          const ref = this.storage.ref(imagePath);
+          const task = ref.put(file);
+
+          task.percentageChanges().subscribe(percentage => {
+            progress(1, percentage, 100);
+          });
+
+          task.then((snap) => {
+            load('Success');
+            ref.getDownloadURL().subscribe(url => {
+              if (this.product.imageUrl.length <= 3) {
+                this.product.imageUrl.push(url);
+                if (this.id) this.productService.update(this.id, this.product);
+                else this.productService.create(this.product);
+              } else {
+                alert('There are already 4 images!');
+              }
+            });
+          });
+
+          task.catch((err) => {
+            error('Error!');
+          })
+
+          return {
+            abort: () => {
+              // This function is entered if the user has tapped the cancel button
+              // imgRef.
+              task.cancel();
+              alert('Image is removed');
+              // Let FilePond know the request has been cancelled
+              abort();
+            }
+          };
+        } else {
+          error('Cannot Upload any more files');
+          alert('There are already 4 images!');
+          return;
+        }
+      }
+    }
+  }
+
+  pondFiles = [
+    // 'index.png',
+  ]
 
 
   constructor(
@@ -45,6 +113,7 @@ export class ProductFormComponent implements OnInit {
     private productService: ProductService,
     private fb: FormBuilder,
     private storage: AngularFireStorage,
+    private http: HttpClient
   ) {
 
     // categoryService.getA().subscribe(data => {
@@ -56,8 +125,7 @@ export class ProductFormComponent implements OnInit {
       this.mainCategories = data;
     });
 
-let a= 'aaa';
-a.split(', ')
+
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
       this.productService.get(this.id).subscribe(data => {
@@ -98,6 +166,9 @@ a.split(', ')
     if (index >= 0) {
       this.product.tags.splice(index, 1);
     }
+  }
+  aa() {
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAA')
   }
 
   loadPreview(event) {
@@ -147,83 +218,11 @@ a.split(', ')
   }
 
   save() {
-    console.log(this.selectedImage)
-    if ((this.selectedImage[0])) {
-      let imagePath = `${this.product.category}_${this.product.title}_${this.selectedImage[0].name}_${new Date().getTime()}`;
-      let imgRef = this.storage.ref(imagePath);
-      this.storage.upload(imagePath, this.selectedImage[0]).snapshotChanges().pipe(
-        finalize(() => {
-          imgRef.getDownloadURL().subscribe((url: string) => {
-            this.product.imageUrl[0] = url.valueOf();
-            if (this.selectedImage[1]) {
-              imagePath = `${this.product.category}_${this.product.title}_${this.selectedImage[1].name}_${new Date().getTime()}`;
-              imgRef = this.storage.ref(imagePath);
-              this.storage.upload(imagePath, this.selectedImage[1]).snapshotChanges().pipe(
-                finalize(() => {
-                  imgRef.getDownloadURL().subscribe((url: string) => {
-                    this.product.imageUrl[1] = url.valueOf();
-                    if (this.selectedImage[2]) {
-                      imagePath = `${this.product.category}_${this.product.title}_${this.selectedImage[2].name}_${new Date().getTime()}`;
-                      imgRef = this.storage.ref(imagePath);
-                      this.storage.upload(imagePath, this.selectedImage[2]).snapshotChanges().pipe(
-                        finalize(() => {
-                          imgRef.getDownloadURL().subscribe((url: string) => {
-                            this.product.imageUrl[2] = url.valueOf();
-                            if (this.selectedImage[3]) {
-                              // tslint:disable-next-line: max-line-length
-                              imagePath = `${this.product.category}_${this.product.title}_${this.selectedImage[3].name}_${new Date().getTime()}`;
-                              imgRef = this.storage.ref(imagePath);
-                              this.storage.upload(imagePath, this.selectedImage[3]).snapshotChanges().pipe(
-                                finalize(() => {
-                                  imgRef.getDownloadURL().subscribe((url: string) => {
-                                    this.product.imageUrl[3] = url.valueOf();
-                                    this.product.property = this.properties.value;
-                                    console.log(this.product)
-                                    if (this.id) this.productService.update(this.id, this.product);
-                                    else this.productService.create(this.product);
-                                    this.router.navigate(['/admin/products']);
-                                  });
-                                })
-                              ).subscribe();
-                            } else {
-                              this.product.property = this.properties.value;
-                              console.log(this.product)
-                              if (this.id) this.productService.update(this.id, this.product);
-                              else this.productService.create(this.product);
-                              this.router.navigate(['/admin/products']);
-                            }
-                          });
-                        })
-                      ).subscribe();
-                    } else {
-                      this.product.property = this.properties.value;
-                      console.log(this.product)
-                      if (this.id) this.productService.update(this.id, this.product);
-                      else this.productService.create(this.product);
-                      this.router.navigate(['/admin/products']);
-                    }
-                  });
-                })
-              ).subscribe();
-            } else {
-              this.product.property = this.properties.value;
-              console.log(this.product)
-              if (this.id) this.productService.update(this.id, this.product);
-              else this.productService.create(this.product);
-              this.router.navigate(['/admin/products']);
-            }
-          });
-        })
-      ).subscribe();
-    } else {
-      this.product.property = this.properties.value;
-      console.log(this.product)
-      if (this.id) this.productService.update(this.id, this.product);
-      else this.productService.create(this.product);
-      this.router.navigate(['/admin/products']);
-    }
 
-
+    this.product.property = this.properties.value;
+    if (this.id) this.productService.update(this.id, this.product);
+    else this.productService.create(this.product);
+    this.router.navigate(['/admin/products']);
 
   }
 
@@ -306,4 +305,25 @@ a.split(', ')
     }
   }
 
+  pondHandleInit() {
+    console.log('FilePond has initialised', this.myPond);
+  }
+
+  pondHandleAddFile(event: any) {
+    console.log('A file was added', event.file.file);
+  }
+
+  removeImage(url) {
+    const index = this.product.imageUrl.findIndex(u => {
+      if (u === url) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    this.product.imageUrl.splice(index, 1);
+    this.storage.storage.refFromURL(url).delete();
+    if (this.id) this.productService.update(this.id, this.product);
+    else this.productService.create(this.product);
+  }
 }

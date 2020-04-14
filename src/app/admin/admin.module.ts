@@ -27,6 +27,21 @@ import { HomePageManagementComponent } from './components/home-page-management/h
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { HomeComponent } from '../core/components/home/home.component';
 import { HomeService } from './services/home.service';
+// import filepond module
+import { FilePondModule, registerPlugin } from 'ngx-filepond';
+ 
+// import and register filepond file type validation plugin
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+
+// Import the plugin styles
+import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css';
+
+registerPlugin(FilePondPluginFileValidateType);
+registerPlugin(FilePondPluginImagePreview);
+registerPlugin(FilePondPluginImageValidateSize);
+
 
 
 export const routes: Routes = [
@@ -77,7 +92,8 @@ export const routes: Routes = [
     MatSortModule,
     MatFormFieldModule,
     MatPaginatorModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FilePondModule
   ],
   declarations: [
     ProductFormComponent,

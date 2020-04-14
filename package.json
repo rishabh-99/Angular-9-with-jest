@@ -33,6 +33,11 @@
         "@ngx-gallery/lightbox": "^4.0.3",
         "angular-4-data-table": "^0.4.6",
         "bootstrap": "^4.4.1",
+        "filepond": "^4.13.4",
+        "filepond-plugin-file-validate-type": "^1.2.5",
+        "filepond-plugin-image-edit": "^1.6.0",
+        "filepond-plugin-image-preview": "^4.6.1",
+        "filepond-plugin-image-validate-size": "^1.2.3",
         "firebase": "^7.8.0",
         "font-awesome": "^4.7.0",
         "lodash": "^4.17.15",
@@ -41,6 +46,7 @@
         "ng5-slider": "^1.2.4",
         "ngx-bootstrap": "^5.5.0",
         "ngx-file-drop": "^8.0.8",
+        "ngx-filepond": "^5.0.1",
         "ngx-star-rating": "0.0.1",
         "rxjs": "~6.5.4",
         "tslib": "^1.10.0",
@@ -84,7 +90,8 @@
             "<rootDir>/src/setup-jest.ts"
         ],
         "reporters": [
-            "default", [
+            "default",
+            [
                 "./node_modules/jest-html-reporter",
                 {
                     "pageTitle": "Test Report"

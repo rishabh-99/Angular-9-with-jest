@@ -50,7 +50,7 @@
             </div>
             <div>
                 <div class="priceCardFooter">
-                    <button *ngIf="cart.items.length" routerLink="/check-out" class="btn myBtn btnGreen">Pay Securely <i class="fa user-lock" aria-hidden="true"></i></button>
+                    <button *ngIf="cart.items.length" (click)="pop('Payment functionality is not available yet')" class="btn myBtn btnGreen">Pay Securely <i class="fa user-lock" aria-hidden="true"></i></button>
                 </div>
                 <div class="smallBtn">
                     <button class="btn myBtn btnGray" routerLink="/shopping-cart">Cancel</button>
