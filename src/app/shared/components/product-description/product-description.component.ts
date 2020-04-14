@@ -105,7 +105,7 @@ export class ProductDescriptionComponent implements OnInit {
 
     // })
     this.orderService.getPincodes().subscribe(data => {
-      console.log(data)
+      console.log(data) 
       if (data.indexOf(`${this.InPincode}`) > -1) {
         this.isPincodeValid = true;
         alert('Your area is servicable');
