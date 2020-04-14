@@ -1,7 +1,14 @@
 .card {
     border: 1px solid #c4c4c4;
     width: 200px;
-    height: 500px;
+    height: 370px;
+    border-radius: 30px;
+}
+
+.card:hover {
+    /* box-shadow: whitesmoke; */
+    border: 1px groove;
+    cursor: pointer;
 }
 
 .cardImage {
@@ -22,4 +29,16 @@
     background-color: white;
     height: 280px;
     width: 280px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+::ng-deep .carousel-indicators {
+    z-index: 1;
+}
+
+h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

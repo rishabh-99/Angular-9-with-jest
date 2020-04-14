@@ -50,4 +50,25 @@ export class CategoryService {
   removeBrand(main, cat, brand) {
     return this.db.database.ref(`/mainCategories/${main}/categories/${cat}/brands/${brand}`).remove();
   }
+
+  addPincode(pincode) {
+    // return this.db.list('/pincode').push(pincode)
+    return this.db.database.ref('/pincode').child(pincode).set(pincode);
+  }
+
+  remPin(pincode) {
+    return this.db.database.ref(`/pincode/${pincode}`).remove();
+  }
+
+  fetchAll() {
+    return this.db.list('/pincode').snapshotChanges();
+  }
+
+  modifyPin(pincodes) {
+    this.db.database.ref('/pincode').remove().then(() => {
+      for (const p of pincodes) {
+        this.db.database.ref('/pincode').child(p.name).set(p.name);
+      }
+    });
+  }
 }

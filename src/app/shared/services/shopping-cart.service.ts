@@ -35,7 +35,7 @@ export class ShoppingCartService {
   async clearCart() {
     let cartId = await this.getOrCreateCartId();
     this.db.object('/shopping-carts/' + cartId + '/items').remove();
-    this.db.object('/shopping-carts/' + cartId).update({totalQuantity: 0});
+    this.db.object('/shopping-carts/' + cartId).update({ totalQuantity: 0 });
   }
 
 
@@ -77,14 +77,18 @@ export class ShoppingCartService {
       }
 
       let quantity = (item.quantity || 0) + change;
-      if (quantity === 0) { item$.remove(); }
-
-      else if (quantity <= 10) {
+      if (quantity === 0) {
+        item$.remove();
+        c.query.once('value', data => {
+          let oldQ = data.val().totalQuantity;
+          const newQ = oldQ + change;
+          c.update({ totalQuantity: newQ })
+        })
+      } else if (quantity <= 10) {
 
         c.query.once('value', data => {
           let oldQ = data.val().totalQuantity;
-          console.log(oldQ)
-          if (oldQ <= 19) {
+          if (change < 0) {
             item$.update({
               title: product.title,
               imageUrl: product.imageUrl,
@@ -93,7 +97,17 @@ export class ShoppingCartService {
               quantity: quantity
             });
             const newQ = oldQ + change;
-            c.update({totalQuantity: newQ})
+            c.update({ totalQuantity: newQ })
+          } else if (oldQ <= 49) {
+            item$.update({
+              title: product.title,
+              imageUrl: product.imageUrl,
+              price: product.price,
+              discount: product.discount,
+              quantity: quantity
+            });
+            const newQ = oldQ + change;
+            c.update({ totalQuantity: newQ })
           }
         })
 

@@ -1,6 +1,6 @@
 <div class="row" *ngIf="this.product.title">
     <div class="col-4">
-        <div class="sticky-top" style="top:130px; z-index:1;">
+        <div class="sticky-top" style="top:130px; z-index:1;padding-bottom: 10px;margin-left: 10px;">
             <div class="imageContainer">
                 <img class="mainImage" [src]="this.product.imageUrl[0]">
                 <div class="row">
@@ -15,21 +15,28 @@
                     </div>
                 </div>
             </div>
-            <div class="cartBtn">
-                <div *ngIf="cart">
-                    <button *ngIf="cart.getQuantity(product) === 0;" (click)="buyNow()" class="btn btn-secondary btn-block buyNowBtn">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                             Buy Now</button>
+            <div class="row">
+                <div class="col-6">
+                    <div class="cartBtn" *ngIf="cart">
+                        <button *ngIf="cart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
+                        <ng-template #updateQuantity>
+                            <product-quantity [product]="product" [shopping-cart]="cart">
+                            </product-quantity>
+                        </ng-template>
+                    </div>
                 </div>
+                <div class="col-6">
+                    <div class="cartBtn">
+                        <div *ngIf="cart">
+                            <button *ngIf="cart.getQuantity(product) === 0;" (click)="buyNow()" class="btn btn-secondary btn-block buyNowBtn">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                     Buy Now</button>
+                        </div>
 
+                    </div>
+                </div>
             </div>
-            <div class="cartBtn" *ngIf="cart">
-                <button *ngIf="cart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">Add to Cart</button>
-                <ng-template #updateQuantity>
-                    <product-quantity [product]="product" [shopping-cart]="cart">
-                    </product-quantity>
-                </ng-template>
-            </div>
+
         </div>
     </div>
     <div class="col-6">
@@ -46,6 +53,25 @@
                 {{this.product.discount}}%</span></h4>
         <br>
         <br>
+        <div class="row">
+            <div class="col-6">
+                <div class="myInputContainer">
+                    <label for="pin">Check Pincode</label>
+                    <input class="myInput" type="number" id="pin" pattern="^[0-9]{6,6}$" placeholder="Pincode" #pincode="ngModel" name="pincode" [(ngModel)]="InPincode" (change)="checkPincode()" required>
+                    <div class="alert alert-danger" *ngIf="pincode.touched && pincode.invalid">
+                        <div *ngIf="pincode.errors.required">Pincode is required.</div>
+                        <div *ngIf="pincode.invalid">Pincode is Invalid.</div>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="isPincodeValid === false">
+                        <div>Sorry Your area is not servicable.</div>
+                    </div>
+                    <div class="alert alert-success" *ngIf="isPincodeValid === true">
+                        <div>Your area is servicable.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
         <!-- Highlights -->
         <div class="row">
             <div class="col-2">
@@ -90,5 +116,73 @@
             </div>
         </div>
         <!-- ----------- End of Specifications --------------- -->
+
+
+    </div>
+</div>
+<div *ngIf="this.product$" style="margin-bottom: 50px; margin-top: 50px;">
+    <h2>Similar Products</h2>
+    <div class="row" style="margin: 30px;">
+        <div class="card-holder">
+            <div class="card" style="width: 100%;" *ngIf="this.product$[0]" (click)="nav(this.product$[0].key)">
+                <img class="card-img-top" [src]="this.product$[0].payload.val().imageUrl[0]" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{this.product$[0].payload.val().title}}</h3>
+                    <p class="card-text">&#8377;{{this.product$[0].payload.val().price - (this.product$[0].payload.val().price * this.product$[0].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <span style="color: #c4c4c4;">&#8377;<s>{{this.product$[0].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.product$[0].payload.val().discount}}%</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-holder">
+            <div class="card" style="width: 100%;" *ngIf="this.product$[1]" (click)="nav(this.product$[1].key)">
+                <img class="card-img-top" [src]="this.product$[1].payload.val().imageUrl[0]" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{this.product$[1].payload.val().title}}</h3>
+                    <p class="card-text">&#8377;{{this.product$[1].payload.val().price - (this.product$[1].payload.val().price * this.product$[1].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <span style="color: #c4c4c4;">&#8377;<s>{{this.product$[1].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.product$[1].payload.val().discount}}%</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-holder">
+            <div class="card" style="width: 100%;" *ngIf="this.product$[2]" (click)="nav(this.product$[2].key)">
+                <img class="card-img-top" [src]="this.product$[2].payload.val().imageUrl[0]" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{this.product$[2].payload.val().title}}</h3>
+                    <p class="card-text">&#8377;{{this.product$[2].payload.val().price - (this.product$[2].payload.val().price * this.product$[2].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <span style="color: #c4c4c4;">&#8377;<s>{{this.product$[2].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.product$[2].payload.val().discount}}%</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-holder">
+            <div class="card" style="width: 100%;" *ngIf="this.product$[3]" (click)="nav(this.product$[3].key)">
+                <img class="card-img-top" [src]="this.product$[3].payload.val().imageUrl[0]" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{this.product$[3].payload.val().title}}</h3>
+                    <p class="card-text">&#8377;{{this.product$[3].payload.val().price - (this.product$[3].payload.val().price * this.product$[3].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <span style="color: #c4c4c4;">&#8377;<s>{{this.product$[3].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.product$[3].payload.val().discount}}%</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="card-holder">
+            <div class="card" style="width: 100%;" *ngIf="this.product$[4]" (click)="nav(this.product$[4].key)">
+                <img class="card-img-top" [src]="this.product$[4].payload.val().imageUrl[0]" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{this.product$[4].payload.val().title}}</h3>
+                    <p class="card-text">&#8377;{{this.product$[4].payload.val().price - (this.product$[4].payload.val().price * this.product$[4].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <span style="color: #c4c4c4;">&#8377;<s>{{this.product$[4].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.product$[4].payload.val().discount}}%</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card-holder">
+            <div class="card" style="width: 100%;" *ngIf="this.product$[5]" (click)="nav(this.product$[5].key)">
+                <img class="card-img-top" [src]="this.product$[5].payload.val().imageUrl[0]" alt="">
+                <div class="card-body">
+                    <h3 class="card-title">{{this.product$[5].payload.val().title}}</h3>
+                    <p class="card-text">&#8377;{{this.product$[5].payload.val().price - (this.product$[5].payload.val().price * this.product$[5].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <span style="color: #c4c4c4;">&#8377;<s>{{this.product$[5].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.product$[5].payload.val().discount}}%</span></p>
+                </div>
+            </div>
+        </div> -->
+
     </div>
 </div>

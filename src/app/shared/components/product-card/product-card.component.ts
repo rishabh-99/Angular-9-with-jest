@@ -29,7 +29,7 @@ export class ProductCardComponent {
     });
   }
   async buyNow() {
-    await this.cartService.clearCart()
+    // await this.cartService.clearCart()
     await this.cartService.addToCart(this.product);
     this.route.queryParamMap.subscribe(param => {
       if (param) {

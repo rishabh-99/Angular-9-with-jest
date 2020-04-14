@@ -84,8 +84,7 @@
             "<rootDir>/src/setup-jest.ts"
         ],
         "reporters": [
-            "default",
-            [
+            "default", [
                 "./node_modules/jest-html-reporter",
                 {
                     "pageTitle": "Test Report"

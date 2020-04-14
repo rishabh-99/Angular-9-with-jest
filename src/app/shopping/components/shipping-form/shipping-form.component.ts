@@ -16,6 +16,7 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
   shipping: any = {};
   userSubscription: Subscription;
   userId: string;
+  isPincodeValid;
 
   constructor(
     private router: Router,
@@ -32,9 +33,23 @@ export class ShippingFormComponent implements OnInit, OnDestroy {
   }
 
   async placeOrder() {
-    console.log('AAAAA')
     let order = new Order(this.userId, this.shipping, this.cart);
     let result = await this.orderService.placeOrder(order);
     this.router.navigate(['/order-success', result.key]);
+  }
+
+  checkPincode() {
+    // this.orderService.getPincodes().subscribe(data => {
+      
+    // })
+    this.orderService.getPincodes().subscribe(data => {
+      if(data.indexOf(`${this.shipping.pincode}`) > -1) {
+        this.isPincodeValid = true;
+        alert('Your area is servicable');
+      } else {
+        this.isPincodeValid = false;
+        alert('Your area is not servicable');
+      }
+    })
   }
 }

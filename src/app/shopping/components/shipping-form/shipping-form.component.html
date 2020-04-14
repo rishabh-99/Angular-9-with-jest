@@ -56,10 +56,16 @@
         <div class="row formRow">
             <div class="col-6">
                 <div class="myInputContainer">
-                    <input class="myInput" type="text" pattern="^[0-9]{6,6}$" placeholder="Pincode" #pincode="ngModel" name="pincode" [(ngModel)]="shipping.pincode" required>
+                    <input class="myInput" type="number" pattern="^[0-9]{6,6}$" placeholder="Pincode" #pincode="ngModel" name="pincode" [(ngModel)]="shipping.pincode" (change)="checkPincode()" required>
                     <div class="alert alert-danger" *ngIf="pincode.touched && pincode.invalid">
                         <div *ngIf="pincode.errors.required">Pincode is required.</div>
                         <div *ngIf="pincode.invalid">Pincode is Invalid.</div>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="isPincodeValid === false">
+                        <div>Sorry Your area is not servicable.</div>
+                    </div>
+                    <div class="alert alert-success" *ngIf="isPincodeValid === true">
+                        <div>Your area is servicable.</div>
                     </div>
                 </div>
             </div>
@@ -118,9 +124,20 @@
             </div>
         </div>
         <div class="row formRow">
+            <div class="col-12">
+                <div class="myInputContainer2">
+                    <input class="myInput" type="text" placeholder="Enter GST details" #gst="ngModel" name="gst" [(ngModel)]="shipping.gst" pattern="\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}">
+                    <div class="alert alert-danger" *ngIf="gst.touched && gst.invalid">
+                        <!-- <div *ngIf="gst.errors.required">GST is required.</div> -->
+                        <div *ngIf="gst.errors">GST Number is invalid.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row formRow">
             <div class="col-6">
                 <div class="myInputContainer">
-                    <button class="btn myBtn btnGreen" [disabled]="!f.valid" (click)="placeOrder()">Save and deliver</button>
+                    <button class="btn myBtn btnGreen" [disabled]="!f.valid || (isPincodeValid !== true)" (click)="placeOrder()">Save and deliver</button>
                 </div>
             </div>
             <div class="col-6">

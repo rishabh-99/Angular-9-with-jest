@@ -59,3 +59,10 @@
     background-color: rgba(0, 173, 239, 0.8);
     color: white;
 }
+
+h1 {
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 360px;
+}

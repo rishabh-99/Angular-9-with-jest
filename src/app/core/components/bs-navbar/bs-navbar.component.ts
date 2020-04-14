@@ -37,7 +37,13 @@ export class BsNavbarComponent implements OnInit {
         rd.$key = key;
         return rd;
       });
-
+      console.log(this.mainCategories)
+      this.mainCategories = this.mainCategories.sort((a, b) => {
+        if (a.payload.val().name) { return -1; } else {
+          return 1;
+        }
+      })
+      console.log(this.mainCategories)
       for (const i of this.mainCategories) {
         let obj = i.payload.val().categories;
         i.categories = Object.keys(obj).map((key) => {
@@ -53,6 +59,10 @@ export class BsNavbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+  }
+
+  login() {
+    this.auth.login();
   }
   navigate(main, category) {
     this.route.queryParamMap.subscribe(param => {
@@ -84,5 +94,8 @@ export class BsNavbarComponent implements OnInit {
         }
       }).unsubscribe();
     }
+  }
+  a(a) {
+    console.log(a)
   }
 }

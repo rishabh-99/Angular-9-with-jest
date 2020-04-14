@@ -1,5 +1,13 @@
 <h1>Orders</h1>
 <div class="row">
+    <form style="width:70%">
+        <div class="form-group">
+            <label for="imageUrl">Search Order</label>
+            <input #a [(ngModel)]="search" name="s" id="s" type="text" class="form-control" (keyup.enter)="searched()">
+        </div>
+    </form>
+</div>
+<div class="row">
     <div class="col-4">
         <button class="myBtn btnGreen" [ngClass]="orderClass ? 'selected' : 'notSelected'" (click)="filterOrder()">New Orders</button>
     </div>
@@ -58,7 +66,7 @@
                         <h3>Quantity: {{order.items.length}}</h3>
                     </div>
                     <div class="col-3">
-                        <h2> Amount: &#8377;{{order.totalCost}}</h2>
+                        <h2> Amount: &#8377;{{order.totalCost | number:'.1-2'}}</h2>
                     </div>
                 </div>
                 <hr>
@@ -128,6 +136,9 @@
                                 </div>
                                 <div class="row">
                                     <h3><b>Pincode:</b> {{order.shipping.pincode}}</h3>
+                                </div>
+                                <div class="row" *ngIf="order.shipping.gst">
+                                    <h3><b>GST:</b> {{order.shipping.gst}}</h3>
                                 </div>
                             </div>
                         </div>

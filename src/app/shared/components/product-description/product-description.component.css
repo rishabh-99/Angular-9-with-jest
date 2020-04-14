@@ -48,13 +48,14 @@ hr {
 
 .imageContainer {
     width: 400px;
+    margin: auto;
 }
 
 .mainImage {
-    height: 300px;
-    width: 390px;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
+    height: 400px;
+    width: 400px;
+    /* border-right: 1px solid; */
+    /* border-bottom: 1px solid; */
     background-color: white;
 }
 
@@ -62,13 +63,13 @@ hr {
     width: 135px;
     height: 100px;
     border-right: 1px solid;
-    border-bottom: 1px solid;
+    /* border-bottom: 1px solid; */
 }
 
 .cartBtn {
-    width: 300px;
+    width: 100%;
     height: 50px;
-    margin: 30px;
+    margin-top: 20px;
 }
 
 .addToCartBtn {
@@ -106,4 +107,47 @@ hr {
 
 img {
     background-color: white;
+}
+
+.myInput {
+    width: 100%;
+    margin: auto;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #c4c4c4;
+}
+
+.card {
+    border: 1px solid #c4c4c4;
+    width: 100%;
+    max-width: 280px;
+    height: fit-content;
+    border-radius: 30px;
+}
+
+.card:hover {
+    /* box-shadow: whitesmoke; */
+    border: 1px groove;
+    cursor: pointer;
+}
+
+.card-img-top {
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    width: 100%;
+    max-width: 278px;
+    /* padding-top: 100%; */
+    /* height: auto; */
+}
+
+h3 {
+    width: 98%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-holder {
+    width: 18%;
+    margin: 1%;
 }

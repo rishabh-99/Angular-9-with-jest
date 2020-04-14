@@ -12,11 +12,15 @@ import { ProductService } from 'src/app/shared/services/product.service';
 export class MyOrdersComponent {
   orders$;
   temp;
+  doc;
+  idArr = [];
 
   constructor(
     private authService: AuthService,
     private productService: ProductService,
     private orderService: OrderService) {
+    this.doc = document;
+
     authService.user$.subscribe(u => {
       orderService.getOrdersByUser(u.uid).on('value', (data) => {
         let obj = data.toJSON();
@@ -46,8 +50,21 @@ export class MyOrdersComponent {
     });
   }
   submitRating(orderKey, index, rating, key) {
-    // console.log({ orderKey, index, rating })
-    this.orderService.updateRating(orderKey, index, rating)
-    this.productService.updateRating(key, rating)
+
+    this.orderService.updateRating(orderKey, index, rating);
+    this.productService.updateRating(key, rating);
+    
+
+  }
+
+  check(id) {
+
+  this.authService.appUser$.subscribe(data => {
+    console.log(data)
+  })
+  }
+
+  rate(prod) {
+    prod.check = true;
   }
 }

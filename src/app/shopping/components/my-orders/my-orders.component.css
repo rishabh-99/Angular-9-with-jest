@@ -37,3 +37,19 @@ hr {
 .cgreen {
     color: #00C543;
 }
+
+.myBtn {
+    width: 65px;
+    height: 40px;
+    border-radius: 5px;
+    border: 0px solid;
+}
+
+.btnGreen {
+    background-color: #24FF00;
+    color: white;
+}
+
+h3 {
+    word-break: break-all;
+}

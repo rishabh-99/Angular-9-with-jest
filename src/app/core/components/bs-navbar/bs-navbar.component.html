@@ -14,13 +14,13 @@
                 </li>
             </ul>
             <form class="form-inline" #f=ngForm style="width: 50%;" (ngSubmit)="doSomethingOnClick($event)">
-                <input type="search" class="form-control searchBar" (keyup.enter)='doSomething($event)' type="text" placeholder="Search" aria-label="Search">
+                <input type="search" class=" form-control searchBar" (keyup.enter)='doSomething($event)' type="text" placeholder="Search" aria-label="Search">
                 <button class="btn" type="submit"><i class="fa fa-search"></i></button>
             </form>
             <ul class="navbar-nav">
                 <ng-template #anonymousUser>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/login">Login</a>
+                        <a class="nav-link" (click)="login()">Login</a>
                     </li>
                 </ng-template>
                 <li ngbDropdown *ngIf="appUser; else anonymousUser" class="nav-item dropdown">
@@ -56,11 +56,11 @@
 <div>
     <nav class="navbar navbar-expand-md fixed-top fp">
 
-        <ng-container *ngFor="let mc of mainCategories; let i = index">
-            <ul class="navbar-nav MyMargin">
-                <li ngbDropdown class="nav-item dropdown">
+        <ng-container *ngFor="let mc of mainCategories; let i=index">
+            <ul class="navbar-nav MyMargin" (mouseenter)="$event.stopPropagation(); myDrop.open();" (mouseleave)="$event.stopPropagation(); myDrop.close();">
+                <li ngbDropdown class="nav-item dropdown" #myDrop="ngbDropdown">
                     <a ngbDropdownToggle class="dropdown-toggle cwhite" id="i" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{mc.payload.val().name}}
+            {{mc.payload.val().name}} 
           </a>
                     <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="i">
                         <div *ngFor="let l of mc.categories">
@@ -132,3 +132,30 @@
         </ul> -->
     </nav>
 </div>
+<script>
+    const $dropdown = $(".dropdown");
+    const $dropdownToggle = $(".dropdown-toggle");
+    const $dropdownMenu = $(".dropdown-menu");
+    const showClass = "show";
+
+    $(window).on("load resize", function() {
+        if (this.matchMedia("(min-width: 768px)").matches) {
+            $dropdown.hover(
+                function() {
+                    const $this = $(this);
+                    $this.addClass(showClass);
+                    $this.find($dropdownToggle).attr("aria-expanded", "true");
+                    $this.find($dropdownMenu).addClass(showClass);
+                },
+                function() {
+                    const $this = $(this);
+                    $this.removeClass(showClass);
+                    $this.find($dropdownToggle).attr("aria-expanded", "false");
+                    $this.find($dropdownMenu).removeClass(showClass);
+                }
+            );
+        } else {
+            $dropdown.off("mouseenter mouseleave");
+        }
+    });
+</script>

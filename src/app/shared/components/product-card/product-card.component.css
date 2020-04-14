@@ -74,3 +74,10 @@ p.calign {
     border-radius: 20px;
     color: black;
 }
+
+h1.title {
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 360px;
+}

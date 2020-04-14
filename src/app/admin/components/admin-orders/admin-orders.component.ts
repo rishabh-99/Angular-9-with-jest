@@ -28,6 +28,7 @@ export class AdminOrdersComponent implements OnInit {
   orderClass = false;
   processingClass = false;
   completedClass = false;
+  search;
   filteredOrders: Array<any> = [];
   /**
    * orders$ is used by HTML to iterate through the list of orders.
@@ -157,10 +158,24 @@ export class AdminOrdersComponent implements OnInit {
       }
       return false;
     });
+
+    this.filteredOrders = this.filteredOrders.reverse();
   }
 
   changeTo(key, status) {
     this.orderService.changeTo(key, status)
+    alert(`Order No ${key} is now in ${status}`)
+  }
+
+  searched() {
+    this.filteredOrders = this.orders$.filter(val => {
+      const k: string = val.$key;
+      if (k.toLowerCase().search(this.search.toLowerCase()) > -1) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 }
 

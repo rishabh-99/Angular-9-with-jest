@@ -30,4 +30,8 @@ export class OrderService {
   changeTo(key,status) {
     this.db.database.ref(`/orders/${key}`).update({status: status})
   }
+
+  getPincodes() {
+    return this.db.list('/pincode').valueChanges()
+  }
 }

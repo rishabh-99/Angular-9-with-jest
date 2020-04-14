@@ -155,4 +155,51 @@
         <button class="btn btn-primary">Submit</button>
     </form>
 
+    <!-- <h1>Add Pincode</h1>
+    <form #f8="ngForm" (ngSubmit)="addPin()">
+        <div class="form-group">
+            <label for="pincode">Enter Pincode</label>
+            <mat-form-field class="form-control" style="border: 0px;">
+                <mat-chip-list #chipList2 aria-label="Tag Selection">
+                    <mat-chip *ngFor="let tag of pincodes" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+                        {{tag.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input id="aa" placeholder="New tag..." [matChipInputFor]="chipList2" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+    </form> -->
+
+
+
+    <h1>Listed Pincode</h1>
+    <form #f8="ngForm" (ngSubmit)="modifyPin()">
+        <div class="form-group">
+            <label for="pincode">Enter Pincode</label>
+            <!-- <input #pincode="ngModel" [(ngModel)]="newPin" name="pincode" id="pincode" type="number" class="form-control" pattern="^[0-9]{6,6}$"> -->
+            <mat-form-field class="form-control" style="border: 0px;">
+                <mat-chip-list #chipList aria-label="Tag Selection">
+                    <mat-chip *ngFor="let tag of oldPincodes" [selectable]="selectable" [removable]="removable" (removed)="remove2(tag)">
+                        {{tag.name}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add2($event)">
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+
+        <button class="btn btn-primary">Submit</button>
+    </form>
+
+    <h1>Remove Pincode</h1>
+    <form #f9="ngForm" (ngSubmit)="removePin()">
+        <div class="form-group">
+            <label for="pincode2">Enter Pincode</label>
+            <input #pincode2="ngModel" [(ngModel)]="remPin" name="pincode2" id="pincode2" type="number" class="form-control" pattern="^[0-9]{6,6}$">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
 </div>

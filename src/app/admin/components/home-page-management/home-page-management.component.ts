@@ -3,6 +3,9 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { HomeService } from '../../services/home.service';
 import { AngularFireStorage } from '@angular/fire/storage/';
 import { finalize } from 'rxjs/operators';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { Tags } from '../product-form/product-form.component';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-home-page-management',
@@ -25,6 +28,14 @@ export class HomePageManagementComponent implements OnInit {
   catArray = [];
   brandArray = [];
   chosenBrand;
+  newPin: number;
+  remPin: number;
+  pincodes = [];
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  oldPincodes = [];
 
   imageUrl = []
   selectedImage = []
@@ -39,7 +50,17 @@ export class HomePageManagementComponent implements OnInit {
         return rd;
       });
       console.log(this.categories$)
-    })
+    });
+
+    this.categoryService.fetchAll().subscribe(data => {
+      this.oldPincodes = [];
+      for (const d of data) {
+        this.oldPincodes.push({name: `${d.key}`});
+      }
+      console.log(this.oldPincodes);
+      this.oldPincodes.sort()
+    });
+
   }
 
   loadPreview(event) {
@@ -172,4 +193,101 @@ export class HomePageManagementComponent implements OnInit {
     this.categoryService.removeBrand(this.chosenMainCat, this.chosenCat, this.chosenBrand);
     alert('Brand Removed');
   }
+
+  addPin() {
+    for (const pin of this.pincodes) {
+      this.categoryService.addPincode(pin.name);
+    }
+    alert('Pincodes Added!');
+    this.pincodes = [];
+    // console.log(this.pincodes)
+  }
+
+  removePin() {
+    this.categoryService.remPin(this.remPin);
+    this.remPin = null;
+    alert(`Pincode ${this.remPin} removed`);
+  }
+
+  remove(tag: Tags): void {
+    const index = this.pincodes.indexOf(tag);
+
+    if (index >= 0) {
+      this.pincodes.splice(index, 1);
+    }
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+
+
+    if ((value || '').trim()) {
+      if (!this.pincodes) {
+        this.pincodes = [];
+      }
+      if (value.match(/^[0-9]+$/) === null) {
+        alert('Invalid Pincode: Cannot Contain Alphabets');
+      } else if (value.length !== 6) {
+        alert('Invalid Pincode: Should contain 6 digits');
+      } else if (this.pincodes.findIndex(data => data.name === value.trim()) !== -1) {
+        alert('Pincode is already added!');
+      } else {
+        console.log(this.pincodes.findIndex(data => data.name === value.trim()))
+        this.pincodes.push({ name: value.trim() });
+      }
+    }
+
+    if (input) {
+      input.value = '';
+    }
+
+  }
+
+  add2(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+
+
+    if ((value || '').trim()) {
+      if (!this.oldPincodes) {
+        this.oldPincodes = [];
+      }
+      if (value.match(/^[0-9]+$/) === null) {
+        alert('Invalid Pincode: Cannot Contain Alphabets');
+      } else if (value.length !== 6) {
+        alert('Invalid Pincode: Should contain 6 digits');
+      } else if (this.oldPincodes.findIndex(data => data.name === value.trim()) !== -1) {
+        alert('Pincode is already added!');
+      } else {
+        console.log(this.oldPincodes.findIndex(data => data.name === value.trim()))
+        this.oldPincodes.push({ name: value.trim() });
+      }
+    }
+
+    if (input) {
+      input.value = '';
+    }
+
+  }
+
+  remove2(tag: Tags): void {
+    const index = this.oldPincodes.indexOf(tag);
+
+    if (index >= 0) {
+      this.oldPincodes.splice(index, 1);
+    }
+  }
+
+  modifyPin() {
+    this.categoryService.modifyPin(this.oldPincodes);
+    alert('Pincodes Modified!')
+  }
+  // removePin() {
+  //   if (this.newPin.toString().length === 6) {
+  //     this.categoryService.addPincode(this.remPin);
+  //   } else { alert('Invalid Pincode')}
+  // }
 }
