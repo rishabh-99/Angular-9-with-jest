@@ -1,36 +1,18 @@
-<div class="container">
-    <form #f="ngForm" (ngSubmit)="save()">
-        <div class="form-group">
-            <label for="imageUrl">Image URL</label>
-            <input #imageUrl="ngModel" [(ngModel)]="img[0]" name="imageUrl" id="imageUrl" type="file" class="form-control" accept="image/*" required (change)="loadPreview($event)">
-            <div class="alert alert-danger" *ngIf="imageUrl.touched && imageUrl.invalid">
-                <div *ngIf="imageUrl.errors.required">Image URL is required.</div>
-                <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>
-            </div>
+<form #f="ngForm" style="width: 1300px; margin: auto;">
+    <h1>Edit Banner Images</h1>
+    <div class="form-group">
+        <file-pond #myPond [options]="pondOptions" [files]="pondFiles" (oninit)="pondHandleInit()" (onaddfile)="pondHandleAddFile($event)">
+        </file-pond>
+    </div>
+    <ng-container>
+        <div class="form-group" *ngFor="let u of urls">
+            <img style="width: 1280px; height: 300px;" [src]="u">
+            <button style="margin-left: -45px;margin-top: -250px; height: 40px; width: 40px" class="btn btn-danger" (click)="removeImg(u)">x</button>
         </div>
-        <div *ngIf="img[0]">
-            <div class="form-group">
-                <label for="imageUrl1">Image URL 1</label>
-                <input #imageUrl1="ngModel" [(ngModel)]="img[1]" name="imageUrl1" id="imageUrl1" type="file" class="form-control" accept="image/*" (change)="loadPreview1($event)">
-                <div class="alert alert-danger" *ngIf="imageUrl1.touched && imageUrl1.invalid">
-                    <div *ngIf="imageUrl1.errors.required">Image URL is required.</div>
-                    <div *ngIf="imageUrl1.errors.url">Please enter a valid URL.</div>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="img[1]">
-            <div class="form-group">
-                <label for="imageUrl2">Image URL 2</label>
-                <input #imageUrl2="ngModel" [(ngModel)]="img[2]" name="imageUrl2" id="imageUrl2" type="file" class="form-control" accept="image/*" (change)="loadPreview2($event)">
-                <div class="alert alert-danger" *ngIf="imageUrl2.touched && imageUrl2.invalid">
-                    <div *ngIf="imageUrl2.errors.required">Image URL is required.</div>
-                    <div *ngIf="imageUrl2.errors.url">Please enter a valid URL.</div>
-                </div>
-            </div>
-        </div>
+    </ng-container>
 
-        <button class="btn btn-primary">Submit</button>
-    </form>
+</form>
+<div class="container" id="mainCategory">
     <h1>Add Main Category</h1>
     <form #f2="ngForm" (ngSubmit)="addMainCategory()">
         <div class="form-group">

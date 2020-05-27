@@ -2,18 +2,29 @@
     <div class="col-4">
         <div class="sticky-top" style="top:130px; z-index:1;padding-bottom: 10px;margin-left: 10px;">
             <div class="imageContainer">
-                <img class="mainImage" [src]="this.product.imageUrl[0]">
                 <div class="row">
-                    <div *ngIf="this.product.imageUrl[1] != null">
-                        <img [src]="this.product.imageUrl[1]" class="smallImages">
+                    <div class="col-9 mainImageContainer"><img class="mainImage" [src]="mainImg">
                     </div>
-                    <div *ngIf="this.product.imageUrl[2] != null">
-                        <img [src]="this.product.imageUrl[2]" class="smallImages">
-                    </div>
-                    <div *ngIf="this.product.imageUrl[3] != null">
-                        <img [src]="this.product.imageUrl[3]" class="smallImages">
+
+                    <div class="col-3">
+                        <div class="row" *ngFor="let u of this.product.imageUrl">
+                            <div *ngIf="u != null">
+                                <img [src]="u" class="smallImages" (click)="setMain(u)">
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- <div class="row">
+                   
+                    
+                    <div *ngIf="this.product.imageUrl[2] != null">
+                        <img [src]="this.product.imageUrl[2]" class="smallImages" (click)="setMain(this.product.imageUrl[2])">
+                    </div>
+                    <div *ngIf="this.product.imageUrl[3] != null">
+                        <img [src]="this.product.imageUrl[3]" class="smallImages" (click)="setMain(this.product.imageUrl[3])">
+                    </div>
+                </div> -->
             </div>
             <div class="row">
                 <div class="col-6" style="padding-right: 5px;">
@@ -35,6 +46,7 @@
 
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -43,9 +55,7 @@
         <div class="row">
             <h1>{{this.product.title}}</h1>
         </div>
-        <div class="row">
-            <ngx-star-rating [(ngModel)]="product.rating" [disabled]="true"></ngx-star-rating>
-        </div>
+
         <h3 *ngIf="this.product.inStock" class="cgreen">IN STOCK</h3>
         <h3 *ngIf="!this.product.inStock" class="cred">OUT OF STOCK</h3>
         <h1>&#8377; {{this.product.price - this.product.price*this.product.discount*.01}}</h1>
@@ -57,7 +67,8 @@
             <div class="col-6">
                 <div class="myInputContainer">
                     <label for="pin">Check Pincode</label>
-                    <input class="myInput" type="number" id="pin" pattern="^[0-9]{6,6}$" placeholder="Pincode" #pincode="ngModel" name="pincode" [(ngModel)]="InPincode" (change)="checkPincode()" required>
+                    <input class="myInput" type="number" id="pin" pattern="^[0-9]{6,6}$" placeholder="Pincode" #pincode="ngModel" name="pincode" [(ngModel)]="InPincode" (keyup.enter)="checkPincode(pincode)" required>
+                    <button class="btn" style="margin-left: -45px;" type="button" (click)="checkPincode(pincode)"><i class="fa fa-search"></i></button>
                     <div class="alert alert-danger" *ngIf="pincode.touched && pincode.invalid">
                         <div *ngIf="pincode.errors.required">Pincode is required.</div>
                         <div *ngIf="pincode.invalid">Pincode is Invalid.</div>
@@ -121,7 +132,7 @@
     </div>
 </div>
 <div *ngIf="this.product$" style="margin-bottom: 50px; margin-top: 50px;">
-    <h2>Similar Products</h2>
+    <h2 style="margin-left: 50px;">Similar Products</h2>
     <div class="row" style="margin: 30px;">
         <div class="card-holder">
             <div class="card" style="width: 100%;" *ngIf="this.product$[0]" (click)="nav(this.product$[0].key)">

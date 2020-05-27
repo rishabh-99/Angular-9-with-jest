@@ -49,7 +49,6 @@ export class ProductsComponent implements OnInit {
   async ngOnInit() {
     this.filteredProducts.paginator = this.paginator;
     this.cart$ = await this.shoppingCartService.getCart()
-    console.log('A')
     this.cart$.subscribe(cart => this.cart = cart)
     this.populateProducts();
   }
@@ -58,7 +57,6 @@ export class ProductsComponent implements OnInit {
     this.productService
       .getAll().snapshotChanges()
       .switchMap((products: any) => {
-        console.log(products[0].payload)
         for (let i = 0; i < products.length; i++) {
           this.products[i] = products[i].payload.val();
           this.products[i].$key = products[i].payload.key;
@@ -99,7 +97,6 @@ export class ProductsComponent implements OnInit {
             if (obj === null) {
               obj[0] = { none: { name: 'None', $key: 'none' } }
             }
-            console.log(obj)
             // let b = Object.keys(obj).map((key) => {
 
             //   // Using obj[key] to retrieve key value 
@@ -107,7 +104,6 @@ export class ProductsComponent implements OnInit {
             //   rd.$key = key;
             //   this.brand = params.get('brand') || 'all';
             //   let b = this.brand.split(',');
-            //   console.log(b)
             //   if (b.indexOf(rd.name) > -1) {
             //     rd.checked = true;
             //   } else {
@@ -115,8 +111,16 @@ export class ProductsComponent implements OnInit {
             //   }
             //   return rd;
             // });
-            this.brands = [...this.brands, ...obj];
-            console.log(this.brands)
+            let temp = [...this.brands, ...obj];
+            this.brands = temp.reduce((acc, current) => {
+              const x = acc.find(item => item.name === current.name);
+              if (!x) {
+                return acc.concat([current]);
+              } else {
+                return acc;
+              }
+            }, []);
+            // this.brands = [...new Set(temp)];
 
           })
         }
@@ -129,7 +133,7 @@ export class ProductsComponent implements OnInit {
   private applyFilter() {
     let catArray = this.category.split(',');
     let brandArray = this.brand.split(',')
-    if (this.q!=undefined) {
+    if (this.q != undefined) {
       this.filteredProducts.data = this.products.filter((p) => {
         if (p.brand.toLowerCase().indexOf(this.q.toLowerCase()) > -1 ||
           p.category.toLowerCase().indexOf(this.q.toLowerCase()) > -1 ||
@@ -151,14 +155,12 @@ export class ProductsComponent implements OnInit {
     } else if (this.brand === 'all' && this.category === 'all') {
       this.filteredProducts.data = this.products;
     } else if (this.category && this.brand === 'all') {
-      console.log(this.filteredProducts.data)
       this.filteredProducts.data = this.products.filter(p => {
         if (catArray.indexOf(p.category) !== -1) {
           return true;
         }
         return false;
       });
-      console.log(this.filteredProducts.data)
     } else if (this.brand && this.category === 'all') {
       this.filteredProducts.data = this.products.filter(p => {
         if (brandArray.indexOf(p.brand) !== -1) {

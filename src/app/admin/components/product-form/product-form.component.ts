@@ -50,10 +50,10 @@ export class ProductFormComponent implements OnInit {
     imageValidateSizeMaxHeight: 400,
     imageValidateSizeLabelImageSizeTooBig: 'Image is too big',
     imageValidateSizeLabelExpectedMaxSize: 'Maximum size is {400px} × {400px}',
-    
+
     server: {
       process: (fieldName, file: File, metadata, load, error, progress, abort, transfer, options) => {
-        if (this.product.imageUrl.length <= 3) {
+        if (this.product.imageUrl.length <= 2) {
           let tempUrl;
           // tslint:disable-next-line: max-line-length
           const imagePath = `${this.product.mainCategory}/${this.product.category}/${this.product.title}/${new Date().getTime()}_${file.name}`;
@@ -68,7 +68,7 @@ export class ProductFormComponent implements OnInit {
           task.then((snap) => {
             load('Success');
             ref.getDownloadURL().subscribe(url => {
-              if (this.product.imageUrl.length <= 3) {
+              if (this.product.imageUrl.length <= 2) {
                 this.product.imageUrl.push(url);
                 if (this.id) this.productService.update(this.id, this.product);
                 else this.productService.create(this.product);
@@ -261,46 +261,56 @@ export class ProductFormComponent implements OnInit {
   }
 
   fillBrand(cat, con?) {
-    if (!con)
-      this.product.brand = ''
+    if (cat === 'addNew') {
+      this.addNew()
+      this.product.category = '';
+    } else {
+      if (!con)
+        this.product.brand = ''
 
-    for (const category of this.categories$) {
-      if (category.$key === cat) {
-        let obj = category.brands;
-        console.log(obj)
-        if (obj === undefined) {
-          obj = { noBrand: { name: 'No Brands', $key: 'noBrand' } }
+      for (const category of this.categories$) {
+        if (category.$key === cat) {
+          let obj = category.brands;
+          console.log(obj)
+          if (obj === undefined) {
+            obj = { noBrand: { name: 'No Brands', $key: 'noBrand' } }
+          }
+          this.brand$ = Object.keys(obj).map((key) => {
+
+            // Using obj[key] to retrieve key value
+            const rd = obj[key];
+            rd.$key = key;
+            return rd;
+          });
         }
-        this.brand$ = Object.keys(obj).map((key) => {
-
-          // Using obj[key] to retrieve key value
-          const rd = obj[key];
-          rd.$key = key;
-          return rd;
-        });
       }
+      console.log(this.brand$);
     }
-    console.log(this.brand$);
   }
 
   fillCategory(mainCat, con?) {
-    if (!con)
-      this.product.category = ''
-    for (const mc of this.mainCategories) {
-      if (mc.payload.key === mainCat) {
-        let obj = mc.payload.val().categories;
-        console.log(obj)
-        if (obj === undefined) {
-          obj = { noCategory: { name: 'No Category', $key: 'noCategory' } }
-        }
-        this.categories$ = Object.keys(obj).map((key) => {
+    if (mainCat === 'addNew') {
+      this.addNew()
+      this.product.mainCategory = '';
+    } else {
+      if (!con)
+        this.product.category = ''
+      for (const mc of this.mainCategories) {
+        if (mc.payload.key === mainCat) {
+          let obj = mc.payload.val().categories;
+          console.log(obj)
+          if (obj === undefined) {
+            obj = { noCategory: { name: 'No Category', $key: 'noCategory' } }
+          }
+          this.categories$ = Object.keys(obj).map((key) => {
 
-          // Using obj[key] to retrieve key value
-          const rd = obj[key];
-          rd.$key = key;
-          return rd;
-        });
-        console.log(this.categories$)
+            // Using obj[key] to retrieve key value
+            const rd = obj[key];
+            rd.$key = key;
+            return rd;
+          });
+          console.log(this.categories$)
+        }
       }
     }
   }
@@ -325,5 +335,16 @@ export class ProductFormComponent implements OnInit {
     this.storage.storage.refFromURL(url).delete();
     if (this.id) this.productService.update(this.id, this.product);
     else this.productService.create(this.product);
+  }
+
+  addNew() {
+    this.router.navigate([]).then(result => {  window.open( `/admin/home/`, '_blank'); });
+  }
+
+  checkNew(name) {
+    if (name === 'addNew') {
+      this.addNew()
+      this.product.brand = '';
+    }
   }
 }

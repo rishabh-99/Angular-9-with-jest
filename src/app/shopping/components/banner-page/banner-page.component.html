@@ -21,39 +21,60 @@
     <div class="container">
         <h2>Latest Products</h2>
         <div class="row">
-            <div class="col-4" *ngIf="this.products$.length >= 1">
-                <div class="card" style="width: 17.7rem;" (click)="nav(this.products$[0].key)">
+            <div class="col-2 c4" *ngIf="this.products$.length >= 1">
+                <div class="card" (click)="nav(this.products$[0].key)">
                     <img class="card-img-top" [src]="this.products$[0].payload.val().imageUrl[0]" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{this.products$[0].payload.val().title}}</h3>
                         <p class="card-text">
                             <span>
-                            &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}} &nbsp;&nbsp;
+                                &#8377;{{this.products$[0].payload.val().price - (this.products$[0].payload.val().price * this.products$[0].payload.val().discount * .01)}} &nbsp;&nbsp;
                             </span>
                             <span style="color: #c4c4c4;">&#8377;<s>{{this.products$[0].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[0].payload.val().discount}}%</span>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-4" *ngIf="this.products$.length >= 2">
-                <div class="card" style="width: 17.7rem;" (click)="nav(this.products$[1].key)">
+            <div class="col-2 c4" *ngIf="this.products$.length >= 2">
+                <div class="card" (click)="nav(this.products$[1].key)">
                     <img class="card-img-top" [src]="this.products$[1].payload.val().imageUrl[0]" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{this.products$[1].payload.val().title}}</h3>
                         <p class="card-text">
-                            Price &#8377;{{this.products$[1].payload.val().price - (this.products$[1].payload.val().price * this.products$[1].payload.val().discount * .01)}} &nbsp;&nbsp;
+                            &#8377;{{this.products$[1].payload.val().price - (this.products$[1].payload.val().price * this.products$[1].payload.val().discount * .01)}} &nbsp;&nbsp;
                             <span style="color: #c4c4c4;">&#8377;<s>{{this.products$[1].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[1].payload.val().discount}}%</span>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-4" *ngIf="this.products$.length === 3">
-                <div class="card" style="width: 17.7rem;" (click)="nav(this.products$[2].key)" c>
+            <div class="col-2 c4" *ngIf="this.products$.length === 3">
+                <div class="card" (click)="nav(this.products$[2].key)">
                     <img class="card-img-top" [src]="this.products$[2].payload.val().imageUrl[0]" alt="">
                     <div class="card-body">
                         <h3 class="card-title">{{this.products$[2].payload.val().title}}</h3>
-                        <p class="card-text">Price &#8377;{{this.products$[2].payload.val().price - (this.products$[2].payload.val().price * this.products$[2].payload.val().discount * .01)}} &nbsp;&nbsp;
+                        <p class="card-text">&#8377;{{this.products$[2].payload.val().price - (this.products$[2].payload.val().price * this.products$[2].payload.val().discount * .01)}} &nbsp;&nbsp;
                             <span style="color: #c4c4c4;">&#8377;<s>{{this.products$[2].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[2].payload.val().discount}}%</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2 c4" *ngIf="this.products$.length === 4">
+                <div class="card" (click)="nav(this.products$[3].key)">
+                    <img class="card-img-top" [src]="this.products$[3].payload.val().imageUrl[0]" alt="">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.products$[3].payload.val().title}}</h3>
+                        <p class="card-text">&#8377;{{this.products$[3].payload.val().price - (this.products$[3].payload.val().price * this.products$[3].payload.val().discount * .01)}} &nbsp;&nbsp;
+                            <span style="color: #c4c4c4;">&#8377;<s>{{this.products$[3].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[3].payload.val().discount}}%</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 c4" *ngIf="this.products$.length === 5">
+                <div class="card" (click)="nav(this.products$[4].key)" c>
+                    <img class="card-img-top" [src]="this.products$[4].payload.val().imageUrl[0]" alt="">
+                    <div class="card-body">
+                        <h3 class="card-title">{{this.products$[4].payload.val().title}}</h3>
+                        <p class="card-text">&#8377;{{this.products$[4].payload.val().price - (this.products$[4].payload.val().price * this.products$[4].payload.val().discount * .01)}} &nbsp;&nbsp;
+                            <span style="color: #c4c4c4;">&#8377;<s>{{this.products$[4].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.products$[4].payload.val().discount}}%</span></p>
                     </div>
                 </div>
             </div>
@@ -63,11 +84,11 @@
 </div>
 <ng-container *ngFor="let cat of this.categories$; let i=index">
     <div *ngIf="products$.length != 0" class="mid">
-        <div class="container">
+        <div class="container" *ngIf="this.catProd[i][0]">
             <h2>{{cat.key}} Products</h2>
             <div class="row">
-                <div class="col-4">
-                    <div class="card" style="width: 17.7rem;" *ngIf="this.catProd[i][0]" (click)="nav(this.catProd[i][0].key)">
+                <div class="col-2 c4">
+                    <div class="card" *ngIf="this.catProd[i][0]" (click)="nav(this.catProd[i][0].key)">
                         <img class="card-img-top" [src]="this.catProd[i][0].payload.val().imageUrl[0]" alt="">
                         <div class="card-body">
                             <h3 class="card-title">{{this.catProd[i][0].payload.val().title}}</h3>
@@ -76,8 +97,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="card" style="width: 17.7rem;" *ngIf="this.catProd[i][1]" (click)="nav(this.catProd[i][1].key)">
+                <div class="col-2 c4">
+                    <div class="card" *ngIf="this.catProd[i][1]" (click)="nav(this.catProd[i][1].key)">
                         <img class="card-img-top" [src]="this.catProd[i][1].payload.val().imageUrl[0]" alt="">
                         <div class="card-body">
                             <h3 class="card-title">{{this.catProd[i][1].payload.val().title}}</h3>
@@ -86,13 +107,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="card" style="width: 17.7rem;" *ngIf="this.catProd[i][2]" (click)="nav(this.catProd[i][2].key)">
+                <div class="col-2 c4">
+                    <div class="card" *ngIf="this.catProd[i][2]" (click)="nav(this.catProd[i][2].key)">
                         <img class="card-img-top" [src]="this.catProd[i][2].payload.val().imageUrl[0]" alt="">
                         <div class="card-body">
                             <h3 class="card-title">{{this.catProd[i][2].payload.val().title}}</h3>
                             <p class="card-text">&#8377;{{this.catProd[i][2].payload.val().price - (this.catProd[i][2].payload.val().price * this.catProd[i][2].payload.val().discount * .01)}} &nbsp;&nbsp;
                                 <span style="color: #c4c4c4;">&#8377;<s>{{this.catProd[i][2].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.catProd[i][2].payload.val().discount}}%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 c4">
+                    <div class="card" *ngIf="this.catProd[i][3]" (click)="nav(this.catProd[i][3].key)">
+                        <img class="card-img-top" [src]="this.catProd[i][3].payload.val().imageUrl[0]" alt="">
+                        <div class="card-body">
+                            <h3 class="card-title">{{this.catProd[i][3].payload.val().title}}</h3>
+                            <p class="card-text">&#8377;{{this.catProd[i][3].payload.val().price - (this.catProd[i][3].payload.val().price * this.catProd[i][3].payload.val().discount * .01)}} &nbsp;&nbsp;
+                                <span style="color: #c4c4c4;">&#8377;<s>{{this.catProd[i][3].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.catProd[i][3].payload.val().discount}}%</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 c4">
+                    <div class="card" *ngIf="this.catProd[i][4]" (click)="nav(this.catProd[i][4].key)">
+                        <img class="card-img-top" [src]="this.catProd[i][4].payload.val().imageUrl[0]" alt="">
+                        <div class="card-body">
+                            <h3 class="card-title">{{this.catProd[i][4].payload.val().title}}</h3>
+                            <p class="card-text">&#8377;{{this.catProd[i][4].payload.val().price - (this.catProd[i][4].payload.val().price * this.catProd[i][4].payload.val().discount * .01)}} &nbsp;&nbsp;
+                                <span style="color: #c4c4c4;">&#8377;<s>{{this.catProd[i][4].payload.val().price}}</s></span><span style="color: #00C543;">  {{this.catProd[i][4].payload.val().discount}}%</span></p>
                         </div>
                     </div>
                 </div>

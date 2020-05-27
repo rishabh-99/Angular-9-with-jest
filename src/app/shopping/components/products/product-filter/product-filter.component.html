@@ -47,7 +47,7 @@
                             <mat-panel-description>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
-                        <mat-checkbox class="" [queryParams]="{main:main,category:'all', brand: brand }" [class.active]="category === 'all'" routerLink="/product-list">All Categories
+                        <mat-checkbox class="" [(ngModel)]="allCategoryChecked" [queryParams]="{main:main,category:'all', brand: brand }" [class.active]="category === 'all'" routerLink="/product-list">All Categories
                         </mat-checkbox>
                         <div *ngFor="let c of categories$; let i = index">
                             <mat-checkbox routerLink="/" class="" [class.active]="category === c.$key" [(ngModel)]="c.checked" (click)="catOnClick(c.$key,c.checked)">
@@ -75,7 +75,7 @@
                             <mat-panel-description>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
-                        <mat-checkbox class="" [queryParams]="{main:main, category: category, brand: 'all' }" [class.active]="brand === 'all'" routerLink="/product-list">All Brands
+                        <mat-checkbox [(ngModel)]="allCheckBox" class="" (click)="allBrand()">All Brands
                         </mat-checkbox>
                         <div *ngFor="let b of brands; let i = index">
                             <div *ngIf="b.$key != 'none'">

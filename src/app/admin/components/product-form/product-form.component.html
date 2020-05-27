@@ -28,6 +28,7 @@
             <ng-container *ngFor="let mc of mainCategories">
                 <option [value]="mc.payload.key" >{{mc.payload.val().name}}</option>
             </ng-container>
+            <option value="addNew"> Add New </option>
           </select>
                 <div class="alert alert-danger" *ngIf="subCategory.touched && subCategory.invalid">
                     Category is required.
@@ -40,12 +41,14 @@
             <option *ngFor="let c of categories$" [value]="c.$key">
               {{ c.name }}
             </option>
+            <option value="addNew"> Add New </option>
           </select>
                 <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
                     Category is required.
                 </div>
             </div>
             <!-- app.component.html -->
+            <label for="">Upload Images</label>
             <file-pond #myPond [options]="pondOptions" [files]="pondFiles" (oninit)="pondHandleInit()" (onaddfile)="pondHandleAddFile($event)">
             </file-pond>
 
@@ -59,11 +62,12 @@
 
             <div class="form-group">
                 <label for="brand">Brand</label>
-                <select #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" class="form-control" required>
+                <select #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" class="form-control" required (change)="checkNew($event.target.value)">
             <option value="" disabled></option>
             <option *ngFor="let b of brand$" [value]="b.name">
               {{ b.name }}
             </option>
+            <option value="addNew"> Add New </option>
           </select>
                 <div class="alert alert-danger" *ngIf="category.touched && category.invalid">
                     Category is required.

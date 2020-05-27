@@ -81,7 +81,10 @@ export class ShoppingCartService {
         item$.remove();
         c.query.once('value', data => {
           let oldQ = data.val().totalQuantity;
-          const newQ = oldQ + change;
+          let newQ = oldQ + change;
+          if(newQ < 0) {
+            newQ = 0;
+          }
           c.update({ totalQuantity: newQ })
         })
       } else if (quantity <= 10) {

@@ -15,7 +15,6 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.homeService.getEverything().subscribe(data => {
       this.imgUrl = (data.payload.val() as any).imageUrl;
-      console.log(this.imgUrl)
       // this.imgUrl = Object.keys(obj).map((key) => {
 
       //   // Using obj[key] to retrieve key value 

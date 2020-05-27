@@ -16,4 +16,10 @@ export class HomeService {
   getEverything() {
     return this.db.object('/home').snapshotChanges();
   }
+
+  getUrls() {
+    return this.db.list('/home/imageUrl').snapshotChanges();
+  }
+
+  // updateUrls(imageUrl)
 }

@@ -28,6 +28,8 @@ export class ProductDescriptionComponent implements OnInit {
   cart;
   InPincode;
   isPincodeValid;
+  mainImg;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -55,7 +57,6 @@ export class ProductDescriptionComponent implements OnInit {
     this.cart$ = await this.cartService.getCart();
     this.cart$.subscribe(data => {
       this.cart = data;
-      console.log(this.cart)
     })
     this.categories$ = this.categoryService.getAll();
 
@@ -66,7 +67,7 @@ export class ProductDescriptionComponent implements OnInit {
         this.product = p.payload.val() as Product
         this.product.$key = p.key
 
-        console.log(this.product)
+        this.mainImg = this.product.imageUrl[0];
 
         this.productService.getEverything().subscribe(data => {
           // this.product$ = data;
@@ -82,6 +83,10 @@ export class ProductDescriptionComponent implements OnInit {
         });
       });
     }
+  }
+
+  setMain(img) {
+    this.mainImg = img;
   }
 
   addToCart() {
@@ -100,20 +105,22 @@ export class ProductDescriptionComponent implements OnInit {
     this.router.navigate(['/shopping-cart']);
   }
 
-  checkPincode() {
+  checkPincode(ev) {
     // this.orderService.getPincodes().subscribe(data => {
 
     // })
-    this.orderService.getPincodes().subscribe(data => {
-      console.log(data) 
-      if (data.indexOf(`${this.InPincode}`) > -1) {
-        this.isPincodeValid = true;
-        alert('Your area is servicable');
-      } else {
-        this.isPincodeValid = false;
-        alert('Your area is not servicable');
+    if (ev !== undefined) {
+      if (!ev.invalid) {
+        this.orderService.getPincodes().subscribe(data => {
+          if (data.indexOf(`${this.InPincode}`) > -1) {
+            this.isPincodeValid = true;
+            alert('Your area is servicable');
+          } else {
+            this.isPincodeValid = false;
+            alert('Your area is not servicable');
+          }
+        })
       }
-    })
-
+    }
   }
 }

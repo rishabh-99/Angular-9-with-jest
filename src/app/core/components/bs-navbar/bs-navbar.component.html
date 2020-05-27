@@ -57,12 +57,12 @@
     <nav class="navbar navbar-expand-md fixed-top fp">
 
         <ng-container *ngFor="let mc of mainCategories; let i=index">
-            <ul class="navbar-nav MyMargin" (mouseenter)="$event.stopPropagation(); myDrop.open();" (mouseleave)="$event.stopPropagation(); myDrop.close();">
+            <ul class="navbar-nav MyMargin" (mouseenter)="$event.stopPropagation(); myDrop.open();">
                 <li ngbDropdown class="nav-item dropdown" #myDrop="ngbDropdown">
                     <a ngbDropdownToggle class="dropdown-toggle cwhite" id="i" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{mc.payload.val().name}} 
           </a>
-                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="i">
+                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="i" (mouseleave)="leave($event,myDrop)">
                         <div *ngFor="let l of mc.categories">
                             <a class="dropdown-item" (click)="navigate(mc.payload.val().name,l.name)">{{l.name}}</a>
                         </div>

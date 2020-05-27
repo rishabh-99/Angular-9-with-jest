@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { HomeService } from '../../services/home.service';
 import { AngularFireStorage } from '@angular/fire/storage/';
@@ -39,6 +39,70 @@ export class HomePageManagementComponent implements OnInit {
 
   imageUrl = []
   selectedImage = []
+  urls = [];
+
+  @ViewChild('myPond') myPond: any;
+
+  pondOptions = {
+    class: 'my-filepond',
+    multiple: true,
+    labelIdle: 'Drop files here',
+    acceptedFileTypes: 'image/jpeg, image/png',
+    allowImageValidateSize: true,
+    imageValidateSizeMaxWidth: 1280,
+    imageValidateSizeMaxHeight: 300,
+    imageValidateSizeLabelImageSizeTooBig: 'Image is too big',
+    imageValidateSizeLabelExpectedMaxSize: 'Maximum size is {1280px} × {300px}',
+
+    server: {
+      process: (fieldName, file: File, metadata, load, error, progress, abort, transfer, options) => {
+        if (this.urls.length <= 2) {
+          let tempUrl;
+          // tslint:disable-next-line: max-line-length
+          const imagePath = `home/${new Date().getTime()}_${file.name}`;
+          const ref = this.storage.ref(imagePath);
+          const task = ref.put(file);
+
+          task.percentageChanges().subscribe(percentage => {
+            progress(1, percentage, 100);
+          });
+
+          task.then((snap) => {
+            load('Success');
+            ref.getDownloadURL().subscribe(url => {
+              this.urls.push(url)
+              this.homeService.save(this.urls)
+
+            });
+          });
+
+          task.catch((err) => {
+            error('Error!');
+          })
+
+          return {
+            abort: () => {
+              // This function is entered if the user has tapped the cancel button
+              // imgRef.
+              task.cancel();
+              alert('Image is removed');
+              // Let FilePond know the request has been cancelled
+              abort();
+            }
+          };
+        } else {
+          error('Cannot Upload any more files');
+          alert('There are already 4 images!');
+          return;
+        }
+      }
+    }
+  }
+
+  pondFiles = [
+    // 'index.png',
+  ]
+
   ngOnInit(): void {
     this.categoryService.getMainCategories().subscribe(data => {
       let obj = data;
@@ -55,12 +119,35 @@ export class HomePageManagementComponent implements OnInit {
     this.categoryService.fetchAll().subscribe(data => {
       this.oldPincodes = [];
       for (const d of data) {
-        this.oldPincodes.push({name: `${d.key}`});
+        this.oldPincodes.push({ name: `${d.key}` });
       }
       console.log(this.oldPincodes);
       this.oldPincodes.sort()
     });
 
+    this.homeService.getUrls().subscribe(data => {
+      this.urls = [];
+      for (const d of data) {
+        this.urls.push(d.payload.val());
+      }
+      console.log(this.urls)
+    })
+
+  }
+
+  removeImg(url) {
+    const index = this.urls.findIndex(u => {
+      if (u === url) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    this.urls.splice(index,1);
+    this.homeService.save(this.urls);
+
+    this.storage.storage.refFromURL(url).delete();
   }
 
   loadPreview(event) {
@@ -290,4 +377,12 @@ export class HomePageManagementComponent implements OnInit {
   //     this.categoryService.addPincode(this.remPin);
   //   } else { alert('Invalid Pincode')}
   // }
+
+  pondHandleInit() {
+    console.log('FilePond has initialised', this.myPond);
+  }
+
+  pondHandleAddFile(event: any) {
+    console.log('A file was added', event.file.file);
+  }
 }

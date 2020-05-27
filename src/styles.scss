@@ -75,6 +75,9 @@ body {
     .mat-expansion-panel-header.mat-expanded:hover {
         background: transparent;
     }
+    .mat-expansion-panel-body {
+        padding: 0px 0px 16px !important;
+    }
     .custom-slider .ng5-slider .ng5-slider-bar {
         background: #ffe4d1;
         height: 2px;

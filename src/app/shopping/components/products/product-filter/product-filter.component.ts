@@ -19,6 +19,8 @@ export class ProductFilterComponent implements OnInit {
   catArray = [];
   brandArray = [];
   main;
+  allCheckBox;
+  allCategoryChecked;
   @Input('category') category;
   @Input('brand') brand;
   @Input('brands') brands;
@@ -66,7 +68,7 @@ export class ProductFilterComponent implements OnInit {
 
   constructor(private categoryService: CategoryService, brandService: BrandService, private router: Router, private route: ActivatedRoute) {
 
-    console.log(this.categories$)
+
 
     route.queryParamMap.subscribe(param => {
       if (param) {
@@ -74,6 +76,7 @@ export class ProductFilterComponent implements OnInit {
         const main = param.get('main') || 'Biometric';
         const category = param.get('category') || 'all';
         this.catArray = category.split(',')
+
         this.categoryService.getl(main).subscribe(data => {
           let obj = data[0].payload.val()
           this.categories$ = Object.keys(obj).map((key) => {
@@ -88,7 +91,12 @@ export class ProductFilterComponent implements OnInit {
             }
             return rd;
           });
-          console.log(this.categories$)
+          if (this.brand === 'all') {
+            this.allCheckBox = true;
+          }
+          if (this.catArray.indexOf('all') > -1) {
+            this.allCategoryChecked = true;
+          }
         })
       }
     })
@@ -96,12 +104,23 @@ export class ProductFilterComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.brand === 'all') {
+      this.allCheckBox = true;
+    }
+    if (this.catArray.indexOf('all') > -1) {
+      this.allCategoryChecked = true;
+    }
 
   }
 
   catOnClick(category, checked) {
-    console.log(category)
+    console.log(this.catArray.indexOf('all'))
+    if (this.catArray.indexOf('all') > -1) {
+      this.catArray.splice(this.catArray.indexOf('all', 0), 1);
+    }
+    this.allCategoryChecked = false;
     if (checked === false) {
+      // this.catArray.splice(this.catArray.indexOf('all'),1)
       this.catArray.push(category)
     }
     if (checked === true) {
@@ -113,11 +132,20 @@ export class ProductFilterComponent implements OnInit {
         const main = param.get('main') || 'Biometric';
         this.router.navigate(['/product-list/'], { queryParams: { main, category: this.catArray.toString(), brand: 'all' } })
       }
-    })
+    });
   }
 
+  allBrand() {
+    this.route.queryParamMap.subscribe(param => {
+      if (param) {
+        const main = param.get('main') || 'Biometric';
+        this.router.navigate(['/product-list'], { queryParams: { main, category: this.catArray.toString(), brand: 'all' } })
+      }
+    })
+
+  }
   brandOnClick(brand, checked) {
-    console.log(brand)
+    this.allCheckBox = false;
     console.log(checked)
     if (checked === false) {
       this.brandArray.push(brand)
@@ -125,9 +153,11 @@ export class ProductFilterComponent implements OnInit {
     else if (checked === true) {
       let index = this.catArray.indexOf(brand, 0);
       this.brandArray.splice(index, 1);
-
+      if (this.brandArray.length === 0) {
+        this.brandArray.push('all')
+      }
     }
-    console.log(this.brandArray.toString())
+
     this.route.queryParamMap.subscribe(param => {
       if (param) {
         const main = param.get('main') || 'Biometric';

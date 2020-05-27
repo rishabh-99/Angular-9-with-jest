@@ -20,7 +20,7 @@ export class BsNavbarComponent implements OnInit {
   mainCategories = [];
   imgUrl;
   searchText = 'AA';
-
+  outside = 'outside'
   constructor(private auth: AuthService, private shoppingCartService: ShoppingCartService, private categoryService: CategoryService,
     private route: ActivatedRoute, private router: Router) {
   }
@@ -37,13 +37,11 @@ export class BsNavbarComponent implements OnInit {
         rd.$key = key;
         return rd;
       });
-      console.log(this.mainCategories)
       this.mainCategories = this.mainCategories.sort((a, b) => {
         if (a.payload.val().name) { return -1; } else {
           return 1;
         }
       })
-      console.log(this.mainCategories)
       for (const i of this.mainCategories) {
         let obj = i.payload.val().categories;
         i.categories = Object.keys(obj).map((key) => {
@@ -97,5 +95,9 @@ export class BsNavbarComponent implements OnInit {
   }
   a(a) {
     console.log(a)
+  }
+  leave(event, myDrop) {
+    event.stopPropagation(); myDrop.close();
+
   }
 }

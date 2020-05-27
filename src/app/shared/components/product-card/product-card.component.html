@@ -7,21 +7,24 @@
   </ng-template>
 </div> -->
 <div class="row myCard">
-    <div class="col-4" (click)="goToId(product.$key)">
+    <div class="col-3" (click)="goToId(product.$key)">
         <img [src]="product.imageUrl[0]" class="productImage">
     </div>
-    <div class="col-4" (click)="goToId(product.$key)">
-        <h1 class="calign title">{{product.title}}</h1>
+    <div class="col-5" (click)="goToId(product.$key)">
+        <h2 class="calign title">{{product.title}}</h2>
         <ng-container *ngFor="let t of product.tags; let i=index">
             <p class="" *ngIf="i<=3">{{t.name}}</p>
         </ng-container>
     </div>
     <div class="col-4">
-        <h3 *ngIf="this.product.inStock" class="cgreen" (click)="goToId(product.$key)">IN STOCK</h3>
-        <h3 *ngIf="!this.product.inStock" class="cred" (click)="goToId(product.$key)">OUT OF STOCK</h3>
-        <h1 (click)="goToId(product.$key)">&#8377; {{this.product.price - this.product.price*this.product.discount*.01}}</h1>
-        <h4 (click)="goToId(product.$key)">&#8377; <span class="cgray"><s>{{this.product.price}}</s></span> <span class="cgreen">
-              {{this.product.discount}}%</span></h4>
+        <div style="float:right">
+            <h3 *ngIf="this.product.inStock" class="cgreen" (click)="goToId(product.$key)">IN STOCK</h3>
+            <h3 *ngIf="!this.product.inStock" class="cred" (click)="goToId(product.$key)">OUT OF STOCK</h3>
+            <h1 (click)="goToId(product.$key)">&#8377; {{this.product.price - this.product.price*this.product.discount*.01}}</h1>
+            <h4 (click)="goToId(product.$key)">&#8377; <span class="cgray"><s>{{this.product.price}}</s></span> <span class="cgreen">
+                  {{this.product.discount}}%</span></h4>
+        </div>
+
         <div class="cartBtn">
             <div *ngIf="shoppingCart != null">
                 <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block addToCartBtn">
