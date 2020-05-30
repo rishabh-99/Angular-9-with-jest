@@ -46,7 +46,7 @@ export class HomePageManagementComponent implements OnInit {
   pondOptions = {
     class: 'my-filepond',
     multiple: true,
-    labelIdle: 'Drop files here',
+    labelIdle: 'Image size is {1280px} × {300px}',
     acceptedFileTypes: 'image/jpeg, image/png',
     allowImageValidateSize: true,
     imageValidateSizeMaxWidth: 1280,

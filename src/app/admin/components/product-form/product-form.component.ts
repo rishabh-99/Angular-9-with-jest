@@ -43,7 +43,7 @@ export class ProductFormComponent implements OnInit {
   pondOptions = {
     class: 'my-filepond',
     multiple: true,
-    labelIdle: 'Drop files here',
+    labelIdle: 'Image size is {400px} × {400px}',
     acceptedFileTypes: 'image/jpeg, image/png',
     allowImageValidateSize: true,
     imageValidateSizeMaxWidth: 400,
